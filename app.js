@@ -38,7 +38,8 @@ const modpacks = [
     release: "1.21.1",
     size: "95 MB",
     mods: 80,
-    gameJoltGameId: "1053229",
+    downloadUrl: "https://github.com/MinekubeStudios/minekubestudios.github.io/releases/download/v1.21.1/Minekube-Ultra-Performance-1.21.1.zip",
+    downloadFileName: "Minekube-Ultra-Performance-1.21.1.zip",
     gameJoltUrl: "https://gamejolt.com/games/_/1053229",
     color: "linear-gradient(135deg, #04130b 0%, #0a3d20 34%, #159447 62%, #d1a31a 83%, #ffd85a 100%)",
     cube: ["#fff07a", "#e9b91e", "#178f43"],
@@ -325,7 +326,7 @@ function openPackModal(pack) {
           <strong>${pack.release} · Minecraft ${pack.versions[0]}</strong>
           <small>${pack.loader} build · ${pack.size} · připraveno ke stažení</small>
         </div>
-        ${pack.gameJoltGameId ? `
+        ${pack.downloadUrl ? `
         ${createDownloadButton(pack.id, "Stáhnout ZIP", "modal-download-button")}` : `
         <button class="button button-secondary" type="button" disabled>
           Zatím nedostupné
@@ -511,36 +512,28 @@ async function triggerDownload(button, pack, event) {
 }
 
 async function demoDownload(pack) {
-  if (!pack || !pack.gameJoltGameId) {
-    showToast("Odkaz ke stažení zatím není nastavený.");
+  if (!pack?.downloadUrl) {
+    showToast("Soubor ke stažení zatím není nastavený.");
     return;
   }
 
-  showToast("Připravuji přímé stahování…");
+  showToast("Spouštím přímé stahování…");
 
-  try {
-    const endpoint = `/download-gamejolt?game=${encodeURIComponent(pack.gameJoltGameId)}&json=1`;
-    const response = await fetch(endpoint, { cache: "no-store" });
-    const data = await response.json();
+  // Přímý odkaz míří na soubor v GitHub Release. GitHub ho vrátí
+  // jako přílohu, takže se neotevře stránka projektu ani Game Jolt.
+  const link = document.createElement("a");
+  link.href = pack.downloadUrl;
+  link.download = pack.downloadFileName || "";
+  link.target = "_self";
+  link.rel = "noopener noreferrer";
+  link.hidden = true;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
 
-    if (!response.ok || !data.url) {
-      throw new Error(data.error || "Game Jolt nevrátil odkaz ke stažení.");
-    }
-
-    const link = document.createElement("a");
-    link.href = data.url;
-    link.target = "_self";
-    link.rel = "noopener noreferrer";
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
-
-    showToast("Stahování bylo zahájeno.");
-  } catch (error) {
-    console.error(error);
-    showToast("Stahování se nepodařilo spustit. Zkus to prosím znovu.");
-  }
+  showToast("Stahování bylo zahájeno.");
 }
+
 
 searchInput.addEventListener("input", event => {
   state.query = event.target.value;
