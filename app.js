@@ -1109,6 +1109,44 @@ function initializeScrollExperience() {
     ["#about", { title: "O PROJEKTU", status: "Otevírání Minekube manifestu", code: "MK-05", accent: "#df55ff", rgb: "223,85,255" }]
   ]);
   let pageTransitionBusy = false;
+  let sectionArrivalCleanupTimer = 0;
+
+  const clearSectionArrival = () => {
+    window.clearTimeout(sectionArrivalCleanupTimer);
+    document.querySelectorAll(".mk-section-preparing, .mk-section-arriving").forEach(section => {
+      section.classList.remove("mk-section-preparing", "mk-section-arriving");
+    });
+    document.querySelectorAll(".mk-section-entry-sweep").forEach(sweep => sweep.remove());
+  };
+
+  const prepareSectionArrival = target => {
+    clearSectionArrival();
+    if (!target || prefersReducedMotion.matches) return;
+    target.classList.add("mk-section-preparing");
+  };
+
+  const playSectionArrival = target => {
+    if (!target || prefersReducedMotion.matches) return;
+
+    target.classList.remove("mk-section-arriving");
+    // Reflow zaručí spuštění animace při každém přepnutí stránky.
+    void target.offsetWidth;
+    target.classList.remove("mk-section-preparing");
+    target.classList.add("mk-section-arriving");
+
+    const sweep = document.createElement("span");
+    sweep.className = "mk-section-entry-sweep";
+    sweep.setAttribute("aria-hidden", "true");
+    target.appendChild(sweep);
+
+    sectionArrivalCleanupTimer = window.setTimeout(() => {
+      target.classList.remove("mk-section-arriving");
+      sweep.remove();
+    }, 1050);
+  };
+
+  // Zpřístupní stejný rychlý nájezd i úvodní stránce po boot animaci.
+  window.playMinekubeSectionArrival = playSectionArrival;
 
   const updateNavigationActive = id => {
     document.querySelectorAll('.desktop-nav a[href^="#"], .mobile-nav a[href^="#"]').forEach(link => {
@@ -1128,6 +1166,7 @@ function initializeScrollExperience() {
     }
 
     pageTransitionBusy = true;
+    prepareSectionArrival(target);
     document.body.classList.add("mk-transitioning");
     pageTransition.style.setProperty("--transition-accent", config.accent);
     pageTransition.style.setProperty("--transition-accent-rgb", config.rgb);
@@ -1152,6 +1191,12 @@ function initializeScrollExperience() {
       pageTransition.classList.remove("is-active");
       pageTransition.setAttribute("aria-hidden", "true");
       document.body.classList.remove("mk-transitioning");
+
+      // Až portál odkryje stránku, cílová sekce rychle a plynule vyjede.
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => playSectionArrival(target));
+      });
+
       pageTransitionBusy = false;
     }, 1450);
   };
@@ -1360,6 +1405,11 @@ initializeScrollExperience();
       document.body.classList.remove("future-loading");
       document.body.classList.add("home-ready");
       goHomeInstantly();
+
+      // Po úvodní boot sekvenci se Domů odhalí stejným stránkovým nájezdem.
+      window.setTimeout(() => {
+        window.playMinekubeSectionArrival?.(document.getElementById("home"));
+      }, prefersReducedMotion.matches ? 0 : 520);
 
       window.setTimeout(() => {
         if (loader) loader.hidden = true;
