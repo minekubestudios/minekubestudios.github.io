@@ -110,6 +110,9 @@ function modalIcon(name, className = "") {
 function createDownloadButton(packId, label, extraClass = "") {
   return `
     <button class="button button-primary download-ultimate ${extraClass}" type="button" data-download="${packId}" aria-label="${label}">
+      <span class="download-hover-back" aria-hidden="true">
+        <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+      </span>
       <span class="download-fx" aria-hidden="true">
         <span class="download-plasma"></span>
         <span class="download-matrix"></span>
