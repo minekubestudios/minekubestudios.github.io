@@ -11456,321 +11456,212 @@ body.home-ready .home-v2-visual {
 
 
 /* =========================================================
-   MODPACKS — fused performance command center
-   Původní samostatný hero je profesionálně začleněn do katalogu.
+   MODPACKY — pouze 3D performance panel integrovaný do katalogu
+   Celý původní textový Performance Hub byl odstraněn.
    ========================================================= */
-.catalog-fused {
-  position: relative;
-  padding-top: clamp(62px, 7vw, 104px);
-  overflow: clip;
-  background:
-    radial-gradient(circle at 75% 7%, rgba(214, 53, 255, .075), transparent 28%),
-    radial-gradient(circle at 17% 12%, rgba(255, 170, 0, .075), transparent 25%);
-}
-
-.catalog-fused::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: .12;
-  background-image:
-    linear-gradient(rgba(255,255,255,.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
-  background-size: 52px 52px;
-  mask-image: linear-gradient(to bottom, #000 0, transparent 34%);
-}
-
-.modpacks-command {
+.catalog-fused.catalog-visual-integrated {
   position: relative;
   isolation: isolate;
-  margin-bottom: clamp(60px, 7vw, 92px);
-  padding: clamp(24px, 3.4vw, 48px);
-  border: 1px solid rgba(255, 184, 36, .18);
-  border-radius: 34px 10px 34px 10px;
+  overflow: clip;
+  padding-top: clamp(72px, 7vw, 104px);
   background:
-    linear-gradient(140deg, rgba(255,255,255,.035), transparent 31%),
-    radial-gradient(circle at 83% 13%, rgba(211, 50, 255, .13), transparent 28%),
-    radial-gradient(circle at 9% 86%, rgba(255, 152, 0, .11), transparent 30%),
-    linear-gradient(155deg, rgba(19, 8, 25, .98), rgba(8, 5, 13, .97));
-  box-shadow:
-    0 42px 110px rgba(0,0,0,.42),
-    inset 0 1px rgba(255,255,255,.045),
-    0 0 0 1px rgba(211, 63, 255, .04),
-    0 0 72px rgba(255, 159, 0, .045);
+    radial-gradient(circle at 78% 10%, rgba(214, 53, 255, .07), transparent 28%),
+    radial-gradient(circle at 14% 16%, rgba(255, 170, 0, .07), transparent 26%);
 }
 
-.modpacks-command::before,
-.modpacks-command::after {
+.catalog-fused.catalog-visual-integrated::before {
   content: "";
   position: absolute;
+  inset: 0;
   z-index: -1;
   pointer-events: none;
-}
-
-.modpacks-command::before {
-  inset: 8px;
-  border: 1px solid rgba(255,255,255,.035);
-  border-radius: 27px 7px 27px 7px;
-  background:
-    linear-gradient(#ffb000,#ffb000) left top/74px 2px no-repeat,
-    linear-gradient(#ffb000,#ffb000) left top/2px 44px no-repeat,
-    linear-gradient(#f04cff,#f04cff) right bottom/74px 2px no-repeat,
-    linear-gradient(#f04cff,#f04cff) right bottom/2px 44px no-repeat;
-  opacity: .62;
-  filter: drop-shadow(0 0 8px rgba(255,174,0,.25));
-}
-
-.modpacks-command::after {
-  left: 7%;
-  right: 7%;
-  top: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, #ffb000 25%, #f24fd7 72%, transparent);
-  box-shadow: 0 0 18px rgba(255, 156, 0, .38);
-  animation: modpacksCommandLine 5.8s ease-in-out infinite alternate;
-}
-
-.modpacks-command-gridfx {
-  position: absolute;
-  inset: 0;
-  z-index: -2;
-  overflow: hidden;
-  border-radius: inherit;
-  pointer-events: none;
-  opacity: .18;
+  opacity: .10;
   background-image:
-    linear-gradient(rgba(255,255,255,.038) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,.032) 1px, transparent 1px);
-  background-size: 44px 44px;
-  mask-image: linear-gradient(90deg, rgba(0,0,0,.85), rgba(0,0,0,.3) 47%, rgba(0,0,0,.8));
+    linear-gradient(rgba(255,255,255,.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px);
+  background-size: 52px 52px;
+  mask-image: linear-gradient(to bottom, #000 0, transparent 38%);
 }
 
-.modpacks-command-glow {
-  position: absolute;
-  z-index: -3;
-  width: 360px;
-  height: 360px;
-  border-radius: 50%;
-  pointer-events: none;
-  filter: blur(70px);
-  opacity: .16;
+.catalog-fused.catalog-visual-integrated > .container {
+  width: min(calc(100% - 40px), 1500px);
 }
-.modpacks-command-glow-a { left: -150px; bottom: -180px; background: #ff9d00; }
-.modpacks-command-glow-b { right: -120px; top: -170px; background: #d53cff; }
 
-.modpacks-command-topline {
-  position: relative;
-  z-index: 3;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 18px;
-  margin-bottom: clamp(22px, 3vw, 38px);
-  padding-bottom: 14px;
-  border-bottom: 1px solid rgba(255,255,255,.065);
-  color: #8d748c;
-  font-size: 8px;
-  font-weight: 900;
-  letter-spacing: .17em;
+.catalog-visual-integrated .section-heading {
+  margin-bottom: clamp(30px, 3.5vw, 46px);
 }
-.modpacks-command-topline span { display:flex;align-items:center;gap:9px;color:#dca8dc; }
-.modpacks-command-topline i { width:7px;height:7px;border-radius:50%;background:#5cffab;box-shadow:0 0 12px rgba(83,255,168,.82); }
-.modpacks-command-topline b { color:#ffbd2a;font-weight:900; }
 
-.modpacks-command-layout {
-  position: relative;
-  z-index: 2;
+.catalog-visual-integrated .catalog-layout {
   display: grid;
-  grid-template-columns: minmax(0, .88fr) minmax(470px, 1.12fr);
-  align-items: center;
-  gap: clamp(36px, 5vw, 78px);
+  grid-template-columns: minmax(250px, 278px) minmax(360px, 430px) minmax(460px, 1fr);
+  grid-template-areas: "filters packs visual";
+  align-items: start;
+  gap: clamp(24px, 2.6vw, 42px);
 }
 
-.modpacks-command-copy { min-width: 0; padding: 12px 0 8px; }
-.modpacks-command-kicker {
-  width: fit-content;
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  margin-bottom: 20px;
-  color: #ffd13e;
-  font-size: 10px;
-  font-weight: 900;
-  letter-spacing: .13em;
-  text-transform: uppercase;
+.catalog-visual-integrated .filters-panel {
+  grid-area: filters;
 }
 
-.modpacks-command-copy h2 {
-  max-width: 680px;
-  margin: 0;
-  color: #fff8f0;
-  font-size: clamp(42px, 4.35vw, 69px);
-  line-height: .98;
-  letter-spacing: -.058em;
-  text-wrap: balance;
-}
-.modpacks-command-copy h2 span {
-  display: block;
-  margin-top: 8px;
-  background: linear-gradient(90deg, #ffd853 0%, #ffad00 38%, #ff71cd 72%, #d468ff 100%);
-  background-size: 180% 100%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  animation: modpacksTitleEnergy 7s ease-in-out infinite alternate;
-}
-.modpacks-command-copy > p {
-  max-width: 650px;
-  margin: 25px 0 0;
-  color: #bdaab9;
-  font-size: clamp(15px, 1.35vw, 18px);
-  line-height: 1.72;
-}
-
-.modpacks-command-actions { display:flex;flex-wrap:wrap;gap:12px;margin-top:30px; }
-.modpacks-command-actions .button { min-height:48px; }
-.modpacks-command-stats {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0,1fr));
-  gap: 0;
-  max-width: 560px;
-  margin-top: 36px;
-  padding: 17px 0;
-  border-top: 1px solid rgba(255,255,255,.07);
-  border-bottom: 1px solid rgba(255,255,255,.07);
-}
-.modpacks-command-stats > div { min-width:0;padding:0 22px;border-right:1px solid rgba(255,255,255,.07); }
-.modpacks-command-stats > div:first-child { padding-left:0; }
-.modpacks-command-stats > div:last-child { padding-right:0;border-right:0; }
-.modpacks-command-stats strong { display:block;color:#fff5eb;font-size:24px;line-height:1.05;letter-spacing:-.04em; }
-.modpacks-command-stats span { display:block;margin-top:7px;color:#8e788c;font-size:10px;font-weight:750; }
-.modpacks-command-note { display:block;margin-top:10px;color:#756372;font-size:8px;line-height:1.45; }
-
-.modpacks-command-visual {
+.catalog-visual-integrated .catalog-content {
+  grid-area: packs;
   min-width: 0;
+}
+
+.catalog-visual-integrated .pack-grid {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.catalog-performance-column {
+  grid-area: visual;
+  position: sticky;
+  top: 106px;
+  min-width: 0;
+  align-self: start;
+  isolation: isolate;
   display: grid;
   place-items: center;
+  padding: 4px 10px 18px;
 }
-.modpacks-command .hero-visual {
+
+.catalog-performance-column::before {
+  content: "";
+  position: absolute;
+  z-index: -4;
+  inset: 7% 1% 3%;
+  border-radius: 42% 58% 52% 48% / 52% 41% 59% 48%;
+  background:
+    radial-gradient(circle at 65% 30%, rgba(216, 56, 255, .16), transparent 34%),
+    radial-gradient(circle at 30% 75%, rgba(255, 157, 0, .13), transparent 38%);
+  filter: blur(30px);
+  opacity: .9;
+  animation: catalogHudAura 8s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+.catalog-performance-column::after {
+  content: "";
+  position: absolute;
+  z-index: -3;
+  inset: 11% 6% 7%;
+  border: 1px solid rgba(230, 73, 255, .08);
+  border-radius: 50%;
+  box-shadow:
+    0 0 80px rgba(213, 54, 255, .06),
+    inset 0 0 70px rgba(255, 165, 0, .035);
+  pointer-events: none;
+}
+
+.catalog-performance-column .catalog-performance-hud {
   width: 100%;
-  min-height: 545px;
-}
-.modpacks-command .performance-hud::before { inset: 11% 1% 6%; }
-.modpacks-command .hud-card { width:min(100%,555px); }
-.modpacks-command .hud-orbit-a { width:min(570px,94%);height:auto;aspect-ratio:1; }
-.modpacks-command .hud-orbit-b { width:min(475px,78%);height:auto;aspect-ratio:1; }
-
-.modpacks-tech-rail {
-  position: relative;
-  z-index: 3;
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 9px;
-  margin-top: clamp(24px, 3vw, 38px);
-  padding-top: 18px;
-  border-top: 1px solid rgba(255,255,255,.07);
-}
-.modpacks-tech-rail > span:not(.modpacks-tech-label) {
-  padding: 8px 11px;
-  border: 1px solid rgba(255,184,36,.12);
-  border-radius: 8px 2px 8px 2px;
-  background: rgba(255,174,0,.035);
-  color: #9b8298;
-  font-size: 7px;
-  font-weight: 900;
-  letter-spacing: .12em;
-  transition: color .25s ease, border-color .25s ease, background .25s ease, translate .25s ease;
-}
-.modpacks-tech-rail > span:not(.modpacks-tech-label):hover {
-  color:#ffe5a0;
-  border-color:rgba(255,183,35,.34);
-  background:rgba(255,174,0,.07);
-  translate:0 -2px;
-}
-.modpacks-tech-label {
-  display:flex;
-  align-items:center;
-  gap:8px;
-  margin-right:auto;
-  color:#c5afc0;
-  font-size:8px;
-  font-weight:900;
-  letter-spacing:.12em;
-}
-.modpacks-tech-label i { width:18px;height:1px;background:#ffb000;box-shadow:0 0 8px #ff8f00; }
-
-.catalog-fused .section-heading {
-  position: relative;
-  scroll-margin-top: 108px;
-}
-.catalog-fused .section-heading::before {
-  content:"";
-  position:absolute;
-  left:0;
-  top:-24px;
-  width:86px;
-  height:2px;
-  background:linear-gradient(90deg,#ffb000,#f24fd7,transparent);
-  box-shadow:0 0 11px rgba(255,174,0,.25);
+  min-height: 590px;
+  margin: 0;
 }
 
-@keyframes modpacksCommandLine {
-  from { transform: scaleX(.52); opacity:.35; }
-  to { transform: scaleX(1); opacity:.95; }
-}
-@keyframes modpacksTitleEnergy {
-  from { background-position:0% 50%; }
-  to { background-position:100% 50%; }
+.catalog-performance-column .hud-card {
+  width: min(100%, 590px);
 }
 
-@media (max-width: 1180px) {
-  .modpacks-command-layout { grid-template-columns:minmax(0,.92fr) minmax(420px,1.08fr);gap:38px; }
-  .modpacks-command .hero-visual { min-height:520px; }
-  .modpacks-command-copy h2 { font-size:clamp(40px,5vw,61px); }
+.catalog-performance-column .hud-orbit-a {
+  width: min(570px, 96%);
+  height: auto;
+  aspect-ratio: 1;
 }
 
-@media (max-width: 980px) {
-  .modpacks-command { padding:30px 28px 34px; }
-  .modpacks-command-layout { grid-template-columns:1fr; }
-  .modpacks-command-copy { max-width:780px; }
-  .modpacks-command-visual { margin-top:8px; }
-  .modpacks-command .hero-visual { max-width:650px;min-height:570px;margin-inline:auto; }
+.catalog-performance-column .hud-orbit-b {
+  width: min(475px, 80%);
+  height: auto;
+  aspect-ratio: 1;
+}
+
+@keyframes catalogHudAura {
+  from { transform: scale(.96) translate3d(-8px, 8px, 0); opacity: .68; }
+  to   { transform: scale(1.04) translate3d(10px, -7px, 0); opacity: 1; }
+}
+
+@media (max-width: 1320px) {
+  .catalog-fused.catalog-visual-integrated > .container {
+    width: min(calc(100% - 34px), 1260px);
+  }
+
+  .catalog-visual-integrated .catalog-layout {
+    grid-template-columns: 260px minmax(350px, 420px) minmax(410px, 1fr);
+    gap: 26px;
+  }
+
+  .catalog-performance-column {
+    padding-inline: 0;
+  }
+
+  .catalog-performance-column .catalog-performance-hud {
+    min-height: 550px;
+  }
+}
+
+@media (max-width: 1160px) {
+  .catalog-visual-integrated .catalog-layout {
+    grid-template-columns: minmax(250px, 280px) minmax(0, 1fr);
+    grid-template-areas:
+      "filters packs"
+      "visual visual";
+  }
+
+  .catalog-performance-column {
+    position: relative;
+    top: auto;
+    width: min(100%, 690px);
+    margin: 18px auto 0;
+    padding-top: 22px;
+  }
+
+  .catalog-performance-column .catalog-performance-hud {
+    min-height: 610px;
+  }
+}
+
+@media (max-width: 1040px) {
+  .catalog-visual-integrated .catalog-layout {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "filters"
+      "packs"
+      "visual";
+  }
+
+  .catalog-performance-column {
+    width: min(100%, 650px);
+  }
 }
 
 @media (max-width: 700px) {
-  .catalog-fused { padding-top:54px; }
-  .modpacks-command { margin-inline:-3px;padding:22px 15px 25px;border-radius:25px 7px 25px 7px; }
-  .modpacks-command::before { inset:5px;border-radius:20px 5px 20px 5px; }
-  .modpacks-command-topline { align-items:flex-start;flex-direction:column;gap:8px;font-size:6px;letter-spacing:.11em; }
-  .modpacks-command-copy { padding-inline:4px; }
-  .modpacks-command-kicker { font-size:7px;letter-spacing:.1em; }
-  .modpacks-command-copy h2 { font-size:clamp(37px,11.5vw,50px);line-height:1.01; }
-  .modpacks-command-copy > p { font-size:14px;line-height:1.62; }
-  .modpacks-command-actions { display:grid;grid-template-columns:1fr; }
-  .modpacks-command-actions .button { width:100%; }
-  .modpacks-command-stats { grid-template-columns:repeat(3,1fr); }
-  .modpacks-command-stats > div { padding-inline:10px; }
-  .modpacks-command-stats strong { font-size:19px; }
-  .modpacks-command-stats span { font-size:8px; }
-  .modpacks-command .hero-visual { min-height:520px; }
-  .modpacks-tech-label { width:100%;margin:0 0 3px; }
-  .modpacks-tech-rail > span:not(.modpacks-tech-label) { flex:1 1 auto;text-align:center; }
+  .catalog-fused.catalog-visual-integrated > .container {
+    width: min(calc(100% - 24px), 1500px);
+  }
+
+  .catalog-performance-column {
+    width: 100%;
+    margin-top: 8px;
+    padding: 10px 0 0;
+  }
+
+  .catalog-performance-column::before {
+    inset: 10% 0 4%;
+    filter: blur(22px);
+  }
+
+  .catalog-performance-column .catalog-performance-hud {
+    min-height: 520px;
+  }
 }
 
 @media (max-width: 430px) {
-  .modpacks-command { padding-inline:11px; }
-  .modpacks-command-copy h2 { font-size:36px; }
-  .modpacks-command-copy > p { font-size:13px; }
-  .modpacks-command-stats { gap:0; }
-  .modpacks-command-stats > div { padding-inline:7px; }
-  .modpacks-command-stats strong { font-size:17px; }
-  .modpacks-command-stats span { font-size:7px; }
-  .modpacks-command .hero-visual { min-height:490px; }
+  .catalog-performance-column .catalog-performance-hud {
+    min-height: 495px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .modpacks-command::after,
-  .modpacks-command-copy h2 span { animation:none!important; }
+  .catalog-performance-column::before {
+    animation: none !important;
+  }
 }
