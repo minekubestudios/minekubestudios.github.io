@@ -1141,10 +1141,10 @@ initializeScrollExperience();
   let finished = false;
 
   const statusForProgress = value => {
-    if (value < 24) return "Načítám moduly...";
-    if (value < 48) return "Synchronizuji FPS engine...";
-    if (value < 72) return "Aktivuji Minekube Core...";
-    if (value < 94) return "Stabilizuji výkon...";
+    if (value < 24) return "Načítám Minekube ekosystém...";
+    if (value < 48) return "Propojuji modpacky a server...";
+    if (value < 72) return "Aktivuji open-source jádro...";
+    if (value < 94) return "Spouštím technologie budoucnosti...";
     return "Systém připraven";
   };
 

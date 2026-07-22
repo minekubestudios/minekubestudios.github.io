@@ -45,3 +45,7 @@ Přímé stahování modpacku z GitHub Release zůstalo beze změny.
 - odstraněny částice za kartou modpacku, záře zůstala
 - kliknutí na Stáhnout Modpack používá nový vícevrstvý plynulý energetický pulz
 - přímý GitHub Release odkaz zůstal beze změny
+
+
+## Domů – Minekube Studios Ecosystem
+Domovská sekce představuje Minekube Studios jako CZ/SK ekosystém: modpacky, Minecraft server, Store a open-source projekty. Rozložení je upravené pro desktop, tablet i mobil bez ořezávání textů.
