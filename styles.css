@@ -10787,3 +10787,220 @@ body.home-ready .home-v2-visual {
 .button[data-download].download-ultimate.is-pointer-active .download-icon {
   color: #fffaff;
 }
+
+/* =========================================================
+   DOWNLOAD BUTTON — ORANGE / GOLD COLOR PALETTE ONLY
+   Pouze barevná změna; rozměry, rychlosti a animace zůstávají beze změny.
+   ========================================================= */
+.button[data-download].download-ultimate {
+  color: #fff8e8;
+  text-shadow:
+    0 1px 1px rgba(20, 7, 0, .82),
+    0 0 11px rgba(255, 174, 35, .25);
+  box-shadow:
+    0 13px 34px rgba(94, 35, 0, .42),
+    0 0 22px rgba(255, 119, 16, .17),
+    0 0 18px rgba(255, 210, 73, .12),
+    inset 0 1px 0 rgba(255, 245, 201, .15),
+    inset 0 -1px 0 rgba(28, 8, 0, .74);
+}
+
+.button[data-download].download-ultimate::after {
+  background: linear-gradient(105deg,
+    #ff7a00 0%,
+    #ff9f16 20%,
+    #ffc52e 42%,
+    #ffe56d 63%,
+    #ffb51f 82%,
+    #ff7a00 100%);
+  background-size: 360% 100%;
+}
+
+.button[data-download].download-ultimate::before {
+  background:
+    radial-gradient(circle at var(--pointer-x) var(--pointer-y), rgba(255, 178, 43, .54) 0 7%, rgba(255, 220, 87, .25) 21%, transparent 48%),
+    linear-gradient(100deg, rgba(255, 111, 12, .35), rgba(255, 166, 24, .28), rgba(255, 218, 75, .28));
+}
+
+.button[data-download].download-ultimate .download-fx {
+  background:
+    radial-gradient(circle at 16% 28%, rgba(255, 116, 18, .44) 0 3%, transparent 22%),
+    radial-gradient(circle at 79% 67%, rgba(255, 217, 68, .36) 0 4%, transparent 23%),
+    radial-gradient(circle at 52% 42%, rgba(255, 164, 27, .40) 0 7%, transparent 34%),
+    linear-gradient(112deg, #180801 0%, #3b1502 24%, #6b2a05 47%, #6a4a08 70%, #2a0e01 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 248, 210, .15),
+    inset 0 -1px 0 rgba(22, 5, 0, .68),
+    inset 0 0 25px rgba(255, 145, 24, .15);
+}
+
+.button[data-download].download-ultimate .download-plasma {
+  background:
+    radial-gradient(ellipse at 12% 48%, rgba(255, 102, 12, .46) 0 7%, transparent 31%),
+    radial-gradient(ellipse at 48% 43%, rgba(255, 158, 29, .50) 0 10%, transparent 35%),
+    radial-gradient(ellipse at 82% 56%, rgba(255, 222, 76, .41) 0 8%, transparent 34%),
+    conic-gradient(from 115deg at 55% 50%, transparent, rgba(255, 205, 54, .20), transparent 34%, rgba(255, 124, 13, .21), transparent 72%);
+}
+
+.button[data-download].download-ultimate .download-particles i {
+  background: #ffe08a;
+  box-shadow: 0 0 6px rgba(255, 184, 52, .88), 0 0 11px rgba(255, 223, 92, .36);
+}
+
+.button[data-download].download-ultimate .download-particles i:nth-child(3n + 2) {
+  background: #ffd34f;
+  box-shadow: 0 0 6px rgba(255, 202, 48, .9), 0 0 11px rgba(255, 154, 20, .34);
+}
+
+.button[data-download].download-ultimate .download-particles i:nth-child(3n) {
+  background: #ff8b21;
+  box-shadow: 0 0 6px rgba(255, 126, 18, .92), 0 0 11px rgba(255, 191, 42, .40);
+}
+
+.button[data-download].download-ultimate .download-icon {
+  border-color: rgba(255, 184, 54, .30);
+}
+
+.button[data-download].download-ultimate .download-icon svg {
+  filter: drop-shadow(0 0 5px rgba(255, 213, 88, .34));
+}
+
+.button[data-download].download-ultimate .download-icon-orbit {
+  border-color: rgba(255, 197, 53, .40);
+}
+
+.button[data-download].download-ultimate:hover,
+.button[data-download].download-ultimate:focus-visible,
+.button[data-download].download-ultimate.is-pointer-active {
+  color: #fffdf2;
+  box-shadow:
+    0 20px 52px rgba(180, 70, 0, .43),
+    0 0 40px rgba(255, 119, 18, .27),
+    0 0 34px rgba(255, 217, 68, .22),
+    inset 0 1px 0 rgba(255, 250, 220, .22),
+    inset 0 -1px 0 rgba(24, 5, 0, .68);
+}
+
+.button[data-download].download-ultimate:hover::after,
+.button[data-download].download-ultimate:focus-visible::after,
+.button[data-download].download-ultimate.is-pointer-active::after {
+  filter:
+    drop-shadow(0 0 7px rgba(255, 123, 19, .68))
+    drop-shadow(0 0 12px rgba(255, 218, 72, .44));
+}
+
+.button[data-download].download-ultimate .download-sweep {
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(255, 105, 10, 0) 8%,
+    rgba(255, 105, 10, .38) 23%,
+    rgba(255, 153, 25, .92) 43%,
+    rgba(255, 208, 59, .96) 61%,
+    rgba(255, 231, 111, .70) 76%,
+    rgba(255, 231, 111, 0) 94%,
+    transparent 100%);
+  filter:
+    blur(1.2px)
+    drop-shadow(0 0 8px rgba(255, 133, 20, .58))
+    drop-shadow(0 0 14px rgba(255, 215, 66, .38));
+}
+
+.button[data-download].download-ultimate .download-pulse-line {
+  background: linear-gradient(90deg,
+    transparent 0%,
+    #ff7917 18%,
+    #ffad24 39%,
+    #ffd64b 61%,
+    #fff09a 82%,
+    transparent 100%);
+  box-shadow:
+    0 0 8px rgba(255, 113, 13, .78),
+    0 0 16px rgba(255, 191, 41, .58),
+    0 0 25px rgba(255, 228, 96, .34);
+}
+
+.button[data-download].download-ultimate:hover .download-matrix,
+.button[data-download].download-ultimate:focus-visible .download-matrix,
+.button[data-download].download-ultimate.is-pointer-active .download-matrix {
+  background:
+    repeating-linear-gradient(116deg, transparent 0 30px, rgba(255, 139, 22, .20) 31px 34px, transparent 35px 67px),
+    repeating-linear-gradient(64deg, transparent 0 48px, rgba(255, 213, 64, .16) 49px 52px, transparent 53px 91px);
+}
+
+.button[data-download].download-ultimate:hover .download-label,
+.button[data-download].download-ultimate:focus-visible .download-label,
+.button[data-download].download-ultimate.is-pointer-active .download-label {
+  text-shadow:
+    0 1px 2px rgba(24, 5, 0, .88),
+    0 0 10px rgba(255, 140, 26, .48),
+    0 0 18px rgba(255, 218, 75, .28);
+}
+
+.button[data-download].download-ultimate:hover .download-icon,
+.button[data-download].download-ultimate:focus-visible .download-icon,
+.button[data-download].download-ultimate.is-pointer-active .download-icon {
+  border-color: rgba(255, 207, 71, .44);
+  filter: drop-shadow(0 0 8px rgba(255, 139, 23, .50));
+}
+
+.button[data-download].download-ultimate:hover .download-icon-orbit,
+.button[data-download].download-ultimate:focus-visible .download-icon-orbit,
+.button[data-download].download-ultimate.is-pointer-active .download-icon-orbit {
+  border-color: rgba(255, 221, 83, .70);
+}
+
+/* Zachování stejného klidového pulzu pouze v nové teplé paletě. */
+@keyframes downloadGalaxyIdle {
+  0%, 100% {
+    box-shadow: 0 13px 34px rgba(94,35,0,.42), 0 0 22px rgba(255,119,16,.17), 0 0 18px rgba(255,210,73,.12), inset 0 1px 0 rgba(255,245,201,.15), inset 0 -1px 0 rgba(28,8,0,.74);
+  }
+  50% {
+    box-shadow: 0 15px 39px rgba(137,51,0,.48), 0 0 28px rgba(255,149,23,.22), 0 0 24px rgba(255,220,78,.16), inset 0 1px 0 rgba(255,247,210,.18), inset 0 -1px 0 rgba(28,8,0,.74);
+  }
+}
+
+.button[data-download].download-ultimate .download-label,
+.button[data-download].download-ultimate:hover .download-label,
+.button[data-download].download-ultimate:focus-visible .download-label,
+.button[data-download].download-ultimate.is-pointer-active .download-label {
+  color: #fffaf0;
+  text-shadow:
+    0 1px 2px rgba(24, 5, 0, .92),
+    0 0 9px rgba(255, 164, 39, .44),
+    0 0 16px rgba(255, 220, 78, .22);
+}
+
+.button[data-download].download-ultimate .download-icon,
+.button[data-download].download-ultimate:hover .download-icon,
+.button[data-download].download-ultimate:focus-visible .download-icon,
+.button[data-download].download-ultimate.is-pointer-active .download-icon {
+  color: #fffaf0;
+}
+
+/* Klikací pulz a mikročástice: stejná animace, pouze oranžovo-zlaté barvy. */
+.button[data-download].download-ultimate.download-animating .download-sweep {
+  background: linear-gradient(90deg,
+    transparent,
+    rgba(255, 184, 32, .12) 12%,
+    rgba(255, 114, 13, .95) 38%,
+    rgba(255, 178, 35, .92) 60%,
+    rgba(255, 224, 81, .84) 78%,
+    transparent);
+}
+
+.download-click-burst-classic-plus u {
+  background: #ffd74a;
+  box-shadow:
+    0 0 6px rgba(255, 171, 26, .95),
+    0 0 12px rgba(255, 220, 76, .44);
+}
+
+.download-click-burst-classic-plus u:nth-of-type(3n + 2) {
+  background: #ffae28;
+  box-shadow: 0 0 6px rgba(255, 157, 24, .95), 0 0 12px rgba(255, 200, 49, .40);
+}
+
+.download-click-burst-classic-plus u:nth-of-type(3n) {
+  background: #fff08a;
+  box-shadow: 0 0 6px rgba(255, 226, 96, .96), 0 0 12px rgba(255, 177, 27, .40);
+}
