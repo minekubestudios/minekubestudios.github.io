@@ -724,7 +724,30 @@
     </section>
   </div>
 
-  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true">
+    <span class="toast-glow" aria-hidden="true"></span>
+    <span class="toast-icon" aria-hidden="true">
+      <svg class="toast-icon-download" viewBox="0 0 24 24">
+        <path d="M12 3v10"/>
+        <path d="m8 10 4 4 4-4"/>
+        <path d="M5 19h14"/>
+      </svg>
+      <svg class="toast-icon-check" viewBox="0 0 24 24">
+        <path d="m6.5 12.5 3.5 3.5 7.5-8"/>
+      </svg>
+      <svg class="toast-icon-info" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="8.5"/>
+        <path d="M12 8.2v5.4M12 16.8h.01"/>
+      </svg>
+    </span>
+    <span class="toast-copy">
+      <span class="toast-kicker">MINEKUBE DOWNLOAD</span>
+      <strong class="toast-message"></strong>
+    </span>
+    <span class="toast-signal" aria-hidden="true"><i></i><i></i><i></i></span>
+    <span class="toast-progress" aria-hidden="true"></span>
+    <span class="toast-burst" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></span>
+  </div>
 
   <script src="app.js"></script>
 </body>

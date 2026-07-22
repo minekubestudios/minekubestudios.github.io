@@ -439,11 +439,39 @@ function closeModal({ animateCloseButton = false } = {}) {
 }
 
 let toastTimer;
-function showToast(message) {
+function showToast(message, type = "default", duration = 2900) {
   clearTimeout(toastTimer);
-  toast.textContent = message;
+
+  const toastMessage = toast.querySelector(".toast-message");
+  const toastKicker = toast.querySelector(".toast-kicker");
+  const typeClasses = ["is-download-start", "is-download-success", "is-warning", "is-favorite", "is-theme", "is-system"];
+
+  toast.classList.remove("show", ...typeClasses);
+  toast.style.setProperty("--toast-duration", `${duration}ms`);
+
+  if (toastMessage) toastMessage.textContent = message;
+
+  const toastConfig = {
+    "download-start": { className: "is-download-start", kicker: "PŘIPRAVUJI PŘENOS" },
+    "download-success": { className: "is-download-success", kicker: "MINEKUBE DOWNLOAD" },
+    warning: { className: "is-warning", kicker: "UPOZORNĚNÍ" },
+    favorite: { className: "is-favorite", kicker: "OBLÍBENÉ" },
+    theme: { className: "is-theme", kicker: "ROZHRANÍ" }
+  }[type];
+
+  if (toastConfig) {
+    toast.classList.add(toastConfig.className);
+    if (toastKicker) toastKicker.textContent = toastConfig.kicker;
+  } else {
+    toast.classList.add("is-system");
+    if (toastKicker) toastKicker.textContent = "MINEKUBE SYSTEM";
+  }
+
+  // Restartuje vstupní, pulzní i časovací animaci při každém novém oznámení.
+  void toast.offsetWidth;
   toast.classList.add("show");
-  toastTimer = setTimeout(() => toast.classList.remove("show"), 2900);
+
+  toastTimer = setTimeout(() => toast.classList.remove("show"), duration);
 }
 
 function createFavoriteBurst(button, activating) {
@@ -582,11 +610,11 @@ async function triggerDownload(button, pack, event) {
 
 async function demoDownload(pack) {
   if (!pack?.downloadUrl) {
-    showToast("Soubor ke stažení zatím není nastavený.");
+    showToast("Soubor ke stažení zatím není nastavený.", "warning", 3600);
     return;
   }
 
-  showToast("Spouštím přímé stahování…");
+  showToast("Navazuji bezpečné spojení…", "download-start", 1800);
 
   // Přímý odkaz míří na soubor v GitHub Release. GitHub ho vrátí
   // jako přílohu, takže se neotevře stránka projektu ani Game Jolt.
@@ -600,7 +628,7 @@ async function demoDownload(pack) {
   link.click();
   link.remove();
 
-  showToast("Stahování bylo zahájeno.");
+  showToast("Stahování bylo úspěšně zahájeno", "download-success", 4200);
 }
 
 
