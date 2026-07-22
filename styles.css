@@ -7546,3 +7546,224 @@ body::before {
     animation: none !important;
   }
 }
+
+/* =========================================================
+   EPIC COVER HOVER — pouze horní banner + 3D Minekube kostka
+   Spustí se znovu při každém novém najetí myší.
+   ========================================================= */
+.pack-cover {
+  perspective: 950px;
+  transform-origin: 50% 50%;
+  will-change: transform, filter, background-size, box-shadow;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .pack-cover:hover {
+    animation:
+      minekubeBannerEpic 1.22s cubic-bezier(.16, .86, .18, 1) 1,
+      coverGradientShift 8s ease-in-out 1.22s infinite;
+  }
+
+  .pack-cover:hover .cover-cube {
+    animation:
+      minekubeCubeEpicHover 1.34s cubic-bezier(.14, .88, .18, 1) 1,
+      minekubeCoreFloat 4.6s cubic-bezier(.45, 0, .25, 1) 1.34s infinite;
+  }
+
+  .pack-cover:hover .cover-cube::before {
+    animation:
+      minekubeShadowEpicHover 1.34s cubic-bezier(.14, .88, .18, 1) 1,
+      minekubeCoreShadow 4.6s cubic-bezier(.45, 0, .25, 1) 1.34s infinite;
+  }
+
+  .pack-cover:hover .cover-cube::after {
+    animation:
+      minekubeOrbitEpicHover 1.34s cubic-bezier(.16, .84, .2, 1) 1,
+      minekubeCoreOrbit 9s linear 1.34s infinite;
+  }
+
+  .pack-cover:hover .cover-speed-lines i {
+    animation-name: minekubeSpeedLineEpic;
+    animation-duration: .82s;
+    animation-timing-function: cubic-bezier(.12, .72, .18, 1);
+    animation-iteration-count: 1;
+    box-shadow:
+      0 0 10px rgba(255, 230, 105, .75),
+      0 0 22px rgba(58, 255, 137, .42);
+  }
+
+  .pack-cover:hover .cover-speed-lines i:nth-child(1) { animation-delay: .02s; }
+  .pack-cover:hover .cover-speed-lines i:nth-child(2) { animation-delay: .10s; }
+  .pack-cover:hover .cover-speed-lines i:nth-child(3) { animation-delay: .18s; }
+
+  .pack-cover:hover .cover-data-strip,
+  .pack-cover:hover .cover-hud {
+    animation: minekubeHudEpicHover 1.05s cubic-bezier(.16, .84, .2, 1) 1;
+  }
+}
+
+@keyframes minekubeBannerEpic {
+  0% {
+    transform: translateZ(22px) scale(1);
+    filter: brightness(1) saturate(1) contrast(1);
+    background-size: 230% 230%;
+    box-shadow: inset 0 0 0 rgba(255, 231, 118, 0);
+  }
+  16% {
+    transform: translateZ(34px) scale(1.012) rotateZ(-.18deg);
+    filter: brightness(1.12) saturate(1.20) contrast(1.06);
+    box-shadow:
+      inset 0 0 35px rgba(255, 236, 144, .11),
+      inset 0 0 80px rgba(60, 255, 142, .07);
+  }
+  36% {
+    transform: translateZ(48px) scale(1.032) rotateZ(.24deg);
+    filter: brightness(1.24) saturate(1.34) contrast(1.08);
+    background-size: 184% 184%;
+    box-shadow:
+      inset 0 0 55px rgba(255, 238, 149, .20),
+      inset 0 0 120px rgba(51, 255, 135, .12);
+  }
+  58% {
+    transform: translateZ(36px) scale(1.018) rotateZ(-.10deg);
+    filter: brightness(1.12) saturate(1.20) contrast(1.04);
+    background-size: 205% 205%;
+    box-shadow:
+      inset 0 0 40px rgba(255, 222, 99, .12),
+      inset 0 0 90px rgba(47, 255, 134, .08);
+  }
+  78% {
+    transform: translateZ(27px) scale(1.007) rotateZ(.04deg);
+    filter: brightness(1.06) saturate(1.10) contrast(1.02);
+  }
+  100% {
+    transform: translateZ(22px) scale(1);
+    filter: brightness(1) saturate(1) contrast(1);
+    background-size: 230% 230%;
+    box-shadow: inset 0 0 0 rgba(255, 231, 118, 0);
+  }
+}
+
+@keyframes minekubeCubeEpicHover {
+  0% {
+    transform: translate(-50%, -50%) translateY(0) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(1);
+    filter:
+      drop-shadow(0 0 11px rgba(255, 229, 94, .75))
+      drop-shadow(0 17px 14px rgba(0, 0, 0, .38));
+  }
+  15% {
+    transform: translate(-50%, -50%) translateY(-11px) rotateX(10deg) rotateY(-16deg) rotateZ(-4deg) scale(1.08);
+    filter:
+      drop-shadow(0 0 24px rgba(255, 239, 143, .95))
+      drop-shadow(0 23px 18px rgba(0, 0, 0, .31));
+  }
+  38% {
+    transform: translate(-50%, -50%) translateY(-23px) rotateX(-12deg) rotateY(180deg) rotateZ(8deg) scale(1.20);
+    filter:
+      drop-shadow(0 0 42px rgba(255, 240, 132, 1))
+      drop-shadow(0 0 22px rgba(65, 255, 142, .78))
+      drop-shadow(0 31px 24px rgba(0, 0, 0, .24));
+  }
+  67% {
+    transform: translate(-50%, -50%) translateY(-12px) rotateX(7deg) rotateY(360deg) rotateZ(-5deg) scale(1.10);
+    filter:
+      drop-shadow(0 0 28px rgba(255, 232, 103, .96))
+      drop-shadow(0 0 13px rgba(68, 255, 145, .48))
+      drop-shadow(0 24px 19px rgba(0, 0, 0, .29));
+  }
+  84% {
+    transform: translate(-50%, -50%) translateY(-4px) rotateX(-2deg) rotateY(372deg) rotateZ(2deg) scale(1.035);
+  }
+  100% {
+    transform: translate(-50%, -50%) translateY(0) rotateX(0deg) rotateY(360deg) rotateZ(0deg) scale(1);
+    filter:
+      drop-shadow(0 0 11px rgba(255, 229, 94, .75))
+      drop-shadow(0 17px 14px rgba(0, 0, 0, .38));
+  }
+}
+
+@keyframes minekubeShadowEpicHover {
+  0%, 100% {
+    opacity: .72;
+    transform: translate(-50%, 0) scaleX(.92);
+  }
+  38% {
+    opacity: .24;
+    transform: translate(-50%, 19px) scaleX(.54);
+  }
+  68% {
+    opacity: .50;
+    transform: translate(-50%, 8px) scaleX(.78);
+  }
+}
+
+@keyframes minekubeOrbitEpicHover {
+  0% {
+    opacity: .72;
+    transform: translate(-50%, -50%) rotate(-8deg) scale(1);
+  }
+  32% {
+    opacity: 1;
+    transform: translate(-50%, -50%) rotate(155deg) scale(1.20);
+    border-color: rgba(255, 240, 153, .72);
+    box-shadow:
+      0 0 34px rgba(255, 218, 75, .34),
+      inset 0 0 28px rgba(65, 255, 142, .18);
+  }
+  68% {
+    opacity: .92;
+    transform: translate(-50%, -50%) rotate(326deg) scale(1.08);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) rotate(352deg) scale(1);
+  }
+}
+
+@keyframes minekubeSpeedLineEpic {
+  0% {
+    left: -55%;
+    opacity: 0;
+    transform: rotate(-20deg) scaleX(.45);
+  }
+  18% { opacity: 1; }
+  70% {
+    opacity: 1;
+    transform: rotate(-20deg) scaleX(1.22);
+  }
+  100% {
+    left: 132%;
+    opacity: 0;
+    transform: rotate(-20deg) scaleX(.72);
+  }
+}
+
+@keyframes minekubeHudEpicHover {
+  0%, 100% {
+    opacity: 1;
+    filter: brightness(1);
+    transform: translateY(0);
+  }
+  30% {
+    opacity: .55;
+    filter: brightness(1.6) drop-shadow(0 0 7px rgba(255, 226, 105, .7));
+    transform: translateY(-2px);
+  }
+  55% {
+    opacity: 1;
+    filter: brightness(1.25) drop-shadow(0 0 9px rgba(67, 255, 145, .55));
+    transform: translateY(1px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pack-cover:hover,
+  .pack-cover:hover .cover-cube,
+  .pack-cover:hover .cover-cube::before,
+  .pack-cover:hover .cover-cube::after,
+  .pack-cover:hover .cover-speed-lines i,
+  .pack-cover:hover .cover-data-strip,
+  .pack-cover:hover .cover-hud {
+    animation: none !important;
+  }
+}
