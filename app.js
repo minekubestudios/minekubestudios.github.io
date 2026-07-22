@@ -1134,8 +1134,12 @@ function initializeScrollExperience() {
     target.classList.remove("mk-section-preparing");
     target.classList.add("mk-section-arriving");
 
-    // Domů už má vlastní navazující animace, proto zde energetickou vlnu
-    // záměrně nepřidáváme. U ostatních sekcí zůstává beze změny.
+    // Domů nesmí dostat žádnou vstupní energetickou vlnu. Pro jistotu
+    // odstraníme i případný starší element, který mohl zůstat v DOM.
+    if (target.id === "home") {
+      target.querySelectorAll(".mk-section-entry-sweep").forEach(element => element.remove());
+    }
+
     const sweep = target.id === "home" ? null : document.createElement("span");
     if (sweep) {
       sweep.className = "mk-section-entry-sweep";
@@ -1149,7 +1153,7 @@ function initializeScrollExperience() {
     }, 1050);
   };
 
-  // Zpřístupní stejný rychlý nájezd i úvodní stránce po boot animaci.
+  // Zpřístupní rychlý nájezd sekcí po portálovém přepnutí stránky.
   window.playMinekubeSectionArrival = playSectionArrival;
 
   const updateNavigationActive = id => {
@@ -1410,10 +1414,8 @@ initializeScrollExperience();
       document.body.classList.add("home-ready");
       goHomeInstantly();
 
-      // Po úvodní boot sekvenci se Domů odhalí stejným stránkovým nájezdem.
-      window.setTimeout(() => {
-        window.playMinekubeSectionArrival?.(document.getElementById("home"));
-      }, prefersReducedMotion.matches ? 0 : 520);
+      // Domů má po boot sekvenci vlastní odhalení. Další stránkový nájezd
+      // se zde nespouští, aby se animace nepřekryly a obraz neblikl.
 
       window.setTimeout(() => {
         if (loader) loader.hidden = true;

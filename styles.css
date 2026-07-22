@@ -12299,9 +12299,16 @@ body.mk-transitioning { overflow:hidden !important; }
   animation: mkSectionEnergySweep .72s cubic-bezier(.22, .72, .2, 1) both .04s;
 }
 
+/* Domů má vlastní vstupní animaci. Žádná stránková vlna ani její
+   zbytkový element se v této sekci nesmí zobrazit. */
+#home > .mk-section-entry-sweep,
+#home .mk-section-entry-sweep {
+  display: none !important;
+  animation: none !important;
+  opacity: 0 !important;
+}
+
 /* Obsah dostane krátký, čitelný stagger bez rozmazávání textu. */
-#home.mk-section-arriving > .mk-home-shell,
-#home.mk-section-arriving > .mk-home-next,
 #modpacks.mk-section-arriving > .container,
 #benchmarks.mk-section-arriving > .container,
 #install.mk-section-arriving > .container,
@@ -12309,7 +12316,6 @@ body.mk-transitioning { overflow:hidden !important; }
   animation: mkSectionContentArrival .68s cubic-bezier(.16, 1, .3, 1) both .08s;
 }
 
-#home.mk-section-arriving .mk-home-copy,
 #modpacks.mk-section-arriving .section-heading,
 #benchmarks.mk-section-arriving .benchmark-copy,
 #install.mk-section-arriving .section-heading,
@@ -12317,7 +12323,6 @@ body.mk-transitioning { overflow:hidden !important; }
   animation: mkSectionLeadArrival .66s cubic-bezier(.16, 1, .3, 1) both .12s;
 }
 
-#home.mk-section-arriving .mk-home-visual,
 #modpacks.mk-section-arriving .catalog-layout,
 #benchmarks.mk-section-arriving .benchmark-board,
 #install.mk-section-arriving .steps-grid,
@@ -12378,8 +12383,6 @@ body.mk-transitioning { overflow:hidden !important; }
   #benchmarks.mk-section-arriving,
   #install.mk-section-arriving,
   #about.mk-section-arriving,
-  #home.mk-section-arriving > .mk-home-shell,
-  #home.mk-section-arriving > .mk-home-next,
   #modpacks.mk-section-arriving > .container,
   #benchmarks.mk-section-arriving > .container,
   #install.mk-section-arriving > .container,
