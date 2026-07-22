@@ -1065,3 +1065,109 @@ initializeUltimateDownloadButtons();
 initializeEpicSurfaceInteractions();
 initializeSearchShortcut();
 initializeScrollExperience();
+
+/* =========================================================
+   HOME // FUTURE ENTRY CONTROLLER
+   Web se při každém otevření vrátí na Domů a přehraje boot sekvenci.
+   ========================================================= */
+(() => {
+  if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+
+  const goHomeInstantly = () => {
+    try {
+      history.replaceState(null, "", "#home");
+    } catch {
+      location.hash = "home";
+    }
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  };
+
+  goHomeInstantly();
+
+  const loader = document.getElementById("futureLoader");
+  const progressBar = document.getElementById("loaderProgressBar");
+  const percent = document.getElementById("loaderPercent");
+  const status = document.getElementById("loaderStatus");
+  const storeButton = document.querySelector(".store-button");
+  const startTime = performance.now();
+  let pageLoaded = document.readyState === "complete";
+  let finished = false;
+
+  const statusForProgress = value => {
+    if (value < 24) return "Načítám moduly...";
+    if (value < 48) return "Synchronizuji FPS engine...";
+    if (value < 72) return "Aktivuji Minekube Core...";
+    if (value < 94) return "Stabilizuji výkon...";
+    return "Systém připraven";
+  };
+
+  const finishLoader = () => {
+    if (finished) return;
+    finished = true;
+    progressBar?.style.setProperty("--loader-progress", "100%");
+    if (percent) percent.textContent = "100";
+    if (status) status.textContent = "Systém připraven";
+
+    window.setTimeout(() => {
+      loader?.classList.add("is-leaving");
+      document.body.classList.remove("future-loading");
+      document.body.classList.add("home-ready");
+      goHomeInstantly();
+
+      window.setTimeout(() => {
+        if (loader) loader.hidden = true;
+      }, 780);
+    }, prefersReducedMotion.matches ? 80 : 320);
+  };
+
+  const updateLoader = now => {
+    if (!loader || finished) return;
+    const elapsed = now - startTime;
+    const baseDuration = prefersReducedMotion.matches ? 120 : 1750;
+    const waitingProgress = Math.min(94, (elapsed / baseDuration) * 94);
+    const value = pageLoaded
+      ? Math.min(100, waitingProgress + Math.max(0, (elapsed - baseDuration * .64) / (prefersReducedMotion.matches ? 3 : 12)))
+      : waitingProgress;
+    const rounded = Math.max(0, Math.min(100, Math.round(value)));
+
+    progressBar?.style.setProperty("--loader-progress", `${rounded}%`);
+    if (percent) percent.textContent = String(rounded);
+    if (status) status.textContent = statusForProgress(rounded);
+
+    if (pageLoaded && rounded >= 100) {
+      finishLoader();
+      return;
+    }
+
+    requestAnimationFrame(updateLoader);
+  };
+
+  const markLoaded = () => {
+    pageLoaded = true;
+    goHomeInstantly();
+  };
+
+  if (document.readyState === "complete") {
+    markLoaded();
+  } else {
+    window.addEventListener("load", markLoaded, { once: true });
+  }
+
+  requestAnimationFrame(updateLoader);
+
+  // Futuristické světlo Store tlačítka přesně sleduje kurzor.
+  if (storeButton && window.matchMedia("(pointer: fine)").matches && !prefersReducedMotion.matches) {
+    storeButton.addEventListener("pointermove", event => {
+      const rect = storeButton.getBoundingClientRect();
+      const x = Math.min(Math.max((event.clientX - rect.left) / rect.width, 0), 1);
+      const y = Math.min(Math.max((event.clientY - rect.top) / rect.height, 0), 1);
+      storeButton.style.setProperty("--store-x", `${x * 100}%`);
+      storeButton.style.setProperty("--store-y", `${y * 100}%`);
+    });
+
+    storeButton.addEventListener("pointerleave", () => {
+      storeButton.style.setProperty("--store-x", "50%");
+      storeButton.style.setProperty("--store-y", "50%");
+    });
+  }
+})();
