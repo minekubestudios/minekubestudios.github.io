@@ -13,3 +13,9 @@ Tato verze odstraňuje celý původní textový Performance Hub. V sekci **Modpa
 ## Nasazení
 
 Nahraj celý obsah ZIPu do kořene GitHub Pages repozitáře a nahraď stávající soubory.
+
+
+## Poslední úprava
+- 3D performance panel 999+ FPS byl kompletně odstraněn.
+- Katalog Modpacky je znovu čistě zarovnaný do dvou sloupců: filtry a karta modpacku.
+- JavaScript je ošetřený, aby odstraněná komponenta nezpůsobila chybu.

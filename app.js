@@ -799,41 +799,45 @@ window.addEventListener("scroll", () => {
 
 window.addEventListener("resize", syncScrollExperience, { passive: true });
 
+// Výkonový 3D HUD byl z katalogu odstraněn. Inicializace zůstává bezpečně volitelná,
+// aby případné budoucí použití stejné komponenty nezpůsobilo chybu JavaScriptu.
 const counter = document.querySelector("[data-counter]");
 const performanceCard = document.querySelector(".performance-card");
-const counterObserver = new IntersectionObserver(entries => {
-  if (!entries[0].isIntersecting) return;
-  const target = Number(counter.dataset.counter);
-  const start = performance.now();
-  const duration = 1100;
 
-  function tick(now) {
-    const progress = Math.min((now - start) / duration, 1);
-    const eased = 1 - Math.pow(1 - progress, 3);
-    counter.textContent = Math.round(target * eased);
-    if (progress < 1) requestAnimationFrame(tick);
+if (counter && performanceCard) {
+  const counterObserver = new IntersectionObserver(entries => {
+    if (!entries[0].isIntersecting) return;
+    const target = Number(counter.dataset.counter);
+    const start = performance.now();
+    const duration = 1100;
+
+    function tick(now) {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      counter.textContent = Math.round(target * eased);
+      if (progress < 1) requestAnimationFrame(tick);
+    }
+
+    requestAnimationFrame(tick);
+    counterObserver.disconnect();
+  }, { threshold: .55 });
+
+  counterObserver.observe(performanceCard);
+
+  if (window.matchMedia("(pointer: fine)").matches) {
+    performanceCard.addEventListener("pointermove", event => {
+      const rect = performanceCard.getBoundingClientRect();
+      const px = (event.clientX - rect.left) / rect.width - 0.5;
+      const py = (event.clientY - rect.top) / rect.height - 0.5;
+      performanceCard.style.setProperty("--ry", `${px * 7}deg`);
+      performanceCard.style.setProperty("--rx", `${py * -5}deg`);
+    });
+
+    performanceCard.addEventListener("pointerleave", () => {
+      performanceCard.style.setProperty("--ry", "-4deg");
+      performanceCard.style.setProperty("--rx", "2deg");
+    });
   }
-
-  requestAnimationFrame(tick);
-  counterObserver.disconnect();
-}, { threshold: .55 });
-
-counterObserver.observe(performanceCard);
-
-// Jemný 3D parallax výkonového HUDu. Funguje pouze s přesným ukazatelem.
-if (window.matchMedia("(pointer: fine)").matches) {
-  performanceCard.addEventListener("pointermove", event => {
-    const rect = performanceCard.getBoundingClientRect();
-    const px = (event.clientX - rect.left) / rect.width - 0.5;
-    const py = (event.clientY - rect.top) / rect.height - 0.5;
-    performanceCard.style.setProperty("--ry", `${px * 7}deg`);
-    performanceCard.style.setProperty("--rx", `${py * -5}deg`);
-  });
-
-  performanceCard.addEventListener("pointerleave", () => {
-    performanceCard.style.setProperty("--ry", "-4deg");
-    performanceCard.style.setProperty("--rx", "2deg");
-  });
 }
 
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");

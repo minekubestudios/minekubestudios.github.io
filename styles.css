@@ -11665,3 +11665,106 @@ body.home-ready .home-v2-visual {
     animation: none !important;
   }
 }
+
+
+/* =========================================================
+   MODPACKY — čisté zarovnání po odstranění 3D performance HUDu
+   ========================================================= */
+.catalog-clean-aligned {
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+  padding-top: clamp(76px, 7vw, 106px);
+  background:
+    radial-gradient(circle at 18% 15%, rgba(255, 175, 0, .075), transparent 27%),
+    radial-gradient(circle at 82% 12%, rgba(208, 57, 255, .055), transparent 28%);
+}
+
+.catalog-clean-aligned::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: .085;
+  background-image:
+    linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+  background-size: 52px 52px;
+  mask-image: linear-gradient(to bottom, #000 0, transparent 42%);
+}
+
+.catalog-clean-aligned > .container {
+  width: min(calc(100% - 40px), 1100px);
+}
+
+.catalog-clean-aligned .section-heading {
+  align-items: end;
+  margin-bottom: clamp(34px, 4vw, 52px);
+}
+
+.catalog-clean-aligned .catalog-layout {
+  display: grid;
+  grid-template-columns: minmax(270px, 300px) minmax(0, 590px);
+  justify-content: center;
+  align-items: start;
+  gap: clamp(30px, 4vw, 50px);
+}
+
+.catalog-clean-aligned .filters-panel,
+.catalog-clean-aligned .catalog-content {
+  min-width: 0;
+  width: 100%;
+}
+
+.catalog-clean-aligned .catalog-content {
+  max-width: 590px;
+}
+
+.catalog-clean-aligned .catalog-toolbar {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.catalog-clean-aligned .pack-grid {
+  grid-template-columns: minmax(0, 1fr);
+  width: 100%;
+}
+
+.catalog-clean-aligned .pack-card {
+  width: 100%;
+}
+
+@media (max-width: 1040px) {
+  .catalog-clean-aligned > .container {
+    width: min(calc(100% - 32px), 760px);
+  }
+
+  .catalog-clean-aligned .section-heading {
+    align-items: flex-start;
+  }
+
+  .catalog-clean-aligned .catalog-layout {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+  }
+
+  .catalog-clean-aligned .filters-panel,
+  .catalog-clean-aligned .catalog-content {
+    width: min(100%, 620px);
+  }
+}
+
+@media (max-width: 700px) {
+  .catalog-clean-aligned > .container {
+    width: min(calc(100% - 24px), 760px);
+  }
+
+  .catalog-clean-aligned .section-heading {
+    gap: 18px;
+  }
+
+  .catalog-clean-aligned .result-count {
+    align-self: flex-start;
+  }
+}
