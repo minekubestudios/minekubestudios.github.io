@@ -1,17 +1,17 @@
-# Minekube Studios — 5 výkonových profilů
+# Minekube Studios Web — Standalone Home & Page Portal
 
-Tato verze rozšiřuje sekci **Modpacky** na pět profesionálně sjednocených profilů a zároveň posouvá katalog více doleva do původního rozložení.
+Tato verze obsahuje kompletně přepracovanou sekci **Domů**, která působí jako samostatná úvodní stránka Minekube Studios.
 
-## Profily
+## Novinky
 
-- Ultra Performance — vydaný, zeleno-zlatý
-- Insider Performance — připravovaný, oranžovo-zlatý
-- Balanced Performance — připravovaný, modro-zlatý
-- Quality Performance — připravovaný, červeno-zlatý
-- PvP Performance — připravovaný, fialovo-zlatý
-
-Připravované profily nemají detail modpacku. Tlačítko **Zatím nevydáno** je v klidovém stavu zlato-černé a při najetí přechází do šedo-červené palety. Přímé stahování Ultra Performance zůstává beze změny.
+- nová samostatná futuristická stránka Domů,
+- větší vizuální odstup mezi Domů a ostatními sekcemi,
+- prezentace celého Minekube ekosystému: modpacky, server, Store a open-source vývoj,
+- celoplošná Minekube přechodová animace při přepínání hlavních sekcí,
+- rozdílný stav a barva přechodu pro Domů, Modpacky, Výkon, Instalaci a O projektu,
+- responzivní zobrazení pro desktop, tablet i mobil,
+- zachované modpacky, filtry, Store a přímé stahování GitHub Release.
 
 ## Nasazení
 
-Nahraj celý obsah ZIPu do kořene GitHub Pages repozitáře a nahraď stávající soubory.
+Nahraj celý obsah ZIPu do kořene repozitáře GitHub Pages a potvrď nahrazení stávajících souborů.

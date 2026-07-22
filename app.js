@@ -1097,6 +1097,65 @@ function initializeScrollExperience() {
 
   revealGroups.forEach(([elements, delay]) => registerRevealElements(elements, delay));
 
+  const pageTransition = document.getElementById("pageTransition");
+  const pageTransitionTitle = document.getElementById("pageTransitionTitle");
+  const pageTransitionStatus = document.getElementById("pageTransitionStatus");
+  const pageTransitionCode = document.getElementById("pageTransitionCode");
+  const pageTargets = new Map([
+    ["#home", { title: "DOMŮ", status: "Návrat do hlavního Minekube systému", code: "MK-01", accent: "#ffbd2f", rgb: "255,189,47" }],
+    ["#modpacks", { title: "MODPACKY", status: "Načítání výkonových profilů", code: "MK-02", accent: "#ffad1f", rgb: "255,173,31" }],
+    ["#benchmarks", { title: "VÝKON", status: "Aktivace benchmarkového jádra", code: "MK-03", accent: "#ef58ff", rgb: "239,88,255" }],
+    ["#install", { title: "INSTALACE", status: "Příprava instalačního protokolu", code: "MK-04", accent: "#ffca3a", rgb: "255,202,58" }],
+    ["#about", { title: "O PROJEKTU", status: "Otevírání Minekube manifestu", code: "MK-05", accent: "#df55ff", rgb: "223,85,255" }]
+  ]);
+  let pageTransitionBusy = false;
+
+  const updateNavigationActive = id => {
+    document.querySelectorAll('.desktop-nav a[href^="#"], .mobile-nav a[href^="#"]').forEach(link => {
+      link.classList.toggle("active", link.getAttribute("href") === id);
+    });
+  };
+
+  const navigateWithPortal = (id, target) => {
+    if (pageTransitionBusy) return;
+    const config = pageTargets.get(id);
+
+    if (!config || prefersReducedMotion.matches || !pageTransition) {
+      target.scrollIntoView({ behavior: prefersReducedMotion.matches ? "auto" : "smooth", block: "start" });
+      history.replaceState(null, "", id);
+      updateNavigationActive(id);
+      return;
+    }
+
+    pageTransitionBusy = true;
+    document.body.classList.add("mk-transitioning");
+    pageTransition.style.setProperty("--transition-accent", config.accent);
+    pageTransition.style.setProperty("--transition-accent-rgb", config.rgb);
+    if (pageTransitionTitle) pageTransitionTitle.textContent = config.title;
+    if (pageTransitionStatus) pageTransitionStatus.textContent = config.status;
+    if (pageTransitionCode) pageTransitionCode.textContent = config.code;
+    pageTransition.setAttribute("aria-hidden", "false");
+
+    // Re-trigger all CSS keyframes on every navigation click.
+    pageTransition.classList.remove("is-active");
+    void pageTransition.offsetWidth;
+    pageTransition.classList.add("is-active");
+
+    window.setTimeout(() => {
+      target.scrollIntoView({ behavior: "auto", block: "start" });
+      history.replaceState(null, "", id);
+      updateNavigationActive(id);
+      syncScrollExperience();
+    }, 590);
+
+    window.setTimeout(() => {
+      pageTransition.classList.remove("is-active");
+      pageTransition.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("mk-transitioning");
+      pageTransitionBusy = false;
+    }, 1450);
+  };
+
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener("click", event => {
       const id = anchor.getAttribute("href");
@@ -1105,11 +1164,12 @@ function initializeScrollExperience() {
       if (!target) return;
 
       event.preventDefault();
-      target.scrollIntoView({
-        behavior: prefersReducedMotion.matches ? "auto" : "smooth",
-        block: "start"
-      });
-      history.replaceState(null, "", id);
+      if (pageTargets.has(id)) {
+        navigateWithPortal(id, target);
+      } else {
+        target.scrollIntoView({ behavior: prefersReducedMotion.matches ? "auto" : "smooth", block: "start" });
+        history.replaceState(null, "", id);
+      }
     });
   });
 
@@ -1341,6 +1401,19 @@ initializeScrollExperience();
   }
 
   requestAnimationFrame(updateLoader);
+
+  const homePrimary = document.querySelector(".mk-home-primary");
+  if (homePrimary && window.matchMedia("(pointer: fine)").matches && !prefersReducedMotion.matches) {
+    homePrimary.addEventListener("pointermove", event => {
+      const rect = homePrimary.getBoundingClientRect();
+      homePrimary.style.setProperty("--mx", `${((event.clientX - rect.left) / rect.width) * 100}%`);
+      homePrimary.style.setProperty("--my", `${((event.clientY - rect.top) / rect.height) * 100}%`);
+    });
+    homePrimary.addEventListener("pointerleave", () => {
+      homePrimary.style.setProperty("--mx", "50%");
+      homePrimary.style.setProperty("--my", "50%");
+    });
+  }
 
   // Futuristické světlo Store tlačítka přesně sleduje kurzor.
   if (storeButton && window.matchMedia("(pointer: fine)").matches && !prefersReducedMotion.matches) {
