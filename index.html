@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Minekube FPS modpacky – rychlejší, plynulejší a stabilnější Minecraft.">
+  <meta name="theme-color" content="#0f1512">
+  <title>Minekube FPS — Minecraft Performance Modpacks</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"><span></span></div>
+
+  <header class="site-header">
+    <div class="nav-wrap">
+      <a class="brand" href="#top" aria-label="Minekube FPS – úvodní stránka">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 48 48" role="img">
+            <path d="M24 3 43 13.5v21L24 45 5 34.5v-21L24 3Z"/>
+            <path d="m24 3 19 10.5L24 24 5 13.5 24 3Z" class="mark-top"/>
+            <path d="M24 24v21L5 34.5v-21L24 24Z" class="mark-left"/>
+            <path d="M24 24 43 13.5v21L24 45V24Z" class="mark-right"/>
+            <path d="m14 18 10 5.5L34 18v11l-10 5.5L14 29V18Z" class="mark-core"/>
+          </svg>
+        </span>
+        <span>
+          <strong>Minekube</strong>
+          <small>FPS MODPACKS</small>
+        </span>
+      </a>
+
+      <nav class="desktop-nav" aria-label="Hlavní navigace">
+        <a href="#modpacks">Modpacky</a>
+        <a href="#benchmarks">Výkon</a>
+        <a href="#install">Instalace</a>
+        <a href="#about">O projektu</a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="icon-button" id="themeToggle" type="button" aria-label="Přepnout motiv" title="Přepnout motiv">
+          <svg class="sun-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="4"></circle>
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.66 6.34l1.41-1.41"></path>
+          </svg>
+        </button>
+        <a class="button button-primary button-small" href="#modpacks">
+          Procházet
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+        </a>
+        <button class="menu-button" id="menuButton" type="button" aria-label="Otevřít menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+
+    <nav class="mobile-nav" id="mobileNav" aria-label="Mobilní navigace">
+      <a href="#modpacks">Modpacky</a>
+      <a href="#benchmarks">Výkon</a>
+      <a href="#install">Instalace</a>
+      <a href="#about">O projektu</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-glow hero-glow-one" aria-hidden="true"></div>
+      <div class="hero-glow hero-glow-two" aria-hidden="true"></div>
+
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <div class="eyebrow">
+            <span class="pulse-dot"></span>
+            Optimalizováno pro maximální FPS
+          </div>
+          <h1>
+            Minecraft.
+            <span>Bez zbytečných lagů.</span>
+          </h1>
+          <p class="hero-text">
+            Pečlivě sestavené modpacky zaměřené na vysoké FPS, rychlé načítání,
+            nízkou latenci a stabilní hraní — od slabších notebooků až po výkonné herní sestavy.
+          </p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#modpacks">
+              Najít svůj modpack
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+            </a>
+            <a class="button button-secondary" href="#benchmarks">
+              Zobrazit benchmarky
+            </a>
+          </div>
+          <div class="hero-proof" aria-label="Hlavní výhody">
+            <div>
+              <strong>3×</strong>
+              <span>vyšší FPS*</span>
+            </div>
+            <div>
+              <strong>-45 %</strong>
+              <span>využití RAM*</span>
+            </div>
+            <div>
+              <strong>1 klik</strong>
+              <span>k instalaci</span>
+            </div>
+          </div>
+          <p class="microcopy">* Ukázkové hodnoty pro demonstrační web. Nahraď je vlastními testy.</p>
+        </div>
+
+        <div class="hero-visual performance-hud" aria-label="Animovaný výkonový panel s 999 FPS a více">
+          <div class="hud-orbit hud-orbit-a"></div>
+          <div class="hud-orbit hud-orbit-b"></div>
+          <div class="hud-energy hud-energy-one"></div>
+          <div class="hud-energy hud-energy-two"></div>
+
+          <div class="performance-card hud-card">
+            <div class="hud-corners" aria-hidden="true"></div>
+            <div class="hud-scanline" aria-hidden="true"></div>
+            <div class="hud-particles" aria-hidden="true">
+              <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+            </div>
+
+            <div class="hud-header">
+              <div class="hud-live">
+                <span class="status-dot"></span>
+                <span>LIVE PERFORMANCE</span>
+              </div>
+              <div class="hud-mode"><span>ULTRA</span> MODE</div>
+            </div>
+
+            <div class="hud-score-row">
+              <div class="hud-score">
+                <span class="hud-score-label">REAL-TIME FPS BOOST</span>
+                <div class="fps-readout">
+                  <span class="fps-number" data-counter="999">0</span>
+                  <span class="fps-plus">+</span>
+                  <span class="fps-unit">FPS</span>
+                </div>
+                <p>MAXIMUM PERFORMANCE <b>·</b> ZERO LIMITS</p>
+              </div>
+
+              <div class="boost-reactor" aria-label="Neomezený výkon">
+                <span class="reactor-ring ring-one"></span>
+                <span class="reactor-ring ring-two"></span>
+                <span class="reactor-core">∞</span>
+                <small>BOOST</small>
+              </div>
+            </div>
+
+            <div class="chart hud-chart" aria-label="Animovaný graf výkonu">
+              <div class="chart-scale" aria-hidden="true">
+                <span>1000</span><span>750</span><span>500</span><span>250</span><span>0</span>
+              </div>
+              <svg viewBox="0 0 520 170" preserveAspectRatio="none" role="img">
+                <defs>
+                  <linearGradient id="hudChartStroke" x1="0" x2="1" y1="0" y2="0">
+                    <stop offset="0%" stop-color="#d43cff"/>
+                    <stop offset="52%" stop-color="#ff4fc8"/>
+                    <stop offset="100%" stop-color="#ffae00"/>
+                  </linearGradient>
+                  <linearGradient id="hudChartFill" x1="0" x2="0" y1="0" y2="1">
+                    <stop offset="0%" stop-color="#ff6f00" stop-opacity=".34"/>
+                    <stop offset="58%" stop-color="#d43cff" stop-opacity=".12"/>
+                    <stop offset="100%" stop-color="#d43cff" stop-opacity="0"/>
+                  </linearGradient>
+                  <filter id="hudGlow">
+                    <feGaussianBlur stdDeviation="4" result="blur"/>
+                    <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                  </filter>
+                </defs>
+                <path class="hud-chart-area" d="M0,152 C28,149 42,142 64,137 C93,130 103,134 125,119 C149,103 166,112 190,94 C215,76 232,89 255,72 C282,52 298,67 322,48 C348,27 366,43 391,29 C420,12 445,25 467,13 C486,4 504,7 520,2 L520,170 L0,170 Z"/>
+                <path class="hud-chart-line ghost-line" d="M0,152 C28,149 42,142 64,137 C93,130 103,134 125,119 C149,103 166,112 190,94 C215,76 232,89 255,72 C282,52 298,67 322,48 C348,27 366,43 391,29 C420,12 445,25 467,13 C486,4 504,7 520,2"/>
+                <path class="hud-chart-line main-line" d="M0,152 C28,149 42,142 64,137 C93,130 103,134 125,119 C149,103 166,112 190,94 C215,76 232,89 255,72 C282,52 298,67 322,48 C348,27 366,43 391,29 C420,12 445,25 467,13 C486,4 504,7 520,2"/>
+                <circle class="chart-pulse" cx="518" cy="3" r="5"/>
+              </svg>
+              <div class="chart-grid"></div>
+              <div class="chart-caption"><span>FPS V ČASE</span><strong>LEGENDÁRNÍ VÝKON</strong></div>
+            </div>
+
+            <div class="hud-metrics">
+              <div class="hud-metric">
+                <span class="metric-icon">⚡</span>
+                <div><small>FRAME TIME</small><strong>1.0 ms</strong></div>
+                <i style="--value: 96%"></i>
+              </div>
+              <div class="hud-metric">
+                <span class="metric-icon">◆</span>
+                <div><small>VYUŽITÍ RAM</small><strong>2.8 GB</strong></div>
+                <i style="--value: 62%"></i>
+              </div>
+              <div class="hud-metric">
+                <span class="metric-icon">◉</span>
+                <div><small>NAČTENÍ SVĚTA</small><strong>6.2 s</strong></div>
+                <i style="--value: 78%"></i>
+              </div>
+            </div>
+          </div>
+
+          <div class="floating-chip chip-fabric hud-chip">
+            <span class="chip-icon">F</span>
+            <span><strong>Fabric</strong><small>Lehký & rychlý</small></span>
+          </div>
+          <div class="floating-chip chip-stable hud-chip">
+            <span class="hud-check">✓</span>
+            <span><strong>Stabilní build</strong><small>Ověřeno testy</small></span>
+          </div>
+          <div class="floating-chip chip-chunks hud-chip">
+            <span class="chunk-cube">◇</span>
+            <span><strong>8 chunks</strong><small>Ultra render</small></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="trust-strip" aria-label="Podporované technologie">
+      <div class="container trust-items">
+        <span>Postaveno na ověřených technologiích</span>
+        <div class="tech-pill">SODIUM</div>
+        <div class="tech-pill">LITHIUM</div>
+        <div class="tech-pill">FERRITECORE</div>
+        <div class="tech-pill">IMMEDIATELYFAST</div>
+        <div class="tech-pill">FABRIC</div>
+      </div>
+    </section>
+
+    <section class="catalog section" id="modpacks">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <span class="section-kicker">KATALOG</span>
+            <h2>Vyber si správný výkonový profil</h2>
+            <p>Každý modpack cílí na jiný hardware a styl hraní. Filtry ti pomohou najít přesně ten tvůj.</p>
+          </div>
+          <div class="result-count"><strong id="resultCount">1</strong> dostupný modpack</div>
+        </div>
+
+        <div class="catalog-layout">
+          <aside class="filters-panel" aria-label="Filtry modpacků">
+            <div class="filter-head">
+              <h3>Filtry</h3>
+              <button id="resetFilters" type="button">Resetovat</button>
+            </div>
+
+            <label class="search-field">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+              <input id="searchInput" type="search" placeholder="Hledat modpack..." autocomplete="off">
+            </label>
+
+            <fieldset>
+              <legend>Verze Minecraftu</legend>
+              <label class="check-row">
+                <input type="checkbox" name="version" value="1.21.1">
+                <span class="custom-check"></span>
+                <span>1.21.1</span>
+                <small>1</small>
+              </label>
+              <label class="check-row">
+                <input type="checkbox" name="version" value="1.21.11">
+                <span class="custom-check"></span>
+                <span>1.21.11</span>
+                <small>0</small>
+              </label>
+              <label class="check-row">
+                <input type="checkbox" name="version" value="26.2">
+                <span class="custom-check"></span>
+                <span>26.2</span>
+                <small>0</small>
+              </label>
+            </fieldset>
+
+            <fieldset>
+              <legend>Mod loader</legend>
+              <label class="check-row">
+                <input type="checkbox" name="loader" value="Fabric">
+                <span class="custom-check"></span>
+                <span>Fabric</span>
+                <small>1</small>
+              </label>
+            </fieldset>
+
+            <fieldset>
+              <legend>Zaměření</legend>
+              <label class="check-row">
+                <input type="checkbox" name="category" value="Maximum FPS">
+                <span class="custom-check"></span>
+                <span>Maximum FPS</span>
+              </label>
+            </fieldset>
+
+            <div class="compatibility-note">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 3.5 7v5c0 5.2 3.6 8 8.5 9.5 4.9-1.5 8.5-4.3 8.5-9.5V7L12 3Z"/><path d="m8.5 12 2.2 2.2 4.8-5"/></svg>
+              <div>
+                <strong>Bezpečné sestavení</strong>
+                <p>Každý release lze doplnit kontrolním součtem a seznamem změn.</p>
+              </div>
+            </div>
+          </aside>
+
+          <div class="catalog-content">
+            <div class="catalog-toolbar">
+              <button class="filter-toggle" id="filterToggle" type="button">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M7 12h10M10 18h4"/></svg>
+                Filtry
+              </button>
+              <label class="sort-select">
+                <span>Řadit podle</span>
+                <select id="sortSelect">
+                  <option value="featured">Doporučené</option>
+                  <option value="downloads">Nejstahovanější</option>
+                  <option value="fps">Nejvyšší FPS</option>
+                  <option value="newest">Nejnovější</option>
+                  <option value="name">Název A–Z</option>
+                </select>
+              </label>
+            </div>
+
+            <div class="pack-grid" id="packGrid"></div>
+
+            <div class="empty-state" id="emptyState" hidden>
+              <div class="empty-icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+              </div>
+              <h3>Žádný modpack neodpovídá filtrům</h3>
+              <p>Zkus upravit hledaný výraz nebo některý filtr vypnout.</p>
+              <button class="button button-secondary" id="emptyReset" type="button">Vymazat filtry</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="benchmark-section section" id="benchmarks">
+      <div class="container benchmark-grid">
+        <div class="benchmark-copy">
+          <span class="section-kicker">MĚŘITELNÝ ROZDÍL</span>
+          <h2>Ne marketing. Výkon, který můžeš změřit.</h2>
+          <p>
+            Připravený prostor pro reálné výsledky tvých testů — stejný seed,
+            stejné místo, stejné nastavení a několik opakovaných měření.
+          </p>
+          <ul class="feature-list">
+            <li>
+              <span class="feature-check"><svg viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></svg></span>
+              Oddělené profily pro low-end, mid-range a high-end PC
+            </li>
+            <li>
+              <span class="feature-check"><svg viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></svg></span>
+              Přehled použité verze Javy, ovladačů a nastavení
+            </li>
+            <li>
+              <span class="feature-check"><svg viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></svg></span>
+              Hodnoty FPS, 1% low, frametime, RAM a času načítání
+            </li>
+          </ul>
+          <button class="text-link" id="methodologyButton" type="button">
+            Jak správně měřit výkon
+            <svg viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
+          </button>
+        </div>
+
+        <div class="benchmark-board" aria-label="Animované porovnání výkonu Vanilla a Ultra Performance">
+          <div class="benchmark-ambient" aria-hidden="true"></div>
+          <div class="benchmark-gridlines" aria-hidden="true"></div>
+          <div class="benchmark-scan" aria-hidden="true"></div>
+          <div class="benchmark-particles" aria-hidden="true">
+            <i></i><i></i><i></i><i></i><i></i><i></i>
+          </div>
+
+          <div class="benchmark-title">
+            <div>
+              <span class="benchmark-live"><i></i> DEMO BENCHMARK</span>
+              <strong>1080p / 8 chunks / bez shaderů</strong>
+            </div>
+            <span class="test-rig">Intel i5 13600K · 32 GB RAM · GTX 1050 Ti</span>
+          </div>
+
+          <div class="benchmark-bars">
+            <div class="benchmark-row vanilla-row">
+              <div class="benchmark-label">
+                <span>Vanilla</span>
+                <small>bez optimalizací</small>
+              </div>
+              <div class="bar-track">
+                <span class="bar-scale" aria-hidden="true"></span>
+                <i class="bar vanilla-bar" style="--bar: 44%">
+                  <span class="benchmark-value" data-count="712" data-suffix=" FPS">0 FPS</span>
+                </i>
+              </div>
+            </div>
+
+            <div class="benchmark-row ultra-row">
+              <div class="benchmark-label">
+                <span>Ultra Performance</span>
+                <small>1.21.1</small>
+              </div>
+              <div class="bar-track">
+                <span class="bar-scale" aria-hidden="true"></span>
+                <i class="bar ultra-bar" style="--bar: 96%">
+                  <span class="benchmark-value" data-count="1634" data-suffix=" FPS+">0 FPS+</span>
+                </i>
+              </div>
+            </div>
+          </div>
+
+          <div class="benchmark-foot">
+            <div class="benchmark-stat">
+              <span>VÝKON</span>
+              <strong><b>⚡</b><span data-count="75" data-suffix="% FPS BOOST">0% FPS BOOST</span></strong>
+              <i style="--stat:75%"></i>
+            </div>
+            <div class="benchmark-stat">
+              <span>📟 PAMĚŤ RAM</span>
+              <strong>2.8 GB <b>➲</b> 1.4 GB</strong>
+              <i style="--stat:50%"></i>
+            </div>
+            <div class="benchmark-stat">
+              <span>🔃 DOBA NAČÍTÁNÍ</span>
+              <strong>10 s <b>➲</b> 5 s</strong>
+              <i style="--stat:50%"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="install-section section" id="install">
+      <div class="container">
+        <div class="section-heading centered">
+          <span class="section-kicker">RYCHLÝ START</span>
+          <h2>Od stažení ke hraní za pár minut</h2>
+          <p>Jednoduchý postup vhodný pro Modrinth App i další launchery podporující formát .mrpack.</p>
+        </div>
+
+        <div class="steps-grid">
+          <article class="step-card">
+            <span class="step-number">01</span>
+            <div class="step-icon">
+              <svg viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5"/><path d="M5 20h14"/></svg>
+            </div>
+            <h3>Stáhni balíček</h3>
+            <p>Vyber kompatibilní verzi Minecraftu a stáhni soubor modpacku.</p>
+          </article>
+          <article class="step-card">
+            <span class="step-number">02</span>
+            <div class="step-icon">
+              <svg viewBox="0 0 24 24"><path d="M4 7h16v13H4z"/><path d="M8 7V4h8v3M8 12h8M8 16h5"/></svg>
+            </div>
+            <h3>Importuj do launcheru</h3>
+            <p>V Modrinth App nebo Prism Launcheru zvol import existujícího balíčku.</p>
+          </article>
+          <article class="step-card">
+            <span class="step-number">03</span>
+            <div class="step-icon">
+              <svg viewBox="0 0 24 24"><path d="m8 5 11 7-11 7V5Z"/></svg>
+            </div>
+            <h3>Spusť a hraj</h3>
+            <p>Launcher automaticky připraví správné mody, knihovny i doporučené nastavení.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="about-section section" id="about">
+      <div class="container about-card">
+        <div class="about-copy">
+          <span class="section-kicker">MINEKUBE PROJECT</span>
+          <h2>Výkon bez zničení původního Minecraftu</h2>
+          <p>
+            Smyslem projektu je zachovat známý vanilla pocit, ale odstranit zbytečné
+            propady FPS, dlouhé načítání a mikrosekání. Každý mod má mít jasný důvod,
+            žádná výplň a žádné náhodné experimenty v produkčním vydání.
+          </p>
+          <div class="about-tags">
+            <span>Vanilla friendly</span>
+            <span>Bezpečné aktualizace</span>
+            <span>Čistá konfigurace</span>
+            <span>Transparentní changelog</span>
+          </div>
+        </div>
+        <div class="about-emblem" aria-hidden="true">
+          <div class="emblem-cube">
+            <span class="cube-top"></span>
+            <span class="cube-left"></span>
+            <span class="cube-right"></span>
+          </div>
+          <div class="emblem-ring ring-a"></div>
+          <div class="emblem-ring ring-b"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-section">
+      <div class="container cta-card">
+        <div>
+          <span class="section-kicker">READY TO BOOST?</span>
+          <h2>Dej Minecraftu výkon, který si zaslouží.</h2>
+          <p>Vyber si profil podle svého počítače a začni hrát plynuleji.</p>
+        </div>
+        <a class="button button-light" href="#modpacks">
+          Procházet modpacky
+          <svg viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <a class="brand footer-brand" href="#top">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 48 48">
+              <path d="M24 3 43 13.5v21L24 45 5 34.5v-21L24 3Z"/>
+              <path d="m24 3 19 10.5L24 24 5 13.5 24 3Z" class="mark-top"/>
+              <path d="M24 24v21L5 34.5v-21L24 24Z" class="mark-left"/>
+              <path d="M24 24 43 13.5v21L24 45V24Z" class="mark-right"/>
+              <path d="m14 18 10 5.5L34 18v11l-10 5.5L14 29V18Z" class="mark-core"/>
+            </svg>
+          </span>
+          <span><strong>Minekube</strong><small>FPS MODPACKS</small></span>
+        </a>
+        <p>Nezávislý demonstrační web pro Minecraft performance modpacky.</p>
+      </div>
+      <div>
+        <h3>Projekt</h3>
+        <a href="#modpacks">Modpacky</a>
+        <a href="#benchmarks">Benchmarky</a>
+        <a href="#install">Instalace</a>
+      </div>
+      <div>
+        <h3>Informace</h3>
+        <button class="footer-link" data-dialog="changelog">Changelog</button>
+        <button class="footer-link" data-dialog="compatibility">Kompatibilita</button>
+        <button class="footer-link" data-dialog="license">Licence</button>
+      </div>
+      <div>
+        <h3>Komunita</h3>
+        <a href="#" aria-label="Discord – doplň vlastní odkaz">Discord</a>
+        <a href="https://gamejolt.com/games/_/1053229" target="_blank" rel="noopener noreferrer" aria-label="Minekube Ultra Performance na Game Jolt">Game Jolt</a>
+        <a href="#" aria-label="GitHub – doplň vlastní odkaz">GitHub</a>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <span>© <span id="currentYear"></span> Minekube FPS. Demo web.</span>
+      <span>Minecraft je ochranná známka společnosti Mojang Studios.</span>
+    </div>
+  </footer>
+
+  <div class="modal-backdrop" id="modalBackdrop" hidden>
+    <section class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button class="modal-close" id="modalClose" type="button" aria-label="Zavřít detail">
+        <svg viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></svg>
+      </button>
+      <div id="modalContent"></div>
+    </section>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
