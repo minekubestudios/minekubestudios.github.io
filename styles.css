@@ -11453,3 +11453,324 @@ body.home-ready .home-v2-visual {
     animation: none !important;
   }
 }
+
+
+/* =========================================================
+   MODPACKS — fused performance command center
+   Původní samostatný hero je profesionálně začleněn do katalogu.
+   ========================================================= */
+.catalog-fused {
+  position: relative;
+  padding-top: clamp(62px, 7vw, 104px);
+  overflow: clip;
+  background:
+    radial-gradient(circle at 75% 7%, rgba(214, 53, 255, .075), transparent 28%),
+    radial-gradient(circle at 17% 12%, rgba(255, 170, 0, .075), transparent 25%);
+}
+
+.catalog-fused::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: .12;
+  background-image:
+    linear-gradient(rgba(255,255,255,.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
+  background-size: 52px 52px;
+  mask-image: linear-gradient(to bottom, #000 0, transparent 34%);
+}
+
+.modpacks-command {
+  position: relative;
+  isolation: isolate;
+  margin-bottom: clamp(60px, 7vw, 92px);
+  padding: clamp(24px, 3.4vw, 48px);
+  border: 1px solid rgba(255, 184, 36, .18);
+  border-radius: 34px 10px 34px 10px;
+  background:
+    linear-gradient(140deg, rgba(255,255,255,.035), transparent 31%),
+    radial-gradient(circle at 83% 13%, rgba(211, 50, 255, .13), transparent 28%),
+    radial-gradient(circle at 9% 86%, rgba(255, 152, 0, .11), transparent 30%),
+    linear-gradient(155deg, rgba(19, 8, 25, .98), rgba(8, 5, 13, .97));
+  box-shadow:
+    0 42px 110px rgba(0,0,0,.42),
+    inset 0 1px rgba(255,255,255,.045),
+    0 0 0 1px rgba(211, 63, 255, .04),
+    0 0 72px rgba(255, 159, 0, .045);
+}
+
+.modpacks-command::before,
+.modpacks-command::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.modpacks-command::before {
+  inset: 8px;
+  border: 1px solid rgba(255,255,255,.035);
+  border-radius: 27px 7px 27px 7px;
+  background:
+    linear-gradient(#ffb000,#ffb000) left top/74px 2px no-repeat,
+    linear-gradient(#ffb000,#ffb000) left top/2px 44px no-repeat,
+    linear-gradient(#f04cff,#f04cff) right bottom/74px 2px no-repeat,
+    linear-gradient(#f04cff,#f04cff) right bottom/2px 44px no-repeat;
+  opacity: .62;
+  filter: drop-shadow(0 0 8px rgba(255,174,0,.25));
+}
+
+.modpacks-command::after {
+  left: 7%;
+  right: 7%;
+  top: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #ffb000 25%, #f24fd7 72%, transparent);
+  box-shadow: 0 0 18px rgba(255, 156, 0, .38);
+  animation: modpacksCommandLine 5.8s ease-in-out infinite alternate;
+}
+
+.modpacks-command-gridfx {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  overflow: hidden;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: .18;
+  background-image:
+    linear-gradient(rgba(255,255,255,.038) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.032) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: linear-gradient(90deg, rgba(0,0,0,.85), rgba(0,0,0,.3) 47%, rgba(0,0,0,.8));
+}
+
+.modpacks-command-glow {
+  position: absolute;
+  z-index: -3;
+  width: 360px;
+  height: 360px;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(70px);
+  opacity: .16;
+}
+.modpacks-command-glow-a { left: -150px; bottom: -180px; background: #ff9d00; }
+.modpacks-command-glow-b { right: -120px; top: -170px; background: #d53cff; }
+
+.modpacks-command-topline {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: clamp(22px, 3vw, 38px);
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(255,255,255,.065);
+  color: #8d748c;
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: .17em;
+}
+.modpacks-command-topline span { display:flex;align-items:center;gap:9px;color:#dca8dc; }
+.modpacks-command-topline i { width:7px;height:7px;border-radius:50%;background:#5cffab;box-shadow:0 0 12px rgba(83,255,168,.82); }
+.modpacks-command-topline b { color:#ffbd2a;font-weight:900; }
+
+.modpacks-command-layout {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: minmax(0, .88fr) minmax(470px, 1.12fr);
+  align-items: center;
+  gap: clamp(36px, 5vw, 78px);
+}
+
+.modpacks-command-copy { min-width: 0; padding: 12px 0 8px; }
+.modpacks-command-kicker {
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 20px;
+  color: #ffd13e;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+}
+
+.modpacks-command-copy h2 {
+  max-width: 680px;
+  margin: 0;
+  color: #fff8f0;
+  font-size: clamp(42px, 4.35vw, 69px);
+  line-height: .98;
+  letter-spacing: -.058em;
+  text-wrap: balance;
+}
+.modpacks-command-copy h2 span {
+  display: block;
+  margin-top: 8px;
+  background: linear-gradient(90deg, #ffd853 0%, #ffad00 38%, #ff71cd 72%, #d468ff 100%);
+  background-size: 180% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: modpacksTitleEnergy 7s ease-in-out infinite alternate;
+}
+.modpacks-command-copy > p {
+  max-width: 650px;
+  margin: 25px 0 0;
+  color: #bdaab9;
+  font-size: clamp(15px, 1.35vw, 18px);
+  line-height: 1.72;
+}
+
+.modpacks-command-actions { display:flex;flex-wrap:wrap;gap:12px;margin-top:30px; }
+.modpacks-command-actions .button { min-height:48px; }
+.modpacks-command-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  gap: 0;
+  max-width: 560px;
+  margin-top: 36px;
+  padding: 17px 0;
+  border-top: 1px solid rgba(255,255,255,.07);
+  border-bottom: 1px solid rgba(255,255,255,.07);
+}
+.modpacks-command-stats > div { min-width:0;padding:0 22px;border-right:1px solid rgba(255,255,255,.07); }
+.modpacks-command-stats > div:first-child { padding-left:0; }
+.modpacks-command-stats > div:last-child { padding-right:0;border-right:0; }
+.modpacks-command-stats strong { display:block;color:#fff5eb;font-size:24px;line-height:1.05;letter-spacing:-.04em; }
+.modpacks-command-stats span { display:block;margin-top:7px;color:#8e788c;font-size:10px;font-weight:750; }
+.modpacks-command-note { display:block;margin-top:10px;color:#756372;font-size:8px;line-height:1.45; }
+
+.modpacks-command-visual {
+  min-width: 0;
+  display: grid;
+  place-items: center;
+}
+.modpacks-command .hero-visual {
+  width: 100%;
+  min-height: 545px;
+}
+.modpacks-command .performance-hud::before { inset: 11% 1% 6%; }
+.modpacks-command .hud-card { width:min(100%,555px); }
+.modpacks-command .hud-orbit-a { width:min(570px,94%);height:auto;aspect-ratio:1; }
+.modpacks-command .hud-orbit-b { width:min(475px,78%);height:auto;aspect-ratio:1; }
+
+.modpacks-tech-rail {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin-top: clamp(24px, 3vw, 38px);
+  padding-top: 18px;
+  border-top: 1px solid rgba(255,255,255,.07);
+}
+.modpacks-tech-rail > span:not(.modpacks-tech-label) {
+  padding: 8px 11px;
+  border: 1px solid rgba(255,184,36,.12);
+  border-radius: 8px 2px 8px 2px;
+  background: rgba(255,174,0,.035);
+  color: #9b8298;
+  font-size: 7px;
+  font-weight: 900;
+  letter-spacing: .12em;
+  transition: color .25s ease, border-color .25s ease, background .25s ease, translate .25s ease;
+}
+.modpacks-tech-rail > span:not(.modpacks-tech-label):hover {
+  color:#ffe5a0;
+  border-color:rgba(255,183,35,.34);
+  background:rgba(255,174,0,.07);
+  translate:0 -2px;
+}
+.modpacks-tech-label {
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-right:auto;
+  color:#c5afc0;
+  font-size:8px;
+  font-weight:900;
+  letter-spacing:.12em;
+}
+.modpacks-tech-label i { width:18px;height:1px;background:#ffb000;box-shadow:0 0 8px #ff8f00; }
+
+.catalog-fused .section-heading {
+  position: relative;
+  scroll-margin-top: 108px;
+}
+.catalog-fused .section-heading::before {
+  content:"";
+  position:absolute;
+  left:0;
+  top:-24px;
+  width:86px;
+  height:2px;
+  background:linear-gradient(90deg,#ffb000,#f24fd7,transparent);
+  box-shadow:0 0 11px rgba(255,174,0,.25);
+}
+
+@keyframes modpacksCommandLine {
+  from { transform: scaleX(.52); opacity:.35; }
+  to { transform: scaleX(1); opacity:.95; }
+}
+@keyframes modpacksTitleEnergy {
+  from { background-position:0% 50%; }
+  to { background-position:100% 50%; }
+}
+
+@media (max-width: 1180px) {
+  .modpacks-command-layout { grid-template-columns:minmax(0,.92fr) minmax(420px,1.08fr);gap:38px; }
+  .modpacks-command .hero-visual { min-height:520px; }
+  .modpacks-command-copy h2 { font-size:clamp(40px,5vw,61px); }
+}
+
+@media (max-width: 980px) {
+  .modpacks-command { padding:30px 28px 34px; }
+  .modpacks-command-layout { grid-template-columns:1fr; }
+  .modpacks-command-copy { max-width:780px; }
+  .modpacks-command-visual { margin-top:8px; }
+  .modpacks-command .hero-visual { max-width:650px;min-height:570px;margin-inline:auto; }
+}
+
+@media (max-width: 700px) {
+  .catalog-fused { padding-top:54px; }
+  .modpacks-command { margin-inline:-3px;padding:22px 15px 25px;border-radius:25px 7px 25px 7px; }
+  .modpacks-command::before { inset:5px;border-radius:20px 5px 20px 5px; }
+  .modpacks-command-topline { align-items:flex-start;flex-direction:column;gap:8px;font-size:6px;letter-spacing:.11em; }
+  .modpacks-command-copy { padding-inline:4px; }
+  .modpacks-command-kicker { font-size:7px;letter-spacing:.1em; }
+  .modpacks-command-copy h2 { font-size:clamp(37px,11.5vw,50px);line-height:1.01; }
+  .modpacks-command-copy > p { font-size:14px;line-height:1.62; }
+  .modpacks-command-actions { display:grid;grid-template-columns:1fr; }
+  .modpacks-command-actions .button { width:100%; }
+  .modpacks-command-stats { grid-template-columns:repeat(3,1fr); }
+  .modpacks-command-stats > div { padding-inline:10px; }
+  .modpacks-command-stats strong { font-size:19px; }
+  .modpacks-command-stats span { font-size:8px; }
+  .modpacks-command .hero-visual { min-height:520px; }
+  .modpacks-tech-label { width:100%;margin:0 0 3px; }
+  .modpacks-tech-rail > span:not(.modpacks-tech-label) { flex:1 1 auto;text-align:center; }
+}
+
+@media (max-width: 430px) {
+  .modpacks-command { padding-inline:11px; }
+  .modpacks-command-copy h2 { font-size:36px; }
+  .modpacks-command-copy > p { font-size:13px; }
+  .modpacks-command-stats { gap:0; }
+  .modpacks-command-stats > div { padding-inline:7px; }
+  .modpacks-command-stats strong { font-size:17px; }
+  .modpacks-command-stats span { font-size:7px; }
+  .modpacks-command .hero-visual { min-height:490px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .modpacks-command::after,
+  .modpacks-command-copy h2 span { animation:none!important; }
+}

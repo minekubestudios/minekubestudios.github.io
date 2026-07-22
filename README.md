@@ -49,3 +49,6 @@ Přímé stahování modpacku z GitHub Release zůstalo beze změny.
 
 ## Domů – Minekube Studios Ecosystem
 Domovská sekce představuje Minekube Studios jako CZ/SK ekosystém: modpacky, Minecraft server, Store a open-source projekty. Rozložení je upravené pro desktop, tablet i mobil bez ořezávání textů.
+
+## Propojení výkonové hero části se sekcí Modpacky
+Původní samostatná část „Minecraft bez zbytečných lagů“ byla odstraněna z hlavní stránky a profesionálně začleněna přímo na začátek sekce `#modpacks`. Výkonový HUD, graf, hlavní výhody, benchmarkový odkaz a použité technologie nyní tvoří jeden společný Performance Hub nad katalogem modpacků. Rozložení je otestované pro desktop i mobil bez horizontálního přetékání.
