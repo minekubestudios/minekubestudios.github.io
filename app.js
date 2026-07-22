@@ -139,6 +139,10 @@ function createPackCard(pack) {
   return `
     <article class="pack-card" data-pack-id="${pack.id}">
       <span class="pack-card-aura" aria-hidden="true"></span>
+      <span class="pack-card-particles" aria-hidden="true">
+        <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+        <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+      </span>
       <span class="pack-card-grid" aria-hidden="true"></span>
       <div class="pack-cover" style="--cover-bg:${pack.color}; --cube-a:${pack.cube[0]}; --cube-b:${pack.cube[1]}; --cube-c:${pack.cube[2]}">
         <span class="pack-badge"><i></i>${pack.badge}</span>
