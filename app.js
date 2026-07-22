@@ -30,6 +30,8 @@ const modpacks = [
     category: "Maximum FPS",
     tags: ["Fabric", "Client", "Maximum FPS"],
     badge: "DOPORUČENO",
+    status: "released",
+    statusLabel: "STABLE RELEASE",
     downloads: 24870,
     performance: "10/10",
     fps: 1000,
@@ -43,6 +45,9 @@ const modpacks = [
     gameJoltUrl: "https://gamejolt.com/games/_/1053229",
     color: "linear-gradient(135deg, #04130b 0%, #0a3d20 34%, #159447 62%, #d1a31a 83%, #ffd85a 100%)",
     cube: ["#fff07a", "#e9b91e", "#178f43"],
+    accentRgb: "63, 232, 126",
+    accent: "#49ef8c",
+    visual: "ultra",
     features: [
       "Maximum FPS profil",
       "Optimalizované vykreslování chunků",
@@ -56,6 +61,114 @@ const modpacks = [
       "Java 21 pro řadu 1.21.x",
       "Samostatná čistá instance"
     ]
+  },
+  {
+    id: "insider-performance",
+    name: "Insider Performance",
+    shortName: "Insider Performance",
+    description: "Experimentální profil s nejnovějšími výkonovými optimalizacemi.",
+    longDescription: "Připravovaný experimentální výkonový profil Minekube Studios.",
+    versions: ["1.21.1"],
+    loader: "Fabric",
+    category: "Insider",
+    tags: ["Fabric", "Client", "Insider"],
+    badge: "INSIDER BUILD",
+    status: "unreleased",
+    statusLabel: "VE VÝVOJI",
+    downloads: 0,
+    performance: "TBA",
+    fps: 0,
+    fpsLabel: "TBA",
+    updated: "2026-07-23",
+    release: "1.21.1",
+    size: "TBA",
+    mods: "TBA",
+    color: "linear-gradient(135deg, #170a02 0%, #7d2604 34%, #f0780b 62%, #e6a51b 82%, #ffe06a 100%)",
+    cube: ["#fff09c", "#f4a616", "#e86b08"],
+    accentRgb: "255, 132, 22",
+    accent: "#ff8c24",
+    visual: "insider"
+  },
+  {
+    id: "balanced-performance",
+    name: "Balanced Performance",
+    shortName: "Balanced Performance",
+    description: "Vyvážený poměr vysokých FPS, stability a vizuální kvality.",
+    longDescription: "Připravovaný vyvážený profil Minekube Studios.",
+    versions: ["1.21.1"],
+    loader: "Fabric",
+    category: "Balanced",
+    tags: ["Fabric", "Client", "Balanced"],
+    badge: "BALANCED",
+    status: "unreleased",
+    statusLabel: "VE VÝVOJI",
+    downloads: 0,
+    performance: "TBA",
+    fps: 0,
+    fpsLabel: "TBA",
+    updated: "2026-07-22",
+    release: "1.21.1",
+    size: "TBA",
+    mods: "TBA",
+    color: "linear-gradient(135deg, #03101d 0%, #0d356f 34%, #1676cf 61%, #d29d1d 83%, #ffe06a 100%)",
+    cube: ["#fff09c", "#e7b72b", "#1674c9"],
+    accentRgb: "67, 158, 255",
+    accent: "#4a9eff",
+    visual: "balanced"
+  },
+  {
+    id: "quality-performance",
+    name: "Quality Performance",
+    shortName: "Quality Performance",
+    description: "Vysoká vizuální kvalita bez zbytečné ztráty výkonu.",
+    longDescription: "Připravovaný kvalitativní profil Minekube Studios.",
+    versions: ["1.21.1"],
+    loader: "Fabric",
+    category: "Quality",
+    tags: ["Fabric", "Client", "Quality"],
+    badge: "QUALITY",
+    status: "unreleased",
+    statusLabel: "VE VÝVOJI",
+    downloads: 0,
+    performance: "TBA",
+    fps: 0,
+    fpsLabel: "TBA",
+    updated: "2026-07-21",
+    release: "1.21.1",
+    size: "TBA",
+    mods: "TBA",
+    color: "linear-gradient(135deg, #190405 0%, #6e1015 33%, #d52e31 61%, #d69f1c 82%, #ffe16d 100%)",
+    cube: ["#fff0a0", "#e5b62b", "#cc2830"],
+    accentRgb: "255, 74, 81",
+    accent: "#ff4a51",
+    visual: "quality"
+  },
+  {
+    id: "pvp-performance",
+    name: "PvP Performance",
+    shortName: "PvP Performance",
+    description: "Rychlá odezva a čisté nastavení pro kompetitivní hraní.",
+    longDescription: "Připravovaný kompetitivní profil Minekube Studios.",
+    versions: ["1.21.1"],
+    loader: "Fabric",
+    category: "PvP",
+    tags: ["Fabric", "Client", "PvP"],
+    badge: "PVP PROFILE",
+    status: "unreleased",
+    statusLabel: "VE VÝVOJI",
+    downloads: 0,
+    performance: "TBA",
+    fps: 0,
+    fpsLabel: "TBA",
+    updated: "2026-07-20",
+    release: "1.21.1",
+    size: "TBA",
+    mods: "TBA",
+    color: "linear-gradient(135deg, #12051d 0%, #421069 34%, #8220bd 61%, #d4a11e 83%, #ffe06c 100%)",
+    cube: ["#fff0a0", "#e7b52b", "#8d25c7"],
+    accentRgb: "190, 78, 255",
+    accent: "#bd55ff",
+    visual: "pvp"
   }
 ];
 
@@ -70,6 +183,7 @@ const state = {
 
 const packGrid = document.getElementById("packGrid");
 const resultCount = document.getElementById("resultCount");
+const resultLabel = document.getElementById("resultLabel");
 const emptyState = document.getElementById("emptyState");
 const searchInput = document.getElementById("searchInput");
 const sortSelect = document.getElementById("sortSelect");
@@ -131,38 +245,63 @@ function createDownloadButton(packId, label, extraClass = "") {
   `;
 }
 
+function createUnreleasedButton(packId) {
+  return `
+    <button class="release-pending-button" type="button" data-unreleased="${packId}" aria-label="${'Zatím nevydáno'}" title="Tento modpack zatím není vydaný">
+      <span class="pending-button-ambient" aria-hidden="true"></span>
+      <span class="pending-button-grid" aria-hidden="true"></span>
+      <span class="pending-button-label">Zatím nevydáno</span>
+      <span class="pending-button-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M7 10V8a5 5 0 0 1 10 0v2"/><rect x="5" y="10" width="14" height="10" rx="3"/><path d="M12 14v2"/></svg>
+      </span>
+    </button>
+  `;
+}
+
 function createPackCard(pack) {
   const favorite = state.favorites.has(pack.id);
+  const isReleased = pack.status === "released";
   const tagIcons = {
     Fabric: '<path d="M5 7h14v10H5z"/><path d="M8 4v3M12 4v3M16 4v3M8 17v3M12 17v3M16 17v3"/>',
     Client: '<rect x="4" y="5" width="16" height="12" rx="2"/><path d="M8 21h8M12 17v4"/>',
-    "Maximum FPS": '<path d="M4.9 18a8 8 0 1 1 14.2 0"/><path d="m12 14 4.5-4.5M8 18h8"/>'
+    "Maximum FPS": '<path d="M4.9 18a8 8 0 1 1 14.2 0"/><path d="m12 14 4.5-4.5M8 18h8"/>',
+    Insider: '<path d="M12 3 5 6v5c0 4.6 2.7 7.8 7 10 4.3-2.2 7-5.4 7-10V6l-7-3Z"/><path d="M9 12h6M12 9v6"/>',
+    Balanced: '<path d="M12 3v18M5 7h14M7 7l-3 5h6L7 7ZM17 7l-3 5h6l-3-5Z"/>',
+    Quality: '<path d="m12 3 2.6 5.2 5.7.8-4.1 4 1 5.7-5.2-2.7-5.2 2.7 1-5.7-4.1-4 5.7-.8L12 3Z"/>',
+    PvP: '<path d="m7 4 10 16M17 4 7 20M5 7h14M5 17h14"/>'
   };
 
+  const actionMarkup = isReleased
+    ? `${createDownloadButton(pack.id, "Stáhnout Modpack", "download-button")}
+       <button class="details-button" type="button" data-details="${pack.id}" aria-label="Zobrazit detail ${pack.name}" title="Detail modpacku">
+         <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>
+       </button>`
+    : createUnreleasedButton(pack.id);
+
   return `
-    <article class="pack-card" data-pack-id="${pack.id}">
+    <article class="pack-card pack-card-${pack.visual || "default"} ${isReleased ? "is-released" : "is-unreleased"}" data-pack-id="${pack.id}" style="--pack-accent:${pack.accent}; --pack-accent-rgb:${pack.accentRgb}">
       <span class="pack-card-aura" aria-hidden="true"></span>
       <span class="pack-card-grid" aria-hidden="true"></span>
-      <div class="pack-cover" style="--cover-bg:${pack.color}; --cube-a:${pack.cube[0]}; --cube-b:${pack.cube[1]}; --cube-c:${pack.cube[2]}">
-        <span class="pack-badge"><i></i>${pack.badge}</span>
+      <div class="pack-cover" style="--cover-bg:${pack.color}; --cube-a:${pack.cube[0]}; --cube-b:${pack.cube[1]}; --cube-c:${pack.cube[2]}; --cover-accent:${pack.accent}; --cover-accent-rgb:${pack.accentRgb}">
+        <span class="pack-badge ${isReleased ? "" : "is-coming"}"><i></i>${pack.badge}</span>
         <button class="favorite-button ${favorite ? "active" : ""}" type="button" data-favorite="${pack.id}" aria-label="${favorite ? "Odebrat z oblíbených" : "Přidat do oblíbených"}" aria-pressed="${favorite}">
           <span class="favorite-orbit" aria-hidden="true"></span>
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21l7.8-7.5 1.1-1.1a5.5 5.5 0 0 0-.1-7.8Z"/></svg>
         </button>
         <div class="cover-speed-lines"><i></i><i></i><i></i></div>
         <div class="cover-hud cover-hud-left" aria-hidden="true"><i></i><span>PERFORMANCE CORE</span></div>
-        <div class="cover-hud cover-hud-right" aria-hidden="true"><span>MK // 01</span><i></i></div>
+        <div class="cover-hud cover-hud-right" aria-hidden="true"><span>MK // ${String(modpacks.indexOf(pack) + 1).padStart(2, "0")}</span><i></i></div>
         <div class="cover-cube" aria-hidden="true">
           <span class="face-top"></span>
           <span class="face-left"></span>
           <span class="face-right"></span>
         </div>
-        <div class="cover-data-strip" aria-hidden="true"><span><i></i> LIVE BUILD</span><b>FPS ENGINE</b></div>
+        <div class="cover-data-strip" aria-hidden="true"><span><i></i> ${isReleased ? "LIVE BUILD" : "IN DEVELOPMENT"}</span><b>${isReleased ? "FPS ENGINE" : "COMING SOON"}</b></div>
       </div>
       <div class="pack-body">
         <div class="pack-title-row">
           <div class="pack-title-main">
-            <span class="release-state"><i></i> STABLE RELEASE</span>
+            <span class="release-state ${isReleased ? "" : "is-coming"}"><i></i> ${pack.statusLabel}</span>
             <h3>${pack.name}</h3>
           </div>
           <span class="pack-version"><small>MINECRAFT</small>${pack.release}</span>
@@ -180,16 +319,13 @@ function createPackCard(pack) {
             <svg viewBox="0 0 24 24"><path d="m12 3 8 4.5v9L12 21l-8-4.5v-9L12 3Z"/><path d="m4 7.5 8 4.5 8-4.5M12 12v9"/></svg>
             <small>MODŮ</small><strong>${pack.mods}</strong>
           </span>
-          <span class="pack-stat" title="Maximální naměřené FPS v demo datech">
+          <span class="pack-stat" title="Maximální FPS">
             <svg viewBox="0 0 24 24"><path d="M5 17a7 7 0 1 1 14 0"/><path d="m12 17 4-5"/></svg>
             <small>MAX FPS</small><strong>${pack.fpsLabel}</strong>
           </span>
         </div>
-        <div class="pack-actions">
-          ${createDownloadButton(pack.id, "Stáhnout Modpack", "download-button")}
-          <button class="details-button" type="button" data-details="${pack.id}" aria-label="Zobrazit detail ${pack.name}" title="Detail modpacku">
-            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>
-          </button>
+        <div class="pack-actions ${isReleased ? "" : "pending-only"}">
+          ${actionMarkup}
         </div>
       </div>
     </article>
@@ -224,6 +360,12 @@ function renderPacks() {
   packGrid.innerHTML = filtered.map(createPackCard).join("");
   requestAnimationFrame(() => registerRevealElements(packGrid.querySelectorAll(".pack-card"), 90));
   resultCount.textContent = filtered.length;
+  if (resultLabel) {
+    const releasedCount = filtered.filter(pack => pack.status === "released").length;
+    resultLabel.textContent = filtered.length === 1
+      ? (releasedCount === 1 ? "profil · 1 vydaný" : "profil · připravujeme")
+      : `${filtered.length} profilů · ${releasedCount} vydaný`;
+  }
   emptyState.hidden = filtered.length !== 0;
   packGrid.hidden = filtered.length === 0;
 }
@@ -650,6 +792,7 @@ packGrid.addEventListener("click", event => {
   const favoriteButton = event.target.closest("[data-favorite]");
   const detailsButton = event.target.closest("[data-details]");
   const downloadButton = event.target.closest("[data-download]");
+  const unreleasedButton = event.target.closest("[data-unreleased]");
 
   if (favoriteButton) toggleFavorite(favoriteButton.dataset.favorite, favoriteButton);
   if (detailsButton) {
@@ -660,6 +803,7 @@ packGrid.addEventListener("click", event => {
     openPackModal(modpacks.find(pack => pack.id === detailsButton.dataset.details));
   }
   if (downloadButton) triggerDownload(downloadButton, modpacks.find(pack => pack.id === downloadButton.dataset.download), event);
+  if (unreleasedButton) showToast("Tento modpack zatím není vydaný.", "warning", 3200);
 });
 
 modalContent.addEventListener("click", event => {

@@ -1,21 +1,17 @@
-# Minekube Studios — Modpacky s integrovaným 3D výkonovým panelem
+# Minekube Studios — 5 výkonových profilů
 
-Tato verze odstraňuje celý původní textový Performance Hub. V sekci **Modpacky** zůstává pouze animovaný 3D panel `999+ FPS`, který je nyní přirozenou součástí katalogu vedle filtrů a karty modpacku.
+Tato verze rozšiřuje sekci **Modpacky** na pět profesionálně sjednocených profilů a zároveň posouvá katalog více doleva do původního rozložení.
 
-## Zachováno
+## Profily
 
-- všechny funkce filtrace a řazení,
-- karta modpacku a její animace,
-- přímé stahování přes GitHub Release,
-- klikací pulz, hover efekty a oznámení o stahování,
-- ostatní sekce webu.
+- Ultra Performance — vydaný, zeleno-zlatý
+- Insider Performance — připravovaný, oranžovo-zlatý
+- Balanced Performance — připravovaný, modro-zlatý
+- Quality Performance — připravovaný, červeno-zlatý
+- PvP Performance — připravovaný, fialovo-zlatý
+
+Připravované profily nemají detail modpacku. Tlačítko **Zatím nevydáno** je v klidovém stavu zlato-černé a při najetí přechází do šedo-červené palety. Přímé stahování Ultra Performance zůstává beze změny.
 
 ## Nasazení
 
 Nahraj celý obsah ZIPu do kořene GitHub Pages repozitáře a nahraď stávající soubory.
-
-
-## Poslední úprava
-- 3D performance panel 999+ FPS byl kompletně odstraněn.
-- Katalog Modpacky je znovu čistě zarovnaný do dvou sloupců: filtry a karta modpacku.
-- JavaScript je ošetřený, aby odstraněná komponenta nezpůsobila chybu.

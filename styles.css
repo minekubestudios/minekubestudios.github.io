@@ -11768,3 +11768,363 @@ body.home-ready .home-v2-visual {
     align-self: flex-start;
   }
 }
+
+
+/* =========================================================
+   MODPACKY — 5 výkonových profilů + katalog posunutý vlevo
+   ========================================================= */
+.catalog-clean-aligned > .container {
+  width: min(calc(100% - 48px), 1320px);
+}
+
+.catalog-clean-aligned .section-heading {
+  width: 100%;
+}
+
+.catalog-clean-aligned .catalog-layout {
+  grid-template-columns: minmax(270px, 300px) minmax(0, 1fr);
+  justify-content: start;
+  gap: clamp(30px, 3vw, 44px);
+}
+
+.catalog-clean-aligned .catalog-content {
+  max-width: none;
+}
+
+.catalog-clean-aligned .pack-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 26px;
+  align-items: start;
+}
+
+.catalog-clean-aligned .pack-card {
+  min-height: 100%;
+}
+
+.result-count {
+  gap: 8px;
+}
+
+.result-count #resultLabel {
+  white-space: nowrap;
+}
+
+/* Barevné varianty bannerů — stejné rozložení, jiná identita profilu. */
+.pack-card {
+  --pack-accent: #ffc43d;
+  --pack-accent-rgb: 255, 196, 61;
+}
+
+.pack-card::before {
+  background: linear-gradient(135deg,
+    rgba(255,235,151,.50),
+    transparent 18%,
+    transparent 64%,
+    rgba(var(--pack-accent-rgb), .46));
+}
+
+.pack-card:hover {
+  border-color: rgba(var(--pack-accent-rgb), .34);
+  box-shadow:
+    0 36px 90px rgba(0,0,0,.48),
+    0 0 42px rgba(var(--pack-accent-rgb), .10),
+    inset 0 1px 0 rgba(255,255,255,.07);
+}
+
+.pack-card-aura {
+  background: radial-gradient(circle,
+    rgba(255,190,52,.11),
+    rgba(var(--pack-accent-rgb), .06) 42%,
+    transparent 70%);
+}
+
+.pack-cover::before {
+  border-color: rgba(255, 228, 95, .38);
+  box-shadow:
+    0 0 0 25px rgba(var(--cover-accent-rgb), .055),
+    0 0 0 56px rgba(255, 213, 61, .032),
+    0 0 58px rgba(var(--cover-accent-rgb), .20),
+    inset 0 0 42px rgba(var(--cover-accent-rgb), .10);
+}
+
+.pack-cover::after {
+  background:
+    radial-gradient(circle at 18% 24%, rgba(255,245,168,.96) 0 1px, transparent 2px),
+    radial-gradient(circle at 74% 18%, rgba(255,216,69,.92) 0 1.2px, transparent 2.2px),
+    radial-gradient(circle at 85% 67%, rgba(var(--cover-accent-rgb), .90) 0 1px, transparent 2px),
+    radial-gradient(circle at 31% 79%, rgba(255,237,128,.88) 0 1.1px, transparent 2.1px),
+    repeating-linear-gradient(118deg, transparent 0 32px, rgba(255,255,255,.055) 33px, transparent 34px 67px);
+  background-size: 94px 94px, 132px 132px, 118px 118px, 154px 154px, 100% 100%;
+}
+
+.cover-cube {
+  filter:
+    drop-shadow(0 0 17px rgba(255, 223, 80, .78))
+    drop-shadow(0 0 24px rgba(var(--cover-accent-rgb), .18))
+    drop-shadow(22px 28px 18px rgba(0,0,0,.34));
+}
+
+.cover-cube::before {
+  box-shadow:
+    0 0 28px rgba(255, 204, 44, .30),
+    inset 0 0 18px rgba(var(--cover-accent-rgb), .18);
+}
+
+.cover-cube .face-right {
+  background: linear-gradient(160deg, color-mix(in srgb, var(--cube-c) 72%, white 28%), var(--cube-c) 88%);
+}
+
+.cover-speed-lines i {
+  background: linear-gradient(90deg,
+    transparent,
+    rgba(255,239,135,.96),
+    rgba(var(--cover-accent-rgb), .80),
+    transparent);
+  box-shadow: 0 0 12px rgba(var(--cover-accent-rgb), .42);
+}
+
+.cover-data-strip i,
+.release-state i {
+  background: var(--pack-accent);
+  box-shadow: 0 0 9px rgba(var(--pack-accent-rgb), .88);
+}
+
+.pack-badge i {
+  background: var(--pack-accent);
+  box-shadow: 0 0 10px rgba(var(--pack-accent-rgb), .88);
+}
+
+.pack-badge.is-coming {
+  border-color: rgba(var(--pack-accent-rgb), .35);
+  background: rgba(9, 7, 8, .72);
+}
+
+.release-state.is-coming {
+  color: color-mix(in srgb, var(--pack-accent) 76%, white 24%);
+}
+
+.pack-card.is-unreleased .pack-stat strong {
+  color: #e6d6df;
+}
+
+.pack-card.is-unreleased .pack-version {
+  border-color: rgba(var(--pack-accent-rgb), .28);
+  background: linear-gradient(145deg, rgba(var(--pack-accent-rgb), .10), rgba(15,8,18,.76));
+}
+
+.pack-actions.pending-only {
+  display: block;
+}
+
+/* Zatím nevydáno — zlatočerný klidový stav, šedočervený hover. */
+.release-pending-button {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  grid-template-columns: 1fr 48px;
+  align-items: center;
+  width: 100%;
+  min-height: 49px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 204, 68, .62);
+  border-radius: 14px;
+  padding: 0 0 0 18px;
+  background:
+    radial-gradient(circle at 20% 25%, rgba(255, 231, 133, .22), transparent 25%),
+    linear-gradient(115deg, #090806 0%, #171006 29%, #6f4a08 61%, #d69a17 82%, #211506 100%);
+  background-size: 180% 180%;
+  color: #fff1b8;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.14),
+    inset 0 -8px 18px rgba(0,0,0,.30),
+    0 10px 28px rgba(190,118,0,.18),
+    0 0 18px rgba(255,188,37,.12);
+  cursor: not-allowed;
+  transition:
+    background .75s cubic-bezier(.16,.84,.2,1),
+    border-color .6s ease,
+    box-shadow .7s ease,
+    color .5s ease,
+    transform .45s cubic-bezier(.16,.84,.2,1);
+  animation: pendingGoldIdle 8s ease-in-out infinite;
+}
+
+.release-pending-button::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  z-index: -1;
+  border-radius: 12px;
+  background: linear-gradient(100deg,
+    transparent 0 24%,
+    rgba(255,221,104,.16) 36%,
+    transparent 48% 100%);
+  background-size: 220% 100%;
+  animation: pendingGoldSweep 6.5s ease-in-out infinite;
+}
+
+.pending-button-ambient {
+  position: absolute;
+  inset: -40% -10%;
+  z-index: -2;
+  opacity: .48;
+  background: radial-gradient(circle, rgba(255,190,42,.28), transparent 58%);
+  filter: blur(16px);
+  animation: pendingAmbient 4.8s ease-in-out infinite;
+}
+
+.pending-button-grid {
+  position: absolute;
+  inset: 0;
+  opacity: .12;
+  background-image:
+    linear-gradient(rgba(255,224,120,.16) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,224,120,.12) 1px, transparent 1px);
+  background-size: 18px 18px;
+  mask-image: linear-gradient(90deg, transparent, #000 25%, #000 80%, transparent);
+}
+
+.pending-button-label {
+  position: relative;
+  z-index: 2;
+  justify-self: center;
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: .01em;
+  text-shadow: 0 1px 0 rgba(0,0,0,.75), 0 0 12px rgba(255,194,43,.22);
+}
+
+.pending-button-icon {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 100%;
+  border-left: 1px solid rgba(255,222,112,.22);
+  background: rgba(0,0,0,.12);
+}
+
+.pending-button-icon svg {
+  width: 19px;
+  height: 19px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.release-pending-button:hover,
+.release-pending-button:focus-visible {
+  border-color: rgba(255, 83, 91, .70);
+  background:
+    radial-gradient(circle at 24% 24%, rgba(255,255,255,.08), transparent 24%),
+    linear-gradient(115deg, #111214 0%, #303236 32%, #65161c 63%, #b72831 82%, #2a1013 100%);
+  color: #fff4f4;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.10),
+    inset 0 -9px 20px rgba(0,0,0,.34),
+    0 13px 34px rgba(104,12,18,.28),
+    0 0 24px rgba(255,51,61,.18);
+  transform: translateY(-2px);
+  animation-play-state: paused;
+}
+
+.release-pending-button:hover::before,
+.release-pending-button:focus-visible::before {
+  background: linear-gradient(100deg,
+    transparent 0 20%,
+    rgba(255,100,108,.16) 35%,
+    rgba(255,255,255,.06) 45%,
+    transparent 58% 100%);
+  background-size: 220% 100%;
+  animation-duration: 4.2s;
+}
+
+.release-pending-button:hover .pending-button-icon,
+.release-pending-button:focus-visible .pending-button-icon {
+  border-left-color: rgba(255,120,126,.28);
+  color: #ff7c83;
+}
+
+@keyframes pendingGoldIdle {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes pendingGoldSweep {
+  0%, 15% { background-position: 210% 0; }
+  55%, 100% { background-position: -110% 0; }
+}
+
+@keyframes pendingAmbient {
+  0%, 100% { opacity: .34; transform: scale(.94); }
+  50% { opacity: .62; transform: scale(1.04); }
+}
+
+@media (max-width: 1180px) {
+  .catalog-clean-aligned > .container {
+    width: min(calc(100% - 36px), 980px);
+  }
+
+  .catalog-clean-aligned .catalog-layout {
+    grid-template-columns: minmax(250px, 280px) minmax(0, 1fr);
+    gap: 30px;
+  }
+
+  .catalog-clean-aligned .pack-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 1040px) {
+  .catalog-clean-aligned > .container {
+    width: min(calc(100% - 32px), 760px);
+  }
+
+  .catalog-clean-aligned .catalog-layout {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+  }
+
+  .catalog-clean-aligned .filters-panel,
+  .catalog-clean-aligned .catalog-content {
+    width: min(100%, 700px);
+  }
+
+  .catalog-clean-aligned .pack-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .catalog-clean-aligned .pack-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .release-pending-button,
+  .release-pending-button::before,
+  .pending-button-ambient {
+    animation: none !important;
+  }
+}
+
+/* Barevný pravý bok 3D Minekube kostky podle konkrétního profilu. */
+.pack-cover .cover-cube .face-right {
+  background:
+    linear-gradient(250deg, rgba(255,255,255,.22), transparent 30%),
+    repeating-linear-gradient(0deg, rgba(255,255,255,.04) 0 1px, transparent 1px 9px),
+    linear-gradient(205deg,
+      color-mix(in srgb, var(--cube-c) 68%, white 32%) 0%,
+      var(--cube-c) 54%,
+      color-mix(in srgb, var(--cube-c) 70%, black 30%) 100%);
+}
+
+.pack-cover .cover-cube .face-right::after {
+  background:
+    linear-gradient(270deg, rgba(255,255,255,.20), transparent 11%),
+    linear-gradient(180deg, rgba(var(--cover-accent-rgb), .13), transparent 48%, rgba(0,0,0,.28));
+}
