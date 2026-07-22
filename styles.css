@@ -11301,3 +11301,155 @@ body.home-ready .home-v2-visual {
     animation: none !important;
   }
 }
+
+/* =========================================================
+   DOWNLOAD BUTTON — GOLD-DOMINANT IDLE + CRISP HOVER LABEL
+   Pouze jemné doladění klidových barev a animace textu.
+   ========================================================= */
+.button[data-download].download-ultimate {
+  color: #fffdf7;
+  text-shadow:
+    0 1px 2px rgba(20, 7, 0, .94),
+    0 0 9px rgba(255, 220, 86, .55),
+    0 0 18px rgba(255, 182, 34, .24),
+    0 0 20px rgba(255, 65, 161, .16);
+  box-shadow:
+    0 14px 38px rgba(91, 47, 0, .48),
+    0 0 31px rgba(255, 214, 67, .31),
+    0 0 25px rgba(255, 181, 35, .19),
+    0 0 24px rgba(255, 64, 160, .14),
+    0 0 21px rgba(194, 70, 255, .11),
+    inset 0 1px 0 rgba(255, 250, 218, .24),
+    inset 0 -1px 0 rgba(30, 5, 13, .78);
+}
+
+.button[data-download].download-ultimate::before {
+  background:
+    radial-gradient(circle at var(--pointer-x) var(--pointer-y), rgba(255, 235, 120, .72) 0 7%, rgba(255, 205, 65, .39) 19%, transparent 48%),
+    linear-gradient(100deg,
+      rgba(255, 220, 83, .45),
+      rgba(255, 188, 39, .34) 38%,
+      rgba(255, 61, 158, .27) 69%,
+      rgba(185, 65, 255, .25));
+}
+
+.button[data-download].download-ultimate::after {
+  background: linear-gradient(105deg,
+    #ffd85a 0%,
+    #fff09a 17%,
+    #ffbd35 34%,
+    #ffe46f 50%,
+    #ff4fa5 67%,
+    #c957ff 82%,
+    #ffd85a 100%);
+  background-size: 420% 100%;
+  filter:
+    drop-shadow(0 0 6px rgba(255, 216, 77, .50))
+    drop-shadow(0 0 10px rgba(255, 171, 31, .28))
+    drop-shadow(0 0 9px rgba(232, 65, 255, .22));
+}
+
+.button[data-download].download-ultimate .download-fx {
+  background:
+    radial-gradient(circle at 13% 26%, rgba(255, 221, 89, .68) 0 5%, transparent 27%),
+    radial-gradient(circle at 78% 70%, rgba(255, 237, 126, .54) 0 6%, transparent 28%),
+    radial-gradient(circle at 57% 38%, rgba(255, 58, 157, .39) 0 7%, transparent 31%),
+    radial-gradient(circle at 88% 24%, rgba(188, 63, 255, .33) 0 5%, transparent 28%),
+    linear-gradient(112deg, #170b00 0%, #4a2800 22%, #785003 45%, #55173a 67%, #260b3b 83%, #2d1a00 100%);
+  background-size: 145% 145%, 150% 150%, 165% 165%, 170% 170%, 230% 100%;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 252, 224, .24),
+    inset 0 -1px 0 rgba(24, 3, 13, .75),
+    inset 0 0 31px rgba(255, 209, 65, .23),
+    inset 0 0 22px rgba(255, 73, 164, .09),
+    inset 0 0 20px rgba(198, 68, 255, .07);
+}
+
+.button[data-download].download-ultimate .download-plasma {
+  background:
+    radial-gradient(ellipse at 11% 49%, rgba(255, 218, 78, .64) 0 9%, transparent 33%),
+    radial-gradient(ellipse at 44% 43%, rgba(255, 239, 120, .62) 0 11%, transparent 37%),
+    radial-gradient(ellipse at 74% 55%, rgba(255, 57, 157, .43) 0 9%, transparent 35%),
+    radial-gradient(ellipse at 91% 36%, rgba(190, 62, 255, .35) 0 7%, transparent 32%),
+    conic-gradient(from 115deg at 55% 50%, transparent, rgba(255, 225, 86, .29), transparent 31%, rgba(255, 54, 155, .22), transparent 58%, rgba(186, 59, 255, .18), transparent 78%);
+}
+
+.button[data-download].download-ultimate .download-label {
+  position: relative;
+  isolation: isolate;
+  color: #fffdf7;
+  font-weight: 850;
+  letter-spacing: .012em;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: geometricPrecision;
+  filter: none !important;
+  transform: none !important;
+  backface-visibility: hidden;
+  text-shadow:
+    0 1px 2px rgba(18, 5, 0, .98),
+    0 0 5px rgba(255, 245, 196, .45),
+    0 0 12px rgba(255, 213, 70, .48),
+    0 0 20px rgba(255, 70, 164, .16);
+}
+
+.button[data-download].download-ultimate:hover .download-label,
+.button[data-download].download-ultimate:focus-visible .download-label,
+.button[data-download].download-ultimate.is-pointer-active .download-label {
+  color: #fffef9;
+  filter: none !important;
+  transform: none !important;
+  animation: downloadLabelSharpGlow 3.2s cubic-bezier(.4, 0, .2, 1) infinite;
+}
+
+@keyframes downloadFusionIdle {
+  0%, 100% {
+    box-shadow: 0 14px 38px rgba(91,47,0,.48), 0 0 31px rgba(255,214,67,.31), 0 0 25px rgba(255,181,35,.19), 0 0 24px rgba(255,64,160,.14), 0 0 21px rgba(194,70,255,.11), inset 0 1px 0 rgba(255,250,218,.24), inset 0 -1px 0 rgba(30,5,13,.78);
+  }
+  36% {
+    box-shadow: 0 15px 41px rgba(112,63,0,.51), 0 0 38px rgba(255,229,91,.38), 0 0 29px rgba(255,188,37,.22), 0 0 27px rgba(255,57,157,.17), 0 0 24px rgba(195,68,255,.12), inset 0 1px 0 rgba(255,252,228,.26), inset 0 -1px 0 rgba(30,5,13,.78);
+  }
+  70% {
+    box-shadow: 0 16px 43px rgba(84,42,6,.49), 0 0 34px rgba(255,217,71,.33), 0 0 25px rgba(255,172,30,.18), 0 0 31px rgba(255,61,159,.20), 0 0 29px rgba(193,64,255,.17), inset 0 1px 0 rgba(255,249,221,.24), inset 0 -1px 0 rgba(30,5,13,.78);
+  }
+}
+
+@keyframes downloadLabelSharpGlow {
+  0%, 100% {
+    letter-spacing: .012em;
+    color: #fffdf7;
+    text-shadow:
+      0 1px 2px rgba(18, 5, 0, .98),
+      0 0 5px rgba(255, 248, 210, .48),
+      0 0 12px rgba(255, 216, 74, .52),
+      0 0 19px rgba(255, 67, 161, .17);
+  }
+  42% {
+    letter-spacing: .028em;
+    color: #fff6cc;
+    text-shadow:
+      0 1px 2px rgba(18, 5, 0, 1),
+      0 0 6px rgba(255, 255, 234, .65),
+      0 0 15px rgba(255, 226, 93, .72),
+      0 0 23px rgba(255, 74, 170, .25),
+      0 0 29px rgba(196, 69, 255, .14);
+  }
+  68% {
+    letter-spacing: .018em;
+    color: #fffef7;
+    text-shadow:
+      0 1px 2px rgba(18, 5, 0, 1),
+      0 0 5px rgba(255, 250, 219, .58),
+      0 0 13px rgba(255, 205, 62, .58),
+      0 0 21px rgba(205, 67, 255, .19);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button[data-download].download-ultimate:hover .download-label,
+  .button[data-download].download-ultimate:focus-visible .download-label,
+  .button[data-download].download-ultimate.is-pointer-active .download-label {
+    animation: none !important;
+  }
+}
