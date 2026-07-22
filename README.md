@@ -39,3 +39,9 @@ Soubor na Game Joltu používá dočasný download odkaz, který expiruje. GitHu
 Tato verze přidává výchozí sekci `#home`, futuristickou boot animaci při otevření webu a nové neonové tlačítko **Store**, které otevírá stránku projektu na Game Joltu. Při každém načtení se web automaticky vrátí na začátek sekce Domů.
 
 Přímé stahování modpacku z GitHub Release zůstalo beze změny.
+
+
+## Poslední úprava
+- odstraněny částice za kartou modpacku, záře zůstala
+- kliknutí na Stáhnout Modpack používá nový vícevrstvý plynulý energetický pulz
+- přímý GitHub Release odkaz zůstal beze změny
