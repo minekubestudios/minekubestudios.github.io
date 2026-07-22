@@ -1134,14 +1134,18 @@ function initializeScrollExperience() {
     target.classList.remove("mk-section-preparing");
     target.classList.add("mk-section-arriving");
 
-    const sweep = document.createElement("span");
-    sweep.className = "mk-section-entry-sweep";
-    sweep.setAttribute("aria-hidden", "true");
-    target.appendChild(sweep);
+    // Domů už má vlastní navazující animace, proto zde energetickou vlnu
+    // záměrně nepřidáváme. U ostatních sekcí zůstává beze změny.
+    const sweep = target.id === "home" ? null : document.createElement("span");
+    if (sweep) {
+      sweep.className = "mk-section-entry-sweep";
+      sweep.setAttribute("aria-hidden", "true");
+      target.appendChild(sweep);
+    }
 
     sectionArrivalCleanupTimer = window.setTimeout(() => {
       target.classList.remove("mk-section-arriving");
-      sweep.remove();
+      sweep?.remove();
     }, 1050);
   };
 
