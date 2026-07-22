@@ -7332,3 +7332,217 @@ body::before {
     transform: none !important;
   }
 }
+
+/* =========================================================
+   MINEKUBE 3D CORE — skutečný isometrický blok v kartě
+   ========================================================= */
+.pack-cover .cover-cube {
+  --mk-cube-w: 122px;
+  --mk-cube-top-h: 64px;
+  --mk-cube-side-w: 61px;
+  --mk-cube-side-h: 88px;
+  position: absolute;
+  z-index: 3;
+  left: 50%;
+  top: 47%;
+  width: var(--mk-cube-w);
+  height: 116px;
+  transform: translate(-50%, -50%);
+  transform-style: preserve-3d;
+  filter:
+    drop-shadow(0 0 11px rgba(255, 229, 94, .75))
+    drop-shadow(0 17px 14px rgba(0, 0, 0, .38));
+  animation: minekubeCoreFloat 4.6s cubic-bezier(.45, 0, .25, 1) infinite;
+  will-change: transform, filter;
+}
+
+.pack-cover .cover-cube::before {
+  content: "";
+  position: absolute;
+  z-index: -2;
+  left: 50%;
+  top: 82%;
+  width: 112px;
+  height: 31px;
+  border: 0;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(0, 0, 0, .55) 0%, rgba(6, 20, 12, .27) 48%, transparent 74%);
+  box-shadow: 0 0 28px rgba(255, 197, 39, .17);
+  transform: translate(-50%, 0) scaleX(.9);
+  animation: minekubeCoreShadow 4.6s cubic-bezier(.45, 0, .25, 1) infinite;
+}
+
+.pack-cover .cover-cube::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: 50%;
+  top: 51%;
+  width: 174px;
+  height: 88px;
+  border: 1px solid rgba(255, 225, 91, .27);
+  border-left-color: rgba(82, 255, 143, .38);
+  border-right-color: rgba(255, 181, 35, .42);
+  border-radius: 50%;
+  transform: translate(-50%, -50%) rotate(-8deg);
+  box-shadow:
+    0 0 18px rgba(255, 214, 69, .13),
+    inset 0 0 16px rgba(61, 242, 125, .07);
+  animation: minekubeCoreOrbit 9s linear infinite;
+}
+
+.pack-cover .cover-cube span {
+  position: absolute;
+  display: block;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  backface-visibility: hidden;
+  overflow: hidden;
+  box-shadow: none;
+  transform: none;
+  transform-origin: center;
+}
+
+/* Zlatý horní díl — stylizované čelo loga Minekube */
+.pack-cover .cover-cube .face-top {
+  z-index: 3;
+  left: 0;
+  top: 0;
+  width: var(--mk-cube-w);
+  height: var(--mk-cube-top-h);
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+  background:
+    linear-gradient(118deg, transparent 0 30%, rgba(255,255,255,.58) 38%, rgba(255,255,255,.08) 47%, transparent 56%),
+    radial-gradient(circle at 48% 16%, rgba(255,255,255,.8), transparent 32%),
+    linear-gradient(145deg, #fff7a8 0%, #ffe05b 33%, #ffc321 71%, #e89a00 100%);
+  border: 0;
+  filter: drop-shadow(0 2px 0 rgba(255,255,255,.22));
+}
+
+.pack-cover .cover-cube .face-top::before {
+  content: "";
+  position: absolute;
+  inset: 8px 16px;
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+  border: 1px solid rgba(255,255,255,.28);
+  background:
+    linear-gradient(135deg, rgba(255,255,255,.16), transparent 45%),
+    repeating-linear-gradient(45deg, rgba(255,255,255,.045) 0 1px, transparent 1px 8px);
+  opacity: .8;
+}
+
+.pack-cover .cover-cube .face-top::after {
+  content: "M";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  color: rgba(110, 67, 0, .32);
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 18px;
+  font-weight: 1000;
+  letter-spacing: -.08em;
+  text-shadow: 0 1px 0 rgba(255,255,255,.24);
+  transform: translate(-50%, -49%) scaleX(1.18);
+}
+
+/* Levý bok — teplá zlatá/oranžová */
+.pack-cover .cover-cube .face-left {
+  z-index: 2;
+  left: 0;
+  top: 32px;
+  width: var(--mk-cube-side-w);
+  height: var(--mk-cube-side-h);
+  clip-path: polygon(0% 0%, 100% 36.4%, 100% 100%, 0% 63.6%);
+  background:
+    linear-gradient(105deg, rgba(255,255,255,.21), transparent 34%),
+    repeating-linear-gradient(0deg, rgba(255,255,255,.035) 0 1px, transparent 1px 9px),
+    linear-gradient(155deg, #ffc42e 0%, #d78300 55%, #7b3b00 100%);
+  filter: drop-shadow(-2px 5px 2px rgba(0,0,0,.14));
+}
+
+.pack-cover .cover-cube .face-left::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(255,255,255,.24), transparent 10%),
+    linear-gradient(180deg, rgba(255,246,164,.12), transparent 48%, rgba(42,15,0,.24));
+}
+
+/* Pravý bok — zelený akcent loga Minekube */
+.pack-cover .cover-cube .face-right {
+  z-index: 1;
+  left: 61px;
+  top: 32px;
+  width: var(--mk-cube-side-w);
+  height: var(--mk-cube-side-h);
+  clip-path: polygon(0% 36.4%, 100% 0%, 100% 63.6%, 0% 100%);
+  background:
+    linear-gradient(250deg, rgba(255,255,255,.18), transparent 30%),
+    repeating-linear-gradient(0deg, rgba(255,255,255,.035) 0 1px, transparent 1px 9px),
+    linear-gradient(205deg, #62eb82 0%, #16964f 52%, #064e35 100%);
+  filter: drop-shadow(2px 5px 2px rgba(0,0,0,.14));
+}
+
+.pack-cover .cover-cube .face-right::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(270deg, rgba(255,255,255,.18), transparent 10%),
+    linear-gradient(180deg, rgba(180,255,196,.10), transparent 48%, rgba(0,18,8,.29));
+}
+
+/* Ostré světelné hrany, aby blok nezanikl v zeleném banneru */
+.pack-cover .cover-cube .face-top,
+.pack-cover .cover-cube .face-left,
+.pack-cover .cover-cube .face-right {
+  outline: 1px solid transparent;
+}
+
+@keyframes minekubeCoreFloat {
+  0%, 100% {
+    transform: translate(-50%, -50%) translateY(0) scale(1);
+    filter:
+      drop-shadow(0 0 11px rgba(255, 229, 94, .72))
+      drop-shadow(0 17px 14px rgba(0, 0, 0, .38));
+  }
+  50% {
+    transform: translate(-50%, -50%) translateY(-7px) scale(1.018);
+    filter:
+      drop-shadow(0 0 18px rgba(255, 229, 94, .9))
+      drop-shadow(0 23px 18px rgba(0, 0, 0, .31));
+  }
+}
+
+@keyframes minekubeCoreShadow {
+  0%, 100% { opacity: .72; transform: translate(-50%, 0) scaleX(.92); }
+  50% { opacity: .48; transform: translate(-50%, 9px) scaleX(.75); }
+}
+
+@keyframes minekubeCoreOrbit {
+  to { transform: translate(-50%, -50%) rotate(352deg); }
+}
+
+@media (max-width: 560px) {
+  .pack-cover .cover-cube {
+    --mk-cube-w: 112px;
+    --mk-cube-top-h: 58px;
+    --mk-cube-side-w: 56px;
+    --mk-cube-side-h: 81px;
+    height: 107px;
+  }
+
+  .pack-cover .cover-cube .face-left,
+  .pack-cover .cover-cube .face-right { top: 29px; }
+  .pack-cover .cover-cube .face-right { left: 56px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pack-cover .cover-cube,
+  .pack-cover .cover-cube::before,
+  .pack-cover .cover-cube::after {
+    animation: none !important;
+  }
+}
