@@ -21,7 +21,7 @@ const safeStorage = {
 const modpacks = [
   {
     id: "ultra-performance",
-    name: "Ultra Performance - 🟢Release",
+    name: "Ultra Performance",
     shortName: "Ultra Performance - Release",
     description: "Maximálně optimalizovaný FPS modpack.",
     longDescription: "Maximálně optimalizovaný FPS modpack pro Minecraft 1.21.1 s Fabric loaderem.",
@@ -130,41 +130,56 @@ function createDownloadButton(packId, label, extraClass = "") {
 
 function createPackCard(pack) {
   const favorite = state.favorites.has(pack.id);
+  const tagIcons = {
+    Fabric: '<path d="M5 7h14v10H5z"/><path d="M8 4v3M12 4v3M16 4v3M8 17v3M12 17v3M16 17v3"/>',
+    Client: '<rect x="4" y="5" width="16" height="12" rx="2"/><path d="M8 21h8M12 17v4"/>',
+    "Maximum FPS": '<path d="M4.9 18a8 8 0 1 1 14.2 0"/><path d="m12 14 4.5-4.5M8 18h8"/>'
+  };
+
   return `
     <article class="pack-card" data-pack-id="${pack.id}">
+      <span class="pack-card-aura" aria-hidden="true"></span>
+      <span class="pack-card-grid" aria-hidden="true"></span>
       <div class="pack-cover" style="--cover-bg:${pack.color}; --cube-a:${pack.cube[0]}; --cube-b:${pack.cube[1]}; --cube-c:${pack.cube[2]}">
-        <span class="pack-badge">${pack.badge}</span>
-        <button class="favorite-button ${favorite ? "active" : ""}" type="button" data-favorite="${pack.id}" aria-label="${favorite ? "Odebrat z oblíbených" : "Přidat do oblíbených"}">
+        <span class="pack-badge"><i></i>${pack.badge}</span>
+        <button class="favorite-button ${favorite ? "active" : ""}" type="button" data-favorite="${pack.id}" aria-label="${favorite ? "Odebrat z oblíbených" : "Přidat do oblíbených"}" aria-pressed="${favorite}">
+          <span class="favorite-orbit" aria-hidden="true"></span>
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21l7.8-7.5 1.1-1.1a5.5 5.5 0 0 0-.1-7.8Z"/></svg>
         </button>
         <div class="cover-speed-lines"><i></i><i></i><i></i></div>
+        <div class="cover-hud cover-hud-left" aria-hidden="true"><i></i><span>PERFORMANCE CORE</span></div>
+        <div class="cover-hud cover-hud-right" aria-hidden="true"><span>MK // 01</span><i></i></div>
         <div class="cover-cube" aria-hidden="true">
           <span class="face-top"></span>
           <span class="face-left"></span>
           <span class="face-right"></span>
         </div>
+        <div class="cover-data-strip" aria-hidden="true"><span><i></i> LIVE BUILD</span><b>FPS ENGINE</b></div>
       </div>
       <div class="pack-body">
         <div class="pack-title-row">
-          <h3>${pack.name}</h3>
-          <span class="pack-version">${pack.release}</span>
+          <div class="pack-title-main">
+            <span class="release-state"><i></i> STABLE RELEASE</span>
+            <h3>${pack.name}</h3>
+          </div>
+          <span class="pack-version"><small>MINECRAFT</small>${pack.release}</span>
         </div>
         <p class="pack-description">${pack.description}</p>
         <div class="tag-row">
-          ${pack.tags.map(tag => `<span class="tag">${tag}</span>`).join("")}
+          ${pack.tags.map(tag => `<span class="tag"><svg viewBox="0 0 24 24" aria-hidden="true">${tagIcons[tag] || '<path d="m5 12 4 4L19 6"/>'}</svg>${tag}</span>`).join("")}
         </div>
         <div class="pack-stats">
-          <span class="pack-stat" title="Stažení">
-            <svg viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5"/><path d="M5 20h14"/></svg>
-            Celkový výkon: ${pack.performance}
+          <span class="pack-stat" title="Celkový výkon">
+            <svg viewBox="0 0 24 24"><path d="M4.9 18a8 8 0 1 1 14.2 0"/><path d="m12 14 4.5-4.5M8 18h8"/></svg>
+            <small>VÝKON</small><strong>${pack.performance}</strong>
           </span>
           <span class="pack-stat" title="Počet modů">
             <svg viewBox="0 0 24 24"><path d="m12 3 8 4.5v9L12 21l-8-4.5v-9L12 3Z"/><path d="m4 7.5 8 4.5 8-4.5M12 12v9"/></svg>
-            ${pack.mods} modů
+            <small>MODŮ</small><strong>${pack.mods}</strong>
           </span>
           <span class="pack-stat" title="Maximální naměřené FPS v demo datech">
             <svg viewBox="0 0 24 24"><path d="M5 17a7 7 0 1 1 14 0"/><path d="m12 17 4-5"/></svg>
-            ${pack.fpsLabel}
+            <small>MAX FPS</small><strong>${pack.fpsLabel}</strong>
           </span>
         </div>
         <div class="pack-actions">
@@ -431,16 +446,47 @@ function showToast(message) {
   toastTimer = setTimeout(() => toast.classList.remove("show"), 2900);
 }
 
-function toggleFavorite(id) {
-  if (state.favorites.has(id)) {
-    state.favorites.delete(id);
-    showToast("Modpack byl odebrán z oblíbených.");
-  } else {
+function createFavoriteBurst(button, activating) {
+  if (!button || prefersReducedMotion.matches) return;
+
+  const burst = document.createElement("span");
+  burst.className = `favorite-burst ${activating ? "is-love" : "is-unlove"}`;
+
+  for (let index = 0; index < 10; index += 1) {
+    const particle = document.createElement("i");
+    particle.style.setProperty("--favorite-angle", `${index * 36 + Math.random() * 10 - 5}deg`);
+    particle.style.setProperty("--favorite-distance", `${22 + Math.random() * 18}px`);
+    particle.style.setProperty("--favorite-delay", `${Math.random() * 70}ms`);
+    burst.appendChild(particle);
+  }
+
+  button.appendChild(burst);
+  window.setTimeout(() => burst.remove(), 760);
+}
+
+function toggleFavorite(id, button) {
+  const activating = !state.favorites.has(id);
+
+  if (activating) {
     state.favorites.add(id);
     showToast("Modpack byl uložen do oblíbených.");
+  } else {
+    state.favorites.delete(id);
+    showToast("Modpack byl odebrán z oblíbených.");
   }
+
   safeStorage.set("minekube-favorites", JSON.stringify([...state.favorites]));
-  renderPacks();
+
+  if (button) {
+    button.classList.toggle("active", activating);
+    button.classList.remove("is-popping", "is-unpopping");
+    void button.offsetWidth;
+    button.classList.add(activating ? "is-popping" : "is-unpopping");
+    button.setAttribute("aria-pressed", String(activating));
+    button.setAttribute("aria-label", activating ? "Odebrat z oblíbených" : "Přidat do oblíbených");
+    createFavoriteBurst(button, activating);
+    window.setTimeout(() => button.classList.remove("is-popping", "is-unpopping"), 720);
+  }
 }
 
 function playDownloadAnimation(button, event) {
@@ -562,7 +608,7 @@ packGrid.addEventListener("click", event => {
   const detailsButton = event.target.closest("[data-details]");
   const downloadButton = event.target.closest("[data-download]");
 
-  if (favoriteButton) toggleFavorite(favoriteButton.dataset.favorite);
+  if (favoriteButton) toggleFavorite(favoriteButton.dataset.favorite, favoriteButton);
   if (detailsButton) {
     detailsButton.classList.remove("is-activating");
     void detailsButton.offsetWidth;
@@ -897,8 +943,130 @@ function initializeScrollExperience() {
   syncScrollExperience();
 }
 
+
+function initializeCustomSort() {
+  const wrapper = sortSelect?.closest(".sort-select");
+  if (!wrapper || wrapper.querySelector(".sort-control")) return;
+
+  sortSelect.classList.add("native-sort-select");
+
+  const control = document.createElement("div");
+  control.className = "sort-control";
+  control.innerHTML = `
+    <button class="sort-trigger" type="button" aria-haspopup="listbox" aria-expanded="false">
+      <span class="sort-trigger-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 6h12M4 6h.01M8 12h9M4 12h.01M8 18h6M4 18h.01"/></svg></span>
+      <span class="sort-trigger-copy"><small>AKTUÁLNÍ ŘAZENÍ</small><strong>${sortSelect.options[sortSelect.selectedIndex].text}</strong></span>
+      <span class="sort-trigger-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m7 9 5 5 5-5"/></svg></span>
+    </button>
+    <div class="sort-menu" role="listbox" aria-label="Řazení modpacků"></div>
+  `;
+
+  const menu = control.querySelector(".sort-menu");
+  [...sortSelect.options].forEach((option, index) => {
+    const item = document.createElement("button");
+    item.type = "button";
+    item.className = "sort-option";
+    item.dataset.value = option.value;
+    item.setAttribute("role", "option");
+    item.setAttribute("aria-selected", String(option.selected));
+    item.innerHTML = `<span class="sort-option-index">0${index + 1}</span><span>${option.text}</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg>`;
+    menu.appendChild(item);
+  });
+
+  wrapper.appendChild(control);
+  const trigger = control.querySelector(".sort-trigger");
+  const currentLabel = control.querySelector(".sort-trigger-copy strong");
+
+  const close = () => {
+    control.classList.remove("is-open");
+    trigger.setAttribute("aria-expanded", "false");
+  };
+
+  trigger.addEventListener("click", event => {
+    event.preventDefault();
+    const isOpen = control.classList.toggle("is-open");
+    trigger.setAttribute("aria-expanded", String(isOpen));
+  });
+
+  menu.addEventListener("click", event => {
+    const optionButton = event.target.closest(".sort-option");
+    if (!optionButton) return;
+    sortSelect.value = optionButton.dataset.value;
+    sortSelect.dispatchEvent(new Event("change", { bubbles: true }));
+    currentLabel.textContent = sortSelect.options[sortSelect.selectedIndex].text;
+    menu.querySelectorAll(".sort-option").forEach(item => item.setAttribute("aria-selected", String(item === optionButton)));
+    close();
+  });
+
+  document.addEventListener("click", event => {
+    if (!control.contains(event.target)) close();
+  });
+
+  control.addEventListener("keydown", event => {
+    if (event.key === "Escape") {
+      close();
+      trigger.focus();
+    }
+  });
+}
+
+function initializeEpicSurfaceInteractions() {
+  if (!window.matchMedia("(pointer: fine)").matches || prefersReducedMotion.matches) return;
+
+  const applyTilt = (element, event, strength = 5) => {
+    const rect = element.getBoundingClientRect();
+    const x = Math.min(Math.max((event.clientX - rect.left) / rect.width, 0), 1);
+    const y = Math.min(Math.max((event.clientY - rect.top) / rect.height, 0), 1);
+    element.style.setProperty("--surface-x", `${x * 100}%`);
+    element.style.setProperty("--surface-y", `${y * 100}%`);
+    element.style.setProperty("--surface-ry", `${(x - .5) * strength}deg`);
+    element.style.setProperty("--surface-rx", `${(y - .5) * -strength}deg`);
+  };
+
+  const resetTilt = element => {
+    element.style.setProperty("--surface-x", "50%");
+    element.style.setProperty("--surface-y", "50%");
+    element.style.setProperty("--surface-ry", "0deg");
+    element.style.setProperty("--surface-rx", "0deg");
+  };
+
+  packGrid.addEventListener("pointermove", event => {
+    const card = event.target.closest(".pack-card");
+    if (card) applyTilt(card, event, 5.5);
+  });
+  packGrid.addEventListener("pointerout", event => {
+    const card = event.target.closest(".pack-card");
+    if (card && !card.contains(event.relatedTarget)) resetTilt(card);
+  });
+
+  document.querySelectorAll(".step-card").forEach(card => {
+    card.addEventListener("pointermove", event => applyTilt(card, event, 4));
+    card.addEventListener("pointerleave", () => resetTilt(card));
+  });
+
+  const aboutCard = document.querySelector(".about-card");
+  aboutCard?.addEventListener("pointermove", event => applyTilt(aboutCard, event, 2.5));
+  aboutCard?.addEventListener("pointerleave", () => resetTilt(aboutCard));
+
+  const filters = document.querySelector(".filters-panel");
+  filters?.addEventListener("pointermove", event => applyTilt(filters, event, 0));
+}
+
+function initializeSearchShortcut() {
+  document.addEventListener("keydown", event => {
+    if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "k") {
+      event.preventDefault();
+      searchInput.focus();
+      searchInput.select();
+    }
+  });
+}
+
 document.getElementById("currentYear").textContent = new Date().getFullYear();
 
 renderPacks();
+initializeCustomSort();
 initializeUltimateDownloadButtons();
+initializeEpicSurfaceInteractions();
+initializeSearchShortcut();
 initializeScrollExperience();

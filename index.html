@@ -237,18 +237,26 @@
 
         <div class="catalog-layout">
           <aside class="filters-panel" aria-label="Filtry modpacků">
+            <div class="filter-panel-ambient" aria-hidden="true"><i></i><i></i><i></i></div>
             <div class="filter-head">
-              <h3>Filtry</h3>
+              <div class="filter-title">
+                <span class="filter-title-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path d="M4 7h10M18 7h2M4 17h2M10 17h10M8 4v6M16 14v6"/></svg>
+                </span>
+                <div><small>NAJDI SVŮJ BUILD</small><h3>Filtry</h3></div>
+              </div>
               <button id="resetFilters" type="button">Resetovat</button>
             </div>
 
             <label class="search-field">
+              <span class="search-field-glow" aria-hidden="true"></span>
               <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
               <input id="searchInput" type="search" placeholder="Hledat modpack..." autocomplete="off">
+              <kbd>Ctrl K</kbd>
             </label>
 
             <fieldset>
-              <legend>Verze Minecraftu</legend>
+              <legend><span class="filter-legend-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m12 3 8 4-8 4-8-4 8-4Z"/><path d="m4 12 8 4 8-4M4 17l8 4 8-4"/></svg></span><span>Verze Minecraftu</span></legend>
               <label class="check-row">
                 <input type="checkbox" name="version" value="1.21.1">
                 <span class="custom-check"></span>
@@ -270,7 +278,7 @@
             </fieldset>
 
             <fieldset>
-              <legend>Mod loader</legend>
+              <legend><span class="filter-legend-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 7h14v10H5z"/><path d="M8 4v3M12 4v3M16 4v3M8 17v3M12 17v3M16 17v3M2 10h3M19 10h3M2 14h3M19 14h3"/></svg></span><span>Mod loader</span></legend>
               <label class="check-row">
                 <input type="checkbox" name="loader" value="Fabric">
                 <span class="custom-check"></span>
@@ -280,7 +288,7 @@
             </fieldset>
 
             <fieldset>
-              <legend>Zaměření</legend>
+              <legend><span class="filter-legend-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4.9 18a8 8 0 1 1 14.2 0"/><path d="m12 14 4.5-4.5M8 18h8"/></svg></span><span>Zaměření</span></legend>
               <label class="check-row">
                 <input type="checkbox" name="category" value="Maximum FPS">
                 <span class="custom-check"></span>
@@ -289,8 +297,9 @@
             </fieldset>
 
             <div class="compatibility-note">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 3.5 7v5c0 5.2 3.6 8 8.5 9.5 4.9-1.5 8.5-4.3 8.5-9.5V7L12 3Z"/><path d="m8.5 12 2.2 2.2 4.8-5"/></svg>
+              <span class="compatibility-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3 3.5 7v5c0 5.2 3.6 8 8.5 9.5 4.9-1.5 8.5-4.3 8.5-9.5V7L12 3Z"/><path d="m8.5 12 2.2 2.2 4.8-5"/></svg></span>
               <div>
+                <span class="verified-line"><i></i> MINEKUBE VERIFIED</span>
                 <strong>Bezpečné sestavení</strong>
                 <p>Každý release lze doplnit kontrolním součtem a seznamem změn.</p>
               </div>
@@ -303,16 +312,16 @@
                 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M7 12h10M10 18h4"/></svg>
                 Filtry
               </button>
-              <label class="sort-select">
-                <span>Řadit podle</span>
-                <select id="sortSelect">
+              <div class="sort-select">
+                <span class="sort-caption"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6h12M4 6h.01M8 12h9M4 12h.01M8 18h6M4 18h.01"/></svg><span>Řadit podle</span></span>
+                <select id="sortSelect" aria-label="Řazení modpacků">
                   <option value="featured">Doporučené</option>
                   <option value="downloads">Nejstahovanější</option>
                   <option value="fps">Nejvyšší FPS</option>
                   <option value="newest">Nejnovější</option>
                   <option value="name">Název A–Z</option>
                 </select>
-              </label>
+              </div>
             </div>
 
             <div class="pack-grid" id="packGrid"></div>
@@ -436,24 +445,30 @@
           <article class="step-card">
             <span class="step-number">01</span>
             <div class="step-icon">
+              <span class="step-icon-orbit" aria-hidden="true"></span>
               <svg viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5"/><path d="M5 20h14"/></svg>
             </div>
+            <span class="step-kicker">DOWNLOAD</span>
             <h3>Stáhni balíček</h3>
             <p>Vyber kompatibilní verzi Minecraftu a stáhni soubor modpacku.</p>
           </article>
           <article class="step-card">
             <span class="step-number">02</span>
             <div class="step-icon">
+              <span class="step-icon-orbit" aria-hidden="true"></span>
               <svg viewBox="0 0 24 24"><path d="M4 7h16v13H4z"/><path d="M8 7V4h8v3M8 12h8M8 16h5"/></svg>
             </div>
+            <span class="step-kicker">IMPORT</span>
             <h3>Importuj do launcheru</h3>
             <p>V Modrinth App nebo Prism Launcheru zvol import existujícího balíčku.</p>
           </article>
           <article class="step-card">
             <span class="step-number">03</span>
             <div class="step-icon">
+              <span class="step-icon-orbit" aria-hidden="true"></span>
               <svg viewBox="0 0 24 24"><path d="m8 5 11 7-11 7V5Z"/></svg>
             </div>
+            <span class="step-kicker">PLAY</span>
             <h3>Spusť a hraj</h3>
             <p>Launcher automaticky připraví správné mody, knihovny i doporučené nastavení.</p>
           </article>
@@ -463,6 +478,7 @@
 
     <section class="about-section section" id="about">
       <div class="container about-card">
+        <div class="about-ambient" aria-hidden="true"><i></i><i></i><i></i><span></span></div>
         <div class="about-copy">
           <span class="section-kicker">MINEKUBE PROJECT</span>
           <h2>Výkon bez zničení původního Minecraftu</h2>
@@ -472,13 +488,16 @@
             žádná výplň a žádné náhodné experimenty v produkčním vydání.
           </p>
           <div class="about-tags">
-            <span>Vanilla friendly</span>
-            <span>Bezpečné aktualizace</span>
-            <span>Čistá konfigurace</span>
-            <span>Transparentní changelog</span>
+            <span><svg viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></svg>Vanilla friendly</span>
+            <span><svg viewBox="0 0 24 24"><path d="M12 3 19 6v5c0 4.4-2.7 7.8-7 10-4.3-2.2-7-5.6-7-10V6l7-3Z"/><path d="m8.5 12 2.2 2.2 4.8-5"/></svg>Bezpečné aktualizace</span>
+            <span><svg viewBox="0 0 24 24"><path d="M4 7h10M18 7h2M4 17h2M10 17h10M8 4v6M16 14v6"/></svg>Čistá konfigurace</span>
+            <span><svg viewBox="0 0 24 24"><path d="M5 5h14v14H5z"/><path d="M8 9h8M8 13h8M8 17h5"/></svg>Transparentní changelog</span>
           </div>
         </div>
         <div class="about-emblem" aria-hidden="true">
+          <div class="emblem-particles"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          <span class="emblem-label emblem-label-top">PURE FPS</span>
+          <span class="emblem-label emblem-label-bottom">VANILLA CORE</span>
           <div class="emblem-cube">
             <span class="cube-top"></span>
             <span class="cube-left"></span>

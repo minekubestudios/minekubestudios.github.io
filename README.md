@@ -32,3 +32,7 @@ Při jiné verzi nebo názvu souboru uprav tag, název assetu a `downloadFileNam
 ## Proč GitHub Release
 
 Soubor na Game Joltu používá dočasný download odkaz, který expiruje. GitHub Pages je statický web a neumí serverovou funkci pro průběžné získávání nového Game Jolt odkazu. GitHub Release naproti tomu poskytuje stabilní přímý odkaz na asset a dovoluje nahrávat podstatně větší soubory než běžné nahrání souboru do repozitáře přes webové rozhraní.
+
+## Vizuální overhaul
+
+Tato verze obsahuje přepracovaný katalog modpacků, animované filtry, vlastní nabídku řazení, 3D karty, profesionální animaci oblíbeného modpacku, nové instalační kroky, vylepšenou sekci projektu a vlastní scrollbar. Přímé stahování z GitHub Release zůstalo beze změny.
