@@ -32,3 +32,6 @@ Při jiné verzi nebo názvu souboru uprav tag, název assetu a `downloadFileNam
 ## Proč GitHub Release
 
 Soubor na Game Joltu používá dočasný download odkaz, který expiruje. GitHub Pages je statický web a neumí serverovou funkci pro průběžné získávání nového Game Jolt odkazu. GitHub Release naproti tomu poskytuje stabilní přímý odkaz na asset a dovoluje nahrávat podstatně větší soubory než běžné nahrání souboru do repozitáře přes webové rozhraní.
+
+## Oprava ostrosti karty
+Hover celé modpack karty už nepoužívá scale, perspective ani filter na rodiči s textem. Efekt zachovává částice, světelnou auru, rámeček a pohyb pomocí vlastnosti `top`, takže text zůstává ostrý i během animace.

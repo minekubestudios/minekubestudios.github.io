@@ -7757,3 +7757,121 @@ body::before {
     display: none;
   }
 }
+
+/* =========================================================
+   CRISP MODPACK CARD — ostrý text bez rozmazání při hoveru
+   Pohyb celé karty používá top místo scale/3D transformace.
+   ========================================================= */
+.pack-grid {
+  perspective: none;
+}
+
+.pack-card {
+  top: 0;
+  transform: none !important;
+  transform-style: flat;
+  will-change: auto;
+  transition:
+    top .34s cubic-bezier(.16, .84, .2, 1),
+    border-color .28s ease,
+    box-shadow .35s ease;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+.pack-card:hover {
+  transform: none !important;
+}
+
+/* 3D transformace rodičů nutily prohlížeč rasterizovat text do textury. */
+.pack-card .pack-cover,
+.pack-card .pack-body {
+  transform: none;
+  backface-visibility: visible;
+}
+
+.pack-card .pack-body,
+.pack-card .pack-body * {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Čitelnější typografie bez rozmazávajících textových stínů. */
+.pack-title-row h3 {
+  color: #fffdf8;
+  font-size: 19px;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -.015em;
+  text-shadow: none;
+}
+
+.release-state {
+  color: #bda9b8;
+  font-size: 7px;
+  font-weight: 800;
+  letter-spacing: .12em;
+}
+
+.pack-description {
+  color: #d3c2ce;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.6;
+  letter-spacing: 0;
+  text-shadow: none;
+}
+
+.pack-version {
+  font-weight: 800;
+  text-shadow: none;
+}
+
+.pack-version small {
+  color: #9c8496;
+  font-weight: 800;
+}
+
+.tag {
+  color: #d8c8d3;
+  font-size: 9px;
+  font-weight: 700;
+  text-shadow: none;
+}
+
+.pack-stat small {
+  color: #9d8497;
+  font-size: 6px;
+  font-weight: 800;
+  letter-spacing: .09em;
+}
+
+.pack-stat strong {
+  color: #fff5fb;
+  font-size: 9px;
+  font-weight: 800;
+  text-shadow: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .pack-card:hover {
+    animation: minekubePackEpicEnterSharp .94s cubic-bezier(.16, .86, .18, 1) 1 both;
+  }
+}
+
+@keyframes minekubePackEpicEnterSharp {
+  0% { top: 0; }
+  20% { top: -11px; }
+  43% { top: -7px; }
+  66% { top: -9px; }
+  100% { top: -7px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pack-card:hover {
+    top: 0;
+    animation: none !important;
+  }
+}
