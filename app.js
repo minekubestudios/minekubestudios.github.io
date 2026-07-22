@@ -529,68 +529,57 @@ function playDownloadAnimation(button, event) {
   const x = hasPointerPosition ? event.clientX : rect.left + rect.width / 2;
   const y = hasPointerPosition ? event.clientY : rect.top + rect.height / 2;
 
+  // Původní čistý pulz — jen jemně detailnější a s více částicemi.
   const burst = document.createElement("span");
-  burst.className = "download-click-burst download-click-burst-v2";
+  burst.className = "download-click-burst download-click-burst-classic-plus";
   burst.style.left = `${x}px`;
   burst.style.top = `${y}px`;
-  burst.style.setProperty("--button-width", `${rect.width}px`);
-  burst.style.setProperty("--button-height", `${rect.height}px`);
 
-  const halo = document.createElement("span");
-  halo.className = "download-impact-halo";
-  burst.appendChild(halo);
-
-  const core = document.createElement("span");
-  core.className = "download-impact-core";
-  burst.appendChild(core);
-
-  const cross = document.createElement("span");
-  cross.className = "download-impact-cross";
-  burst.appendChild(cross);
-
-  for (let index = 0; index < 6; index += 1) {
+  for (let index = 0; index < 3; index += 1) {
     const ring = document.createElement("span");
-    ring.className = `download-burst-ring download-burst-ring-${index + 1}`;
-    ring.style.setProperty("--ring-delay", `${index * 58}ms`);
-    ring.style.setProperty("--ring-scale", `${7.4 + index * 2.05}`);
-    ring.style.setProperty("--ring-rotate", `${index % 2 ? -18 : 18}deg`);
+    ring.className = "download-burst-ring";
+    ring.style.setProperty("--ring-delay", `${index * 74}ms`);
+    ring.style.setProperty("--ring-scale", `${6.9 + index * 2.25}`);
     burst.appendChild(ring);
   }
 
-  for (let index = 0; index < 4; index += 1) {
-    const band = document.createElement("em");
-    band.className = "download-pulse-band";
-    band.style.setProperty("--band-delay", `${90 + index * 85}ms`);
-    band.style.setProperty("--band-scale", `${1 + index * .28}`);
-    burst.appendChild(band);
+  const sparkCount = 28;
+  for (let index = 0; index < sparkCount; index += 1) {
+    const spark = document.createElement("i");
+    const angle = (360 / sparkCount) * index + (Math.random() * 10 - 5);
+    spark.style.setProperty("--spark-angle", `${angle}deg`);
+    spark.style.setProperty("--spark-distance", `${64 + Math.random() * 72}px`);
+    spark.style.setProperty("--spark-length", `${10 + Math.random() * 21}px`);
+    spark.style.setProperty("--spark-delay", `${Math.random() * 105}ms`);
+    spark.style.setProperty("--spark-width", `${1.7 + Math.random() * 2.2}px`);
+    burst.appendChild(spark);
   }
 
-  const rayCount = 32;
-  for (let index = 0; index < rayCount; index += 1) {
-    const ray = document.createElement("i");
-    const angle = (360 / rayCount) * index + (Math.random() * 8 - 4);
-    ray.style.setProperty("--spark-angle", `${angle}deg`);
-    ray.style.setProperty("--spark-distance", `${76 + Math.random() * 92}px`);
-    ray.style.setProperty("--spark-length", `${14 + Math.random() * 28}px`);
-    ray.style.setProperty("--spark-delay", `${20 + Math.random() * 135}ms`);
-    ray.style.setProperty("--spark-width", `${1.5 + Math.random() * 2.4}px`);
-    burst.appendChild(ray);
-  }
-
-  const fragmentCount = 18;
+  const fragmentCount = 16;
   for (let index = 0; index < fragmentCount; index += 1) {
     const fragment = document.createElement("b");
-    const angle = (360 / fragmentCount) * index + (Math.random() * 18 - 9);
+    const angle = (360 / fragmentCount) * index + (Math.random() * 20 - 10);
     fragment.style.setProperty("--fragment-angle", `${angle}deg`);
-    fragment.style.setProperty("--fragment-distance", `${58 + Math.random() * 88}px`);
-    fragment.style.setProperty("--fragment-spin", `${240 + Math.random() * 620}deg`);
-    fragment.style.setProperty("--fragment-delay", `${55 + Math.random() * 150}ms`);
+    fragment.style.setProperty("--fragment-distance", `${48 + Math.random() * 74}px`);
+    fragment.style.setProperty("--fragment-spin", `${180 + Math.random() * 500}deg`);
+    fragment.style.setProperty("--fragment-delay", `${25 + Math.random() * 115}ms`);
     burst.appendChild(fragment);
   }
 
+  const microParticleCount = 14;
+  for (let index = 0; index < microParticleCount; index += 1) {
+    const particle = document.createElement("u");
+    const angle = (360 / microParticleCount) * index + (Math.random() * 26 - 13);
+    particle.style.setProperty("--micro-angle", `${angle}deg`);
+    particle.style.setProperty("--micro-distance", `${38 + Math.random() * 64}px`);
+    particle.style.setProperty("--micro-delay", `${55 + Math.random() * 135}ms`);
+    particle.style.setProperty("--micro-size", `${2 + Math.random() * 2.6}px`);
+    burst.appendChild(particle);
+  }
+
   document.body.appendChild(burst);
-  window.setTimeout(() => burst.remove(), 1680);
-  window.setTimeout(() => button.classList.remove("download-animating"), 1380);
+  window.setTimeout(() => burst.remove(), 1240);
+  window.setTimeout(() => button.classList.remove("download-animating"), 1020);
 }
 
 async function triggerDownload(button, pack, event) {
@@ -599,7 +588,7 @@ async function triggerDownload(button, pack, event) {
   button.setAttribute("aria-busy", "true");
   playDownloadAnimation(button, event);
 
-  await new Promise(resolve => window.setTimeout(resolve, 720));
+  await new Promise(resolve => window.setTimeout(resolve, 620));
 
   try {
     await demoDownload(pack);
