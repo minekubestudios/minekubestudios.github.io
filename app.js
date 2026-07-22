@@ -1030,15 +1030,6 @@ function initializeEpicSurfaceInteractions() {
     element.style.setProperty("--surface-rx", "0deg");
   };
 
-  packGrid.addEventListener("pointermove", event => {
-    const card = event.target.closest(".pack-card");
-    if (card) applyTilt(card, event, 5.5);
-  });
-  packGrid.addEventListener("pointerout", event => {
-    const card = event.target.closest(".pack-card");
-    if (card && !card.contains(event.relatedTarget)) resetTilt(card);
-  });
-
   document.querySelectorAll(".step-card").forEach(card => {
     card.addEventListener("pointermove", event => applyTilt(card, event, 4));
     card.addEventListener("pointerleave", () => resetTilt(card));
