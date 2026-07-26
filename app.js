@@ -1389,6 +1389,13 @@ initializeScrollExperience();
   const percent = document.getElementById("loaderPercent");
   const status = document.getElementById("loaderStatus");
   const storeButton = document.querySelector(".store-button");
+  const pageTransition = document.getElementById("pageTransition");
+  const pageTransitionTitle = document.getElementById("pageTransitionTitle");
+  const pageTransitionStatus = document.getElementById("pageTransitionStatus");
+  const pageTransitionCode = document.getElementById("pageTransitionCode");
+  let storePageTransitionBusy = false;
+  const storeDestination = "https://minekubestudios.github.io/store/";
+  if (storeButton) storeButton.href = storeDestination;
   const startTime = performance.now();
   let pageLoaded = document.readyState === "complete";
   let finished = false;
@@ -1560,8 +1567,8 @@ initializeScrollExperience();
     };
 
     const launchStoreTransition = (clientX, clientY) => {
-      if (storeTransitionOpening || pageTransitionBusy) return;
-      const destination = storeButton.href;
+      if (storeTransitionOpening || storePageTransitionBusy) return;
+      const destination = storeDestination;
 
       if (!pageTransition) {
         window.location.assign(destination);
@@ -1569,7 +1576,7 @@ initializeScrollExperience();
       }
 
       storeTransitionOpening = true;
-      pageTransitionBusy = true;
+      storePageTransitionBusy = true;
       window.clearInterval(fxTimer);
       spawnStoreFx(54, true);
       launchStorePulse(clientX, clientY);
@@ -1601,7 +1608,7 @@ initializeScrollExperience();
         pageTransition.setAttribute("aria-hidden", "true");
         document.body.classList.remove("mk-transitioning", "store-transitioning");
         storeButton.classList.remove("is-store-opening");
-        pageTransitionBusy = false;
+        storePageTransitionBusy = false;
         storeTransitionOpening = false;
       }, 3200);
     };
