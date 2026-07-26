@@ -1546,6 +1546,8 @@ initializeScrollExperience();
     }
 
     let lastPulseAt = 0;
+    let dimensionOpening = false;
+
     const launchCyberPulse = (clientX, clientY) => {
       const now = performance.now();
       if (now - lastPulseAt < 220) return;
@@ -1566,10 +1568,71 @@ initializeScrollExperience();
       window.setTimeout(() => pulse.remove(), 1500);
     };
 
-    // Pulz startuje už při stisku, takže je vidět i před otevřením Store v nové kartě.
+    const launchDimensionPortal = (clientX, clientY) => {
+      if (dimensionOpening) return;
+      dimensionOpening = true;
+
+      const rect = storeButton.getBoundingClientRect();
+      const originX = Number.isFinite(clientX) && clientX > 0 ? clientX : rect.left + rect.width / 2;
+      const originY = Number.isFinite(clientY) && clientY > 0 ? clientY : rect.top + rect.height / 2;
+      const destination = storeButton.href;
+      const portal = document.createElement("div");
+      const rings = Array.from({ length: 12 }, (_, index) =>
+        `<i class="store-portal-ring" style="--ring-delay:${index * 34}ms;--ring-inset:${(index * -2.7).toFixed(1)}px;--ring-z:${index * -4}px;--ring-z-end:${index * 12}px;--ring-rotation:${index * 19}deg;--ring-rotation-end:${540 + index * 27}deg;--ring-hue-a:${185 + index * 7}deg;--ring-hue-b:${278 + index * 4}deg;--ring-hue-c:${321 - index * 3}deg;--ring-glow:${(7 + index * .4).toFixed(1)}px;--ring-inner-glow:${(8 + index * .5).toFixed(1)}px"></i>`
+      ).join("");
+
+      portal.className = "store-dimension-portal";
+      portal.setAttribute("aria-hidden", "true");
+      portal.style.setProperty("--portal-origin-x", `${originX}px`);
+      portal.style.setProperty("--portal-origin-y", `${originY}px`);
+      portal.innerHTML = `
+        <span class="store-portal-space"></span>
+        <span class="store-portal-grid store-portal-grid-top"></span>
+        <span class="store-portal-grid store-portal-grid-bottom"></span>
+        <span class="store-portal-vortex">
+          <span class="store-portal-rings">${rings}</span>
+          <span class="store-portal-event-horizon"></span>
+          <span class="store-portal-core"><i></i><i></i><i></i></span>
+        </span>
+        <span class="store-portal-streaks"></span>
+        <span class="store-portal-hud">
+          <small>DIMENSION GATE // MK-STORE</small>
+          <strong>VSTUP DO STORE</strong>
+          <i><b></b></i>
+        </span>
+        <span class="store-portal-flash"></span>`;
+
+      const streakLayer = portal.querySelector(".store-portal-streaks");
+      for (let index = 0; index < 44; index += 1) {
+        const streak = document.createElement("i");
+        streak.style.setProperty("--streak-angle", `${randomBetween(0, 360).toFixed(2)}deg`);
+        streak.style.setProperty("--streak-distance", `${randomBetween(10, 48).toFixed(2)}vmax`);
+        streak.style.setProperty("--streak-length", `${randomBetween(28, 150).toFixed(1)}px`);
+        streak.style.setProperty("--streak-width", `${randomBetween(1, 3.8).toFixed(1)}px`);
+        streak.style.setProperty("--streak-delay", `${Math.round(randomBetween(120, 720))}ms`);
+        streak.style.setProperty("--streak-duration", `${Math.round(randomBetween(520, 1180))}ms`);
+        streak.style.setProperty("--streak-hue", `${Math.round(randomBetween(175, 325))}deg`);
+        streakLayer?.appendChild(streak);
+      }
+
+      document.body.appendChild(portal);
+      document.body.classList.add("store-dimension-launch");
+      storeButton.classList.add("is-dimension-opening");
+      window.clearInterval(fxTimer);
+      spawnStoreFx(48);
+
+      window.setTimeout(() => {
+        window.location.assign(destination);
+      }, 2240);
+    };
+
+    // Krátký iniciační pulz při stisku, po uvolnění se otevře celá paralelní dimenze.
     storeButton.addEventListener("pointerdown", event => launchCyberPulse(event.clientX, event.clientY));
     storeButton.addEventListener("click", event => {
+      if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      event.preventDefault();
       if (event.detail === 0) launchCyberPulse(0, 0); // aktivace klávesnicí
+      launchDimensionPortal(event.clientX, event.clientY);
     });
   }
 })();
