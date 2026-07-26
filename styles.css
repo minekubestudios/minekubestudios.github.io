@@ -8887,69 +8887,295 @@ body.home-ready .home-scroll-cue { animation:homeContentReveal .8s ease .8s both
 .store-button {
   --store-x:50%;
   --store-y:50%;
+  --store-angle:0deg;
   position:relative;
   isolation:isolate;
-  min-width:148px;
-  min-height:48px;
+  min-width:158px;
+  min-height:50px;
   display:grid;
-  grid-template-columns:30px 1fr 18px;
+  grid-template-columns:34px 1fr 25px;
   align-items:center;
   gap:9px;
   overflow:visible;
-  padding:5px 12px 5px 7px;
-  border:1px solid rgba(255,227,115,.72);
-  border-radius:14px;
+  padding:5px 8px 5px 6px;
+  border:0;
+  border-radius:15px;
   color:#241006;
-  background:linear-gradient(125deg,#fff178 0%,#ffc32e 48%,#ff8800 100%);
-  box-shadow:0 10px 34px rgba(255,139,0,.25),inset 0 1px 0 rgba(255,255,255,.72);
-  transition:translate .24s ease,box-shadow .28s ease,filter .28s ease;
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.43),transparent 28%),
+    linear-gradient(112deg,#ffe96a 0%,#ffc126 43%,#ff9800 73%,#ff7900 100%);
+  box-shadow:
+    0 12px 30px rgba(255,126,0,.24),
+    0 2px 0 rgba(255,224,103,.24),
+    inset 0 1px 0 rgba(255,255,255,.76),
+    inset 0 -2px 0 rgba(126,45,0,.18);
+  transform:translateZ(0);
+  transition:
+    transform .38s cubic-bezier(.16,1,.3,1),
+    box-shadow .38s ease,
+    filter .38s ease;
+  -webkit-tap-highlight-color:transparent;
 }
+
+/* Dvojitý energetický rámeček: zlatý základ + jemný fialový akcent. */
 .store-button::before {
   content:"";
   position:absolute;
   z-index:-1;
   inset:-2px;
-  border-radius:16px;
-  padding:1px;
-  background:conic-gradient(from var(--store-angle,0deg),#fff29a,#ff9100,#d74cff,#54ffa6,#fff29a);
+  border-radius:17px;
+  padding:2px;
+  background:conic-gradient(
+    from var(--store-angle),
+    #fff8b0 0deg,
+    #ffbf1f 72deg,
+    #ff7100 132deg,
+    #d74cff 190deg,
+    #ff8f00 250deg,
+    #fff3a0 320deg,
+    #fff8b0 360deg
+  );
   -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
   -webkit-mask-composite:xor;
   mask-composite:exclude;
-  opacity:.58;
-  animation:storeBorderSpin 4.5s linear infinite;
+  opacity:.84;
+  filter:drop-shadow(0 0 7px rgba(255,167,0,.28));
+  animation:storeBorderSpin 6.5s linear infinite;
 }
+
+/* Měkká aura za tlačítkem v klidu dýchá, při hoveru se rozsvítí. */
 .store-button::after {
   content:"";
   position:absolute;
-  z-index:-2;
-  inset:-8px;
-  border-radius:20px;
-  background:linear-gradient(90deg,rgba(255,153,0,.32),rgba(209,64,255,.18),rgba(69,255,159,.18));
-  filter:blur(12px);
-  opacity:.55;
-  transition:opacity .25s ease,scale .25s ease;
+  z-index:-3;
+  inset:-11px -14px;
+  border-radius:24px;
+  background:
+    radial-gradient(circle at 34% 50%,rgba(255,190,35,.48),transparent 44%),
+    radial-gradient(circle at 78% 50%,rgba(211,62,255,.24),transparent 48%);
+  filter:blur(13px);
+  opacity:.48;
+  transform:scale(.94);
+  animation:storeIdlePulse 3.8s ease-in-out infinite;
+  transition:opacity .35s ease,transform .45s cubic-bezier(.16,1,.3,1),filter .35s ease;
 }
-.store-button:hover { translate:0 -4px;filter:saturate(1.13) brightness(1.04);box-shadow:0 18px 46px rgba(255,139,0,.36),0 0 0 4px rgba(255,174,0,.08),inset 0 1px 0 rgba(255,255,255,.82); }
-.store-button:hover::after { opacity:.95;scale:1.12; }
-.store-button-aura { position:absolute;z-index:-1;inset:0;border-radius:inherit;overflow:hidden;background:radial-gradient(circle at var(--store-x) var(--store-y),rgba(255,255,255,.66),transparent 37%);opacity:.42; }
-.store-button-grid { position:absolute;inset:2px;border-radius:12px;overflow:hidden;opacity:.12;background-image:linear-gradient(rgba(54,23,2,.5) 1px,transparent 1px),linear-gradient(90deg,rgba(54,23,2,.5) 1px,transparent 1px);background-size:8px 8px;mask-image:linear-gradient(90deg,transparent,black 30%,black 70%,transparent); }
-.store-button-icon { position:relative;width:30px;height:36px;display:grid;place-items:center;border-radius:10px;background:rgba(56,23,2,.12);box-shadow:inset 0 0 0 1px rgba(60,25,3,.10);transition:rotate .35s cubic-bezier(.2,.8,.2,1),scale .35s cubic-bezier(.2,.8,.2,1); }
-.store-button-icon svg,.store-button-arrow svg { width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round; }
-.store-button-label { display:grid;line-height:1;text-align:left; }
-.store-button-label small { font-size:5px;font-weight:1000;letter-spacing:.18em;opacity:.58; }
-.store-button-label strong { margin-top:4px;font-size:14px;font-weight:1000;letter-spacing:-.025em; }
-.store-button-arrow { width:18px;height:30px;display:grid;place-items:center;border-left:1px solid rgba(62,27,4,.13);transition:translate .25s ease; }
-.store-button:hover .store-button-icon { rotate:-8deg;scale:1.08; }
-.store-button:hover .store-button-arrow { translate:4px 0; }
-.store-button-particles { position:absolute;z-index:-3;inset:-22px;pointer-events:none; }
-.store-button-particles i { --sx:0px;--sy:-25px;position:absolute;left:50%;top:50%;width:4px;height:4px;border-radius:50%;background:#ffe568;box-shadow:0 0 10px #ff9d00;opacity:0; }
-.store-button-particles i:nth-child(1){--sx:-67px;--sy:-28px}.store-button-particles i:nth-child(2){--sx:-48px;--sy:34px;background:#56ffa6}.store-button-particles i:nth-child(3){--sx:-10px;--sy:-42px;background:#d965ff}.store-button-particles i:nth-child(4){--sx:23px;--sy:40px}.store-button-particles i:nth-child(5){--sx:57px;--sy:-32px;background:#56ffa6}.store-button-particles i:nth-child(6){--sx:76px;--sy:17px;background:#d965ff}.store-button-particles i:nth-child(7){--sx:10px;--sy:-48px}.store-button-particles i:nth-child(8){--sx:-75px;--sy:10px;background:#d965ff}
-.store-button:hover .store-button-particles i { animation:storeParticleBurst .88s cubic-bezier(.15,.75,.2,1) calc(var(--store-particle-delay,0)*1ms) both; }
-.store-button-particles i:nth-child(2){--store-particle-delay:40}.store-button-particles i:nth-child(3){--store-particle-delay:80}.store-button-particles i:nth-child(4){--store-particle-delay:20}.store-button-particles i:nth-child(5){--store-particle-delay:70}.store-button-particles i:nth-child(6){--store-particle-delay:110}.store-button-particles i:nth-child(7){--store-particle-delay:50}.store-button-particles i:nth-child(8){--store-particle-delay:90}
+
+.store-button:hover {
+  transform:translateY(-4px) scale(1.035);
+  filter:saturate(1.12) brightness(1.035);
+  box-shadow:
+    0 19px 42px rgba(255,120,0,.34),
+    0 0 0 4px rgba(255,184,34,.075),
+    inset 0 1px 0 rgba(255,255,255,.88),
+    inset 0 -2px 0 rgba(125,42,0,.14);
+}
+.store-button:hover::before { opacity:1;filter:drop-shadow(0 0 10px rgba(255,162,0,.5)); }
+.store-button:hover::after { opacity:.9;transform:scale(1.12);filter:blur(15px); }
+.store-button:active { transform:translateY(-1px) scale(.985);transition-duration:.1s; }
+.store-button:focus-visible { outline:2px solid #fff2a0;outline-offset:5px; }
+
+/* Světlo sledující kurzor + kovový průlet bez bílého bliknutí. */
+.store-button-aura {
+  position:absolute;
+  z-index:0;
+  inset:2px;
+  border-radius:13px;
+  overflow:hidden;
+  pointer-events:none;
+  background:radial-gradient(circle at var(--store-x) var(--store-y),rgba(255,250,194,.7),transparent 34%);
+  opacity:.38;
+  mix-blend-mode:soft-light;
+}
+.store-button-aura::after {
+  content:"";
+  position:absolute;
+  inset:-55% auto -55% -38%;
+  width:27%;
+  transform:skewX(-19deg) translateX(-260%);
+  background:linear-gradient(90deg,transparent,rgba(255,242,154,.78),transparent);
+  filter:blur(1px);
+  opacity:0;
+}
+.store-button:hover .store-button-aura::after { animation:storeEnergySweep 1.05s cubic-bezier(.18,.78,.24,1) both; }
+
+/* Jemná technická textura a dvě pohyblivé energetické lišty. */
+.store-button-grid {
+  position:absolute;
+  z-index:0;
+  inset:2px;
+  border-radius:13px;
+  overflow:hidden;
+  pointer-events:none;
+  opacity:.16;
+  background-image:
+    linear-gradient(rgba(69,25,1,.46) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(69,25,1,.46) 1px,transparent 1px);
+  background-size:8px 8px;
+  -webkit-mask-image:linear-gradient(90deg,transparent 2%,#000 24%,#000 78%,transparent 98%);
+  mask-image:linear-gradient(90deg,transparent 2%,#000 24%,#000 78%,transparent 98%);
+}
+.store-button-grid::before,
+.store-button-grid::after {
+  content:"";
+  position:absolute;
+  left:-35%;
+  width:30%;
+  height:1px;
+  background:linear-gradient(90deg,transparent,#fff09a,transparent);
+  box-shadow:0 0 7px rgba(255,178,0,.8);
+  opacity:.45;
+}
+.store-button-grid::before { top:5px;animation:storeRail 3.2s ease-in-out infinite; }
+.store-button-grid::after { bottom:5px;animation:storeRail 3.2s ease-in-out 1.6s infinite reverse; }
+
+.store-button-icon,
+.store-button-label,
+.store-button-arrow { position:relative;z-index:2; }
+
+.store-button-icon {
+  width:34px;
+  height:38px;
+  display:grid;
+  place-items:center;
+  border:1px solid rgba(78,27,1,.19);
+  border-radius:11px;
+  color:#2c1206;
+  background:
+    radial-gradient(circle at 32% 22%,rgba(255,255,255,.34),transparent 35%),
+    linear-gradient(145deg,rgba(58,19,0,.08),rgba(91,31,0,.18));
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.32),
+    inset 0 0 0 1px rgba(255,219,86,.12),
+    0 4px 9px rgba(100,35,0,.1);
+  transition:
+    transform .48s cubic-bezier(.16,1,.3,1),
+    background .35s ease,
+    box-shadow .35s ease;
+}
+.store-button-icon::before {
+  content:"";
+  position:absolute;
+  inset:4px;
+  border:1px solid rgba(95,31,0,.16);
+  border-radius:8px;
+  transform:rotate(0deg);
+  transition:transform .7s cubic-bezier(.16,1,.3,1),border-color .35s ease;
+}
+.store-button-icon::after {
+  content:"";
+  position:absolute;
+  right:3px;
+  top:3px;
+  width:4px;
+  height:4px;
+  border-radius:50%;
+  background:#fff4a5;
+  box-shadow:0 0 8px #fff07a,0 0 13px rgba(210,64,255,.55);
+  opacity:.72;
+  transition:transform .45s ease,opacity .35s ease;
+}
+.store-button-icon svg,
+.store-button-arrow svg {
+  width:18px;
+  height:18px;
+  fill:none;
+  stroke:currentColor;
+  stroke-width:1.9;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+.store-button:hover .store-button-icon {
+  transform:rotate(-5deg) scale(1.09);
+  background:linear-gradient(145deg,rgba(255,255,255,.25),rgba(91,31,0,.2));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.42),0 0 13px rgba(255,232,113,.33);
+}
+.store-button:hover .store-button-icon::before { transform:rotate(45deg) scale(.83);border-color:rgba(106,31,0,.28); }
+.store-button:hover .store-button-icon::after { transform:translate(-3px,3px) scale(1.35);opacity:1; }
+
+.store-button-label {
+  display:grid;
+  min-width:0;
+  line-height:1;
+  text-align:left;
+  text-shadow:0 1px 0 rgba(255,255,255,.24);
+  transition:transform .38s cubic-bezier(.16,1,.3,1);
+}
+.store-button-label small {
+  font-size:5.5px;
+  font-weight:1000;
+  letter-spacing:.2em;
+  opacity:.66;
+}
+.store-button-label strong {
+  margin-top:4px;
+  font-size:14.5px;
+  font-weight:1000;
+  letter-spacing:-.035em;
+}
+.store-button:hover .store-button-label { transform:translateX(1px); }
+
+.store-button-arrow {
+  width:25px;
+  height:34px;
+  display:grid;
+  place-items:center;
+  border-left:1px solid rgba(77,26,1,.15);
+  border-radius:0 9px 9px 0;
+  transition:transform .42s cubic-bezier(.16,1,.3,1),background .3s ease;
+}
+.store-button-arrow::before {
+  content:"";
+  position:absolute;
+  inset:5px 1px 5px 5px;
+  border-radius:7px;
+  background:rgba(70,22,0,.07);
+  transform:scale(.78);
+  opacity:0;
+  transition:transform .38s cubic-bezier(.16,1,.3,1),opacity .3s ease;
+}
+.store-button-arrow svg { position:relative;z-index:1;transition:transform .42s cubic-bezier(.16,1,.3,1); }
+.store-button:hover .store-button-arrow { transform:translateX(2px); }
+.store-button:hover .store-button-arrow::before { transform:scale(1);opacity:1; }
+.store-button:hover .store-button-arrow svg { transform:translateX(3px); }
+
+/* Částice jsou pouze zlaté/fialové, aby držely styl Minekube a nepřidávaly zelenou. */
+.store-button-particles { position:absolute;z-index:-2;inset:-24px;pointer-events:none; }
+.store-button-particles i {
+  --sx:0px;
+  --sy:-25px;
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:4px;
+  height:4px;
+  border-radius:50%;
+  background:#ffe86c;
+  box-shadow:0 0 9px #ff9700,0 0 15px rgba(255,172,0,.46);
+  opacity:0;
+}
+.store-button-particles i:nth-child(1){--sx:-72px;--sy:-30px}
+.store-button-particles i:nth-child(2){--sx:-55px;--sy:34px;background:#ff9b22}
+.store-button-particles i:nth-child(3){--sx:-12px;--sy:-45px;background:#e064ff;box-shadow:0 0 10px #d74cff}
+.store-button-particles i:nth-child(4){--sx:28px;--sy:42px}
+.store-button-particles i:nth-child(5){--sx:61px;--sy:-35px;background:#ff9b22}
+.store-button-particles i:nth-child(6){--sx:79px;--sy:18px;background:#e064ff;box-shadow:0 0 10px #d74cff}
+.store-button-particles i:nth-child(7){--sx:13px;--sy:-51px}
+.store-button-particles i:nth-child(8){--sx:-81px;--sy:9px;background:#e064ff;box-shadow:0 0 10px #d74cff}
+.store-button:hover .store-button-particles i { animation:storeParticleBurst .95s cubic-bezier(.15,.75,.2,1) calc(var(--store-particle-delay,0)*1ms) both; }
+.store-button-particles i:nth-child(2){--store-particle-delay:45}
+.store-button-particles i:nth-child(3){--store-particle-delay:90}
+.store-button-particles i:nth-child(4){--store-particle-delay:25}
+.store-button-particles i:nth-child(5){--store-particle-delay:75}
+.store-button-particles i:nth-child(6){--store-particle-delay:120}
+.store-button-particles i:nth-child(7){--store-particle-delay:55}
+.store-button-particles i:nth-child(8){--store-particle-delay:100}
 
 @property --store-angle { syntax:"<angle>";initial-value:0deg;inherits:false; }
 @keyframes storeBorderSpin { to { --store-angle:360deg; } }
-@keyframes storeParticleBurst { 0%{opacity:0;translate:0 0;scale:.2}24%{opacity:1;scale:1.5}100%{opacity:0;translate:var(--sx) var(--sy);scale:.15} }
+@keyframes storeIdlePulse { 0%,100%{opacity:.4;transform:scale(.94)}50%{opacity:.58;transform:scale(1.02)} }
+@keyframes storeEnergySweep { 0%{transform:skewX(-19deg) translateX(-260%);opacity:0}20%{opacity:.72}100%{transform:skewX(-19deg) translateX(720%);opacity:0} }
+@keyframes storeRail { 0%,16%{left:-35%;opacity:0}32%{opacity:.5}70%{left:105%;opacity:.26}100%{left:105%;opacity:0} }
+@keyframes storeParticleBurst { 0%{opacity:0;translate:0 0;scale:.2}22%{opacity:1;scale:1.45}100%{opacity:0;translate:var(--sx) var(--sy);scale:.12} }
 
 /* Aktivní Domů dostane výraznější stav, ale zůstává čitelné. */
 .desktop-nav a[href="#home"].active::before {
@@ -9026,7 +9252,9 @@ body.home-ready .home-scroll-cue { animation:homeContentReveal .8s ease .8s both
   .home-nebula,.home-grid-floor,.home-scan-beam,.home-star,.home-live-dot,.home-action-shine,
   .home-visual::before,.home-visual-frame::after,.home-ring,.home-energy-arc,.home-core-cube,
   .home-cube-glow,.home-telemetry,.home-scroll-cue i::after,
-  .store-button::before,.store-button-particles i {
+  .store-button::before,.store-button::after,
+  .store-button-aura::after,.store-button-grid::before,.store-button-grid::after,
+  .store-button-particles i {
     animation:none!important;
   }
   .js .home-copy > *,.js .home-visual,.js .home-scroll-cue { opacity:1; }
