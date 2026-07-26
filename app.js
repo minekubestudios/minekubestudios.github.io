@@ -1471,19 +1471,105 @@ initializeScrollExperience();
     });
   }
 
-  // Futuristické světlo Store tlačítka přesně sleduje kurzor.
-  if (storeButton && window.matchMedia("(pointer: fine)").matches && !prefersReducedMotion.matches) {
-    storeButton.addEventListener("pointermove", event => {
-      const rect = storeButton.getBoundingClientRect();
-      const x = Math.min(Math.max((event.clientX - rect.left) / rect.width, 0), 1);
-      const y = Math.min(Math.max((event.clientY - rect.top) / rect.height, 0), 1);
-      storeButton.style.setProperty("--store-x", `${x * 100}%`);
-      storeButton.style.setProperty("--store-y", `${y * 100}%`);
-    });
+  // STORE // neon-galaxy reactor: světlo, 3D náklon, částice, ikony, blesky a klikací pulz.
+  if (storeButton && !prefersReducedMotion.matches) {
+    const fxLayer = storeButton.querySelector(".store-button-fx");
+    const fxPalette = ["#6ff8ff", "#8d68ff", "#ff57df", "#ffd06b", "#7ab3ff"];
+    const fxIcons = ["✦", "◇", "⬡", "+", "✧"];
+    let fxTimer = 0;
 
-    storeButton.addEventListener("pointerleave", () => {
+    const randomBetween = (min, max) => Math.random() * (max - min) + min;
+
+    const spawnStoreFx = (amount = 16) => {
+      if (!fxLayer || !storeButton.matches(":hover")) return;
+
+      for (let index = 0; index < amount; index += 1) {
+        const roll = Math.random();
+        const node = document.createElement("i");
+        const angle = randomBetween(0, Math.PI * 2);
+        const distanceX = randomBetween(58, 128);
+        const distanceY = randomBetween(42, 96);
+        const color = fxPalette[Math.floor(Math.random() * fxPalette.length)];
+        const x = Math.cos(angle) * distanceX;
+        const y = Math.sin(angle) * distanceY;
+
+        if (roll < .17) {
+          node.className = "store-fx-bolt";
+        } else if (roll < .42) {
+          node.className = "store-fx-icon";
+          node.textContent = fxIcons[Math.floor(Math.random() * fxIcons.length)];
+        } else {
+          node.className = "store-fx-particle";
+        }
+
+        node.style.setProperty("--fx-x", `${x.toFixed(1)}px`);
+        node.style.setProperty("--fx-y", `${y.toFixed(1)}px`);
+        node.style.setProperty("--fx-size", `${randomBetween(3, roll < .42 ? 14 : 7).toFixed(1)}px`);
+        node.style.setProperty("--fx-duration", `${Math.round(randomBetween(650, 1160))}ms`);
+        node.style.setProperty("--fx-delay", `${Math.round(randomBetween(0, 90))}ms`);
+        node.style.setProperty("--fx-rotation", `${Math.round(randomBetween(-180, 180))}deg`);
+        node.style.setProperty("--fx-scale", randomBetween(.35, 1.05).toFixed(2));
+        node.style.setProperty("--fx-color", color);
+        fxLayer.appendChild(node);
+        node.addEventListener("animationend", () => node.remove(), { once: true });
+      }
+    };
+
+    const resetStoreTilt = () => {
       storeButton.style.setProperty("--store-x", "50%");
       storeButton.style.setProperty("--store-y", "50%");
+      storeButton.style.setProperty("--store-tilt-x", "0deg");
+      storeButton.style.setProperty("--store-tilt-y", "0deg");
+    };
+
+    if (window.matchMedia("(pointer: fine)").matches) {
+      storeButton.addEventListener("pointermove", event => {
+        const rect = storeButton.getBoundingClientRect();
+        const x = Math.min(Math.max((event.clientX - rect.left) / rect.width, 0), 1);
+        const y = Math.min(Math.max((event.clientY - rect.top) / rect.height, 0), 1);
+        storeButton.style.setProperty("--store-x", `${x * 100}%`);
+        storeButton.style.setProperty("--store-y", `${y * 100}%`);
+        storeButton.style.setProperty("--store-tilt-x", `${((.5 - y) * 8).toFixed(2)}deg`);
+        storeButton.style.setProperty("--store-tilt-y", `${((x - .5) * 10).toFixed(2)}deg`);
+      });
+
+      storeButton.addEventListener("pointerenter", () => {
+        spawnStoreFx(28);
+        window.clearInterval(fxTimer);
+        fxTimer = window.setInterval(() => spawnStoreFx(8), 230);
+      });
+
+      storeButton.addEventListener("pointerleave", () => {
+        window.clearInterval(fxTimer);
+        resetStoreTilt();
+      });
+    }
+
+    let lastPulseAt = 0;
+    const launchCyberPulse = (clientX, clientY) => {
+      const now = performance.now();
+      if (now - lastPulseAt < 220) return;
+      lastPulseAt = now;
+
+      const rect = storeButton.getBoundingClientRect();
+      const x = Number.isFinite(clientX) && clientX > 0 ? clientX : rect.left + rect.width / 2;
+      const y = Number.isFinite(clientY) && clientY > 0 ? clientY : rect.top + rect.height / 2;
+      const pulse = document.createElement("span");
+      pulse.className = "store-cyber-pulse";
+      pulse.style.setProperty("--pulse-x", `${x}px`);
+      pulse.style.setProperty("--pulse-y", `${y}px`);
+      pulse.innerHTML = '<i class="store-cyber-pulse-grid"></i><i class="store-cyber-pulse-cross"></i>';
+      document.body.appendChild(pulse);
+      pulse.addEventListener("animationend", pulseEvent => {
+        if (pulseEvent.target === pulse) pulse.remove();
+      });
+      window.setTimeout(() => pulse.remove(), 1500);
+    };
+
+    // Pulz startuje už při stisku, takže je vidět i před otevřením Store v nové kartě.
+    storeButton.addEventListener("pointerdown", event => launchCyberPulse(event.clientX, event.clientY));
+    storeButton.addEventListener("click", event => {
+      if (event.detail === 0) launchCyberPulse(0, 0); // aktivace klávesnicí
     });
   }
 })();

@@ -8883,299 +8883,564 @@ body.home-ready .home-scroll-cue { animation:homeContentReveal .8s ease .8s both
 @keyframes homeContentReveal { from { opacity:0;translate:0 32px;clip-path:inset(0 0 100% 0); } to { opacity:1;translate:0 0;clip-path:inset(0 0 0 0); } }
 @keyframes homeVisualReveal { from { opacity:0;translate:45px 0;clip-path:inset(0 0 0 48%); } to { opacity:1;translate:0 0;clip-path:inset(0 0 0 0); } }
 
-/* --- Ultimátní Store tlačítko --- */
+/* --- STORE // NEON GALAXY REACTOR --- */
 .store-button {
   --store-x:50%;
   --store-y:50%;
   --store-angle:0deg;
+  --store-tilt-x:0deg;
+  --store-tilt-y:0deg;
   position:relative;
   isolation:isolate;
-  min-width:158px;
-  min-height:50px;
+  min-width:184px;
+  min-height:54px;
   display:grid;
-  grid-template-columns:34px 1fr 25px;
+  grid-template-columns:40px minmax(82px,1fr) 31px;
   align-items:center;
   gap:9px;
+  padding:6px 8px 6px 7px;
   overflow:visible;
-  padding:5px 8px 5px 6px;
   border:0;
-  border-radius:15px;
-  color:#241006;
-  background:
-    linear-gradient(180deg,rgba(255,255,255,.43),transparent 28%),
-    linear-gradient(112deg,#ffe96a 0%,#ffc126 43%,#ff9800 73%,#ff7900 100%);
+  border-radius:17px;
+  color:#f8fbff;
+  background:#060619;
   box-shadow:
-    0 12px 30px rgba(255,126,0,.24),
-    0 2px 0 rgba(255,224,103,.24),
-    inset 0 1px 0 rgba(255,255,255,.76),
-    inset 0 -2px 0 rgba(126,45,0,.18);
-  transform:translateZ(0);
+    0 15px 36px rgba(4,2,24,.55),
+    0 0 18px rgba(103,52,255,.24),
+    inset 0 1px 0 rgba(255,255,255,.16),
+    inset 0 -1px 0 rgba(0,0,0,.72);
+  transform:perspective(700px) rotateX(var(--store-tilt-x)) rotateY(var(--store-tilt-y)) translateZ(0);
+  transform-style:preserve-3d;
   transition:
-    transform .38s cubic-bezier(.16,1,.3,1),
-    box-shadow .38s ease,
-    filter .38s ease;
+    transform .42s cubic-bezier(.16,1,.3,1),
+    filter .36s ease,
+    box-shadow .42s ease;
   -webkit-tap-highlight-color:transparent;
 }
 
-/* Dvojitý energetický rámeček: zlatý základ + jemný fialový akcent. */
+/* Ostrý rotující neonový rám. */
 .store-button::before {
   content:"";
   position:absolute;
   z-index:-1;
   inset:-2px;
-  border-radius:17px;
   padding:2px;
+  border-radius:19px;
   background:conic-gradient(
     from var(--store-angle),
-    #fff8b0 0deg,
-    #ffbf1f 72deg,
-    #ff7100 132deg,
-    #d74cff 190deg,
-    #ff8f00 250deg,
-    #fff3a0 320deg,
-    #fff8b0 360deg
+    #66f7ff 0deg,
+    #8764ff 66deg,
+    #ff48dc 126deg,
+    #ff9f2f 187deg,
+    #ffe178 230deg,
+    #8e63ff 296deg,
+    #66f7ff 360deg
   );
   -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
   -webkit-mask-composite:xor;
   mask-composite:exclude;
-  opacity:.84;
-  filter:drop-shadow(0 0 7px rgba(255,167,0,.28));
-  animation:storeBorderSpin 6.5s linear infinite;
+  filter:drop-shadow(0 0 8px rgba(103,236,255,.45)) drop-shadow(0 0 14px rgba(211,62,255,.2));
+  animation:storeGalaxyBorder 3.8s linear infinite;
 }
 
-/* Měkká aura za tlačítkem v klidu dýchá, při hoveru se rozsvítí. */
+/* Aura za tlačítkem je v klidu decentní, na hoveru exploduje do galaxie. */
 .store-button::after {
   content:"";
   position:absolute;
-  z-index:-3;
-  inset:-11px -14px;
-  border-radius:24px;
+  z-index:-6;
+  inset:-19px -25px;
+  border-radius:31px;
   background:
-    radial-gradient(circle at 34% 50%,rgba(255,190,35,.48),transparent 44%),
-    radial-gradient(circle at 78% 50%,rgba(211,62,255,.24),transparent 48%);
-  filter:blur(13px);
-  opacity:.48;
-  transform:scale(.94);
-  animation:storeIdlePulse 3.8s ease-in-out infinite;
-  transition:opacity .35s ease,transform .45s cubic-bezier(.16,1,.3,1),filter .35s ease;
+    radial-gradient(ellipse at 22% 50%,rgba(65,235,255,.38),transparent 47%),
+    radial-gradient(ellipse at 54% 48%,rgba(118,58,255,.52),transparent 52%),
+    radial-gradient(ellipse at 82% 48%,rgba(255,51,205,.34),transparent 48%);
+  filter:blur(17px);
+  opacity:.35;
+  transform:scale(.84);
+  animation:storeGalaxyBreath 3.2s ease-in-out infinite;
+  transition:opacity .35s ease,transform .5s cubic-bezier(.16,1,.3,1),filter .35s ease;
 }
 
 .store-button:hover {
-  transform:translateY(-4px) scale(1.035);
-  filter:saturate(1.12) brightness(1.035);
+  transform:perspective(700px) rotateX(var(--store-tilt-x)) rotateY(var(--store-tilt-y)) translateY(-5px) scale(1.075);
+  filter:saturate(1.22) brightness(1.12);
   box-shadow:
-    0 19px 42px rgba(255,120,0,.34),
-    0 0 0 4px rgba(255,184,34,.075),
-    inset 0 1px 0 rgba(255,255,255,.88),
-    inset 0 -2px 0 rgba(125,42,0,.14);
+    0 22px 48px rgba(3,1,25,.68),
+    0 0 20px rgba(90,236,255,.42),
+    0 0 38px rgba(137,74,255,.4),
+    0 0 58px rgba(255,60,212,.2),
+    inset 0 1px 0 rgba(255,255,255,.23),
+    inset 0 -1px 0 rgba(0,0,0,.8);
+  animation:storeHoverLevitate 1.55s ease-in-out infinite alternate;
 }
-.store-button:hover::before { opacity:1;filter:drop-shadow(0 0 10px rgba(255,162,0,.5)); }
-.store-button:hover::after { opacity:.9;transform:scale(1.12);filter:blur(15px); }
-.store-button:active { transform:translateY(-1px) scale(.985);transition-duration:.1s; }
-.store-button:focus-visible { outline:2px solid #fff2a0;outline-offset:5px; }
+.store-button:hover::before {
+  filter:drop-shadow(0 0 9px rgba(95,244,255,.85)) drop-shadow(0 0 18px rgba(224,59,255,.58));
+  animation-duration:1.25s;
+}
+.store-button:hover::after {
+  opacity:.94;
+  transform:scale(1.19);
+  filter:blur(20px);
+}
+.store-button:active {
+  transform:perspective(700px) rotateX(0) rotateY(0) translateY(-1px) scale(.965);
+  filter:brightness(1.35) saturate(1.4);
+  transition-duration:.08s;
+}
+.store-button:focus-visible { outline:2px solid #91f9ff;outline-offset:6px; }
 
-/* Světlo sledující kurzor + kovový průlet bez bílého bliknutí. */
-.store-button-aura {
+/* Vnitřní vesmír. */
+.store-button-universe {
   position:absolute;
   z-index:0;
   inset:2px;
-  border-radius:13px;
   overflow:hidden;
+  border-radius:15px;
   pointer-events:none;
-  background:radial-gradient(circle at var(--store-x) var(--store-y),rgba(255,250,194,.7),transparent 34%);
-  opacity:.38;
-  mix-blend-mode:soft-light;
+  background:
+    radial-gradient(circle at var(--store-x) var(--store-y),rgba(134,246,255,.28),transparent 31%),
+    radial-gradient(circle at 75% 18%,rgba(255,56,222,.25),transparent 36%),
+    radial-gradient(circle at 18% 86%,rgba(91,57,255,.37),transparent 42%),
+    linear-gradient(115deg,#080722 0%,#12103a 42%,#260c42 72%,#09162f 100%);
+  box-shadow:inset 0 0 22px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.09);
 }
-.store-button-aura::after {
+.store-button-universe::before {
   content:"";
   position:absolute;
-  inset:-55% auto -55% -38%;
-  width:27%;
-  transform:skewX(-19deg) translateX(-260%);
-  background:linear-gradient(90deg,transparent,rgba(255,242,154,.78),transparent);
+  inset:-70%;
+  background:
+    radial-gradient(circle,#fff 0 1px,transparent 1.5px) 0 0/23px 23px,
+    radial-gradient(circle,#8df8ff 0 1px,transparent 1.7px) 8px 11px/31px 31px,
+    radial-gradient(circle,#ff6ee6 0 1px,transparent 1.7px) 13px 5px/41px 41px;
+  opacity:.52;
+  transform:rotate(8deg);
+  animation:storeStarDrift 13s linear infinite;
+}
+.store-button-universe::after {
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    repeating-linear-gradient(90deg,transparent 0 13px,rgba(111,235,255,.045) 13px 14px),
+    repeating-linear-gradient(0deg,transparent 0 9px,rgba(177,87,255,.04) 9px 10px);
+  opacity:.68;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 18%,#000 82%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 18%,#000 82%,transparent);
+}
+.store-button-nebula {
+  position:absolute;
+  width:96px;
+  height:70px;
+  border-radius:50%;
+  filter:blur(16px);
+  opacity:.55;
+  mix-blend-mode:screen;
+}
+.store-button-nebula-a {
+  left:-22px;
+  top:-16px;
+  background:#397fff;
+  animation:storeNebulaA 4.8s ease-in-out infinite alternate;
+}
+.store-button-nebula-b {
+  right:-24px;
+  bottom:-20px;
+  background:#e62dff;
+  animation:storeNebulaB 4.1s ease-in-out infinite alternate;
+}
+.store-button-stars {
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(circle at 12% 24%,#fff 0 1px,transparent 1.7px),
+    radial-gradient(circle at 28% 76%,#70f7ff 0 1px,transparent 1.9px),
+    radial-gradient(circle at 63% 19%,#fff 0 1px,transparent 1.8px),
+    radial-gradient(circle at 84% 67%,#ff76e8 0 1px,transparent 2px),
+    radial-gradient(circle at 47% 56%,#ffd36e 0 1px,transparent 1.8px);
+  animation:storeStarsTwinkle 1.9s ease-in-out infinite alternate;
+}
+.store-button-scan {
+  position:absolute;
+  left:-45%;
+  top:-80%;
+  width:35%;
+  height:260%;
+  transform:skewX(-17deg);
+  background:linear-gradient(90deg,transparent,rgba(125,247,255,.34),rgba(255,105,231,.23),transparent);
   filter:blur(1px);
+  opacity:.25;
+  animation:storeScanIdle 5.4s ease-in-out infinite;
+}
+.store-button:hover .store-button-scan { animation:storeScanHover .82s cubic-bezier(.18,.76,.25,1) infinite;opacity:.72; }
+
+/* Blesky obíhající ZA tlačítkem. */
+.store-button-lightning {
+  position:absolute;
+  z-index:-3;
+  inset:-26px -34px;
+  pointer-events:none;
+  overflow:visible;
+}
+.store-lightning {
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  overflow:visible;
+  fill:none;
+  stroke-linecap:round;
+  stroke-linejoin:round;
   opacity:0;
 }
-.store-button:hover .store-button-aura::after { animation:storeEnergySweep 1.05s cubic-bezier(.18,.78,.24,1) both; }
+.store-lightning path {
+  stroke-dasharray:12 7;
+  stroke-dashoffset:80;
+}
+.store-lightning-a { stroke:#6ff8ff;stroke-width:2.1;filter:drop-shadow(0 0 5px #51e7ff) drop-shadow(0 0 10px #5487ff); }
+.store-lightning-b { stroke:#ff5ce4;stroke-width:2.2;filter:drop-shadow(0 0 5px #ff3ad7) drop-shadow(0 0 10px #b137ff); }
+.store-lightning-c { stroke:#ffd166;stroke-width:1.6;filter:drop-shadow(0 0 5px #ff9d31); }
+.store-button:hover .store-lightning-a { animation:storeLightningA .92s steps(2,end) infinite; }
+.store-button:hover .store-lightning-b { animation:storeLightningB 1.13s steps(2,end) .12s infinite; }
+.store-button:hover .store-lightning-c { animation:storeLightningC .78s steps(2,end) .24s infinite; }
 
-/* Jemná technická textura a dvě pohyblivé energetické lišty. */
-.store-button-grid {
+/* Orbitální linky kolem ikony. */
+.store-button-orbits {
   position:absolute;
-  z-index:0;
-  inset:2px;
-  border-radius:13px;
-  overflow:hidden;
+  z-index:2;
+  left:4px;
+  top:50%;
+  width:46px;
+  height:46px;
+  transform:translateY(-50%);
   pointer-events:none;
-  opacity:.16;
-  background-image:
-    linear-gradient(rgba(69,25,1,.46) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(69,25,1,.46) 1px,transparent 1px);
-  background-size:8px 8px;
-  -webkit-mask-image:linear-gradient(90deg,transparent 2%,#000 24%,#000 78%,transparent 98%);
-  mask-image:linear-gradient(90deg,transparent 2%,#000 24%,#000 78%,transparent 98%);
 }
-.store-button-grid::before,
-.store-button-grid::after {
-  content:"";
+.store-button-orbits i {
   position:absolute;
-  left:-35%;
-  width:30%;
-  height:1px;
-  background:linear-gradient(90deg,transparent,#fff09a,transparent);
-  box-shadow:0 0 7px rgba(255,178,0,.8);
-  opacity:.45;
+  inset:4px;
+  border:1px solid rgba(110,239,255,.34);
+  border-radius:50%;
+  opacity:.55;
 }
-.store-button-grid::before { top:5px;animation:storeRail 3.2s ease-in-out infinite; }
-.store-button-grid::after { bottom:5px;animation:storeRail 3.2s ease-in-out 1.6s infinite reverse; }
+.store-button-orbits i:nth-child(2) { inset:1px 7px;transform:rotate(57deg);border-color:rgba(255,70,222,.34); }
+.store-button-orbits i:nth-child(3) { inset:8px 1px;transform:rotate(-47deg);border-color:rgba(255,204,88,.26); }
+.store-button:hover .store-button-orbits i:nth-child(1) { animation:storeOrbitOne 1.6s linear infinite; }
+.store-button:hover .store-button-orbits i:nth-child(2) { animation:storeOrbitTwo 1.18s linear infinite reverse; }
+.store-button:hover .store-button-orbits i:nth-child(3) { animation:storeOrbitThree .92s linear infinite; }
 
 .store-button-icon,
 .store-button-label,
-.store-button-arrow { position:relative;z-index:2; }
+.store-button-arrow,
+.store-button-corners { position:relative;z-index:4; }
 
 .store-button-icon {
-  width:34px;
-  height:38px;
+  width:40px;
+  height:40px;
   display:grid;
   place-items:center;
-  border:1px solid rgba(78,27,1,.19);
-  border-radius:11px;
-  color:#2c1206;
+  border:1px solid rgba(119,238,255,.47);
+  border-radius:12px;
+  color:#eaffff;
   background:
-    radial-gradient(circle at 32% 22%,rgba(255,255,255,.34),transparent 35%),
-    linear-gradient(145deg,rgba(58,19,0,.08),rgba(91,31,0,.18));
+    linear-gradient(145deg,rgba(89,233,255,.15),rgba(119,52,255,.18) 48%,rgba(255,60,215,.14)),
+    rgba(4,8,31,.72);
   box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.32),
-    inset 0 0 0 1px rgba(255,219,86,.12),
-    0 4px 9px rgba(100,35,0,.1);
-  transition:
-    transform .48s cubic-bezier(.16,1,.3,1),
-    background .35s ease,
-    box-shadow .35s ease;
+    0 0 0 1px rgba(255,255,255,.04) inset,
+    0 0 13px rgba(70,230,255,.26),
+    0 0 22px rgba(152,55,255,.17),
+    inset 0 0 15px rgba(72,169,255,.16);
+  transform:translateZ(18px);
+  transition:transform .45s cubic-bezier(.16,1,.3,1),box-shadow .35s ease,border-color .35s ease;
 }
-.store-button-icon::before {
-  content:"";
-  position:absolute;
-  inset:4px;
-  border:1px solid rgba(95,31,0,.16);
-  border-radius:8px;
-  transform:rotate(0deg);
-  transition:transform .7s cubic-bezier(.16,1,.3,1),border-color .35s ease;
-}
+.store-button-icon::before,
 .store-button-icon::after {
   content:"";
   position:absolute;
-  right:3px;
-  top:3px;
-  width:4px;
-  height:4px;
+  inset:4px;
+  border:1px solid rgba(119,245,255,.22);
+  border-radius:9px;
+  transition:transform .6s cubic-bezier(.16,1,.3,1),opacity .35s ease;
+}
+.store-button-icon::after { inset:8px;border-color:rgba(255,86,226,.25);transform:rotate(45deg); }
+.store-icon-core {
+  position:absolute;
+  width:7px;
+  height:7px;
   border-radius:50%;
-  background:#fff4a5;
-  box-shadow:0 0 8px #fff07a,0 0 13px rgba(210,64,255,.55);
-  opacity:.72;
-  transition:transform .45s ease,opacity .35s ease;
+  background:#b9fbff;
+  box-shadow:0 0 7px #65f5ff,0 0 15px #7d5cff,0 0 21px #ff4ee4;
+  opacity:.25;
+  transition:opacity .3s ease,transform .45s ease;
 }
 .store-button-icon svg,
 .store-button-arrow svg {
-  width:18px;
-  height:18px;
+  position:relative;
+  z-index:2;
+  width:19px;
+  height:19px;
   fill:none;
   stroke:currentColor;
-  stroke-width:1.9;
+  stroke-width:1.85;
   stroke-linecap:round;
   stroke-linejoin:round;
+  filter:drop-shadow(0 0 4px rgba(117,246,255,.5));
 }
 .store-button:hover .store-button-icon {
-  transform:rotate(-5deg) scale(1.09);
-  background:linear-gradient(145deg,rgba(255,255,255,.25),rgba(91,31,0,.2));
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.42),0 0 13px rgba(255,232,113,.33);
+  transform:translateZ(24px) rotate(-7deg) scale(1.13);
+  border-color:rgba(160,252,255,.9);
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.08) inset,
+    0 0 16px rgba(85,237,255,.7),
+    0 0 28px rgba(140,69,255,.48),
+    inset 0 0 18px rgba(84,194,255,.28);
 }
-.store-button:hover .store-button-icon::before { transform:rotate(45deg) scale(.83);border-color:rgba(106,31,0,.28); }
-.store-button:hover .store-button-icon::after { transform:translate(-3px,3px) scale(1.35);opacity:1; }
+.store-button:hover .store-button-icon::before { transform:rotate(90deg) scale(.8); }
+.store-button:hover .store-button-icon::after { transform:rotate(225deg) scale(1.08); }
+.store-button:hover .store-icon-core { opacity:1;transform:scale(2.8); }
 
+/* Text zůstává maximálně ostrý a na hoveru se animuje po písmenech. */
 .store-button-label {
   display:grid;
   min-width:0;
   line-height:1;
   text-align:left;
-  text-shadow:0 1px 0 rgba(255,255,255,.24);
-  transition:transform .38s cubic-bezier(.16,1,.3,1);
+  transform:translateZ(20px);
+  text-shadow:0 0 7px rgba(96,232,255,.2);
 }
 .store-button-label small {
-  font-size:5.5px;
+  position:relative;
+  display:block;
+  width:max-content;
+  max-width:100%;
+  overflow:hidden;
+  color:#a8eeff;
+  font-size:6px;
   font-weight:1000;
-  letter-spacing:.2em;
-  opacity:.66;
+  letter-spacing:.24em;
+  line-height:1;
+  white-space:nowrap;
+}
+.store-button-label small span { position:relative;z-index:1; }
+.store-button-label small i {
+  position:absolute;
+  left:-50%;
+  bottom:0;
+  width:42%;
+  height:1px;
+  background:linear-gradient(90deg,transparent,#7cf8ff,#ff64e7,transparent);
+  box-shadow:0 0 6px #75eaff;
+  animation:storeLabelScan 2.8s ease-in-out infinite;
 }
 .store-button-label strong {
+  display:flex;
+  align-items:center;
   margin-top:4px;
-  font-size:14.5px;
+  color:#fff;
+  font-size:15px;
   font-weight:1000;
-  letter-spacing:-.035em;
+  letter-spacing:.025em;
+  line-height:.95;
+  text-transform:uppercase;
+  filter:drop-shadow(0 0 4px rgba(121,239,255,.36));
 }
-.store-button:hover .store-button-label { transform:translateX(1px); }
+.store-button-label strong span {
+  display:inline-block;
+  will-change:transform,filter,color;
+  animation:storeTextIdle 2.6s ease-in-out infinite;
+}
+.store-button-label strong span:nth-child(2) { animation-delay:.08s; }
+.store-button-label strong span:nth-child(3) { animation-delay:.16s; }
+.store-button-label strong span:nth-child(4) { animation-delay:.24s; }
+.store-button-label strong span:nth-child(5) { animation-delay:.32s; }
+.store-button:hover .store-button-label small { color:#e0fcff;text-shadow:0 0 7px #66eaff; }
+.store-button:hover .store-button-label strong span {
+  animation:storeTextWave .68s cubic-bezier(.16,1,.3,1) infinite alternate;
+  color:#fff;
+  text-shadow:0 0 5px #70f5ff,0 0 12px #7c52ff,0 0 18px rgba(255,76,223,.55);
+}
+.store-button:hover .store-button-label strong span:nth-child(2) { animation-delay:.07s; }
+.store-button:hover .store-button-label strong span:nth-child(3) { animation-delay:.14s; }
+.store-button:hover .store-button-label strong span:nth-child(4) { animation-delay:.21s; }
+.store-button:hover .store-button-label strong span:nth-child(5) { animation-delay:.28s; }
 
 .store-button-arrow {
-  width:25px;
-  height:34px;
+  width:31px;
+  height:38px;
   display:grid;
   place-items:center;
-  border-left:1px solid rgba(77,26,1,.15);
-  border-radius:0 9px 9px 0;
-  transition:transform .42s cubic-bezier(.16,1,.3,1),background .3s ease;
+  color:#dbfbff;
+  border-left:1px solid rgba(112,222,255,.18);
+  transform:translateZ(15px);
 }
-.store-button-arrow::before {
-  content:"";
+.store-arrow-core {
   position:absolute;
-  inset:5px 1px 5px 5px;
-  border-radius:7px;
-  background:rgba(70,22,0,.07);
-  transform:scale(.78);
-  opacity:0;
-  transition:transform .38s cubic-bezier(.16,1,.3,1),opacity .3s ease;
+  width:23px;
+  height:23px;
+  border:1px solid rgba(118,244,255,.32);
+  border-radius:8px;
+  background:linear-gradient(145deg,rgba(91,225,255,.09),rgba(255,64,220,.08));
+  transform:rotate(45deg) scale(.74);
+  transition:transform .4s cubic-bezier(.16,1,.3,1),box-shadow .35s ease,border-color .35s ease;
 }
-.store-button-arrow svg { position:relative;z-index:1;transition:transform .42s cubic-bezier(.16,1,.3,1); }
-.store-button:hover .store-button-arrow { transform:translateX(2px); }
-.store-button:hover .store-button-arrow::before { transform:scale(1);opacity:1; }
-.store-button:hover .store-button-arrow svg { transform:translateX(3px); }
+.store-button-arrow svg { width:18px;height:18px;transition:transform .42s cubic-bezier(.16,1,.3,1); }
+.store-button:hover .store-arrow-core {
+  transform:rotate(135deg) scale(.91);
+  border-color:rgba(164,252,255,.82);
+  box-shadow:0 0 12px rgba(88,235,255,.55),0 0 20px rgba(221,61,255,.3);
+}
+.store-button:hover .store-button-arrow svg { transform:translateX(4px) scale(1.08); }
 
-/* Částice jsou pouze zlaté/fialové, aby držely styl Minekube a nepřidávaly zelenou. */
-.store-button-particles { position:absolute;z-index:-2;inset:-24px;pointer-events:none; }
-.store-button-particles i {
-  --sx:0px;
-  --sy:-25px;
+/* Kybernetické rohy drží ostrou siluetu tlačítka. */
+.store-button-corners { position:absolute;inset:0;pointer-events:none; }
+.store-button-corners i { position:absolute;width:9px;height:9px;border-color:#89f8ff;opacity:.68;filter:drop-shadow(0 0 3px #6eefff); }
+.store-button-corners i:nth-child(1) { left:1px;top:1px;border-left:2px solid;border-top:2px solid;border-radius:15px 0 0 0; }
+.store-button-corners i:nth-child(2) { right:1px;top:1px;border-right:2px solid;border-top:2px solid;border-radius:0 15px 0 0; }
+.store-button-corners i:nth-child(3) { right:1px;bottom:1px;border-right:2px solid;border-bottom:2px solid;border-radius:0 0 15px 0; }
+.store-button-corners i:nth-child(4) { left:1px;bottom:1px;border-left:2px solid;border-bottom:2px solid;border-radius:0 0 0 15px; }
+.store-button:hover .store-button-corners i { animation:storeCornerSpark .72s steps(2,end) infinite;opacity:1; }
+
+/* Dynamické částice, ikony a mini-blesky generované JavaScriptem za tlačítkem. */
+.store-button-fx {
+  position:absolute;
+  z-index:-5;
+  inset:-70px -78px;
+  overflow:visible;
+  pointer-events:none;
+}
+.store-fx-particle,
+.store-fx-icon,
+.store-fx-bolt {
   position:absolute;
   left:50%;
   top:50%;
-  width:4px;
-  height:4px;
+  opacity:0;
+  will-change:transform,opacity,filter;
+  animation:storeFxLaunch var(--fx-duration,900ms) cubic-bezier(.12,.72,.18,1) forwards;
+  animation-delay:var(--fx-delay,0ms);
+}
+.store-fx-particle {
+  width:var(--fx-size,4px);
+  height:var(--fx-size,4px);
   border-radius:50%;
-  background:#ffe86c;
-  box-shadow:0 0 9px #ff9700,0 0 15px rgba(255,172,0,.46);
+  background:var(--fx-color,#70f7ff);
+  box-shadow:0 0 7px var(--fx-color,#70f7ff),0 0 14px var(--fx-color,#70f7ff);
+}
+.store-fx-icon {
+  color:var(--fx-color,#b5fbff);
+  font-size:var(--fx-size,11px);
+  font-weight:900;
+  line-height:1;
+  text-shadow:0 0 5px var(--fx-color,#70f7ff),0 0 12px var(--fx-color,#70f7ff);
+}
+.store-fx-bolt {
+  width:4px;
+  height:var(--fx-size,19px);
+  background:var(--fx-color,#70f7ff);
+  clip-path:polygon(45% 0,100% 0,64% 40%,100% 40%,18% 100%,38% 56%,0 56%);
+  filter:drop-shadow(0 0 5px var(--fx-color,#70f7ff));
+}
+
+/* Celostránkový pulz vznikne v místě kliknutí a plynule se rozšíří přes obrazovku. */
+.store-cyber-pulse {
+  --pulse-x:50vw;
+  --pulse-y:50vh;
+  position:fixed;
+  z-index:2147483000;
+  inset:0;
+  overflow:hidden;
+  pointer-events:none;
+  background:radial-gradient(circle at var(--pulse-x) var(--pulse-y),rgba(173,251,255,.34) 0,rgba(111,79,255,.18) 5%,rgba(255,52,213,.08) 12%,transparent 24%);
+  opacity:0;
+  animation:storePulseFlash 1.18s cubic-bezier(.16,.74,.2,1) both;
+}
+.store-cyber-pulse::before,
+.store-cyber-pulse::after {
+  content:"";
+  position:fixed;
+  left:var(--pulse-x);
+  top:var(--pulse-y);
+  width:46px;
+  aspect-ratio:1;
+  border-radius:50%;
+  transform:translate(-50%,-50%) scale(.15);
   opacity:0;
 }
-.store-button-particles i:nth-child(1){--sx:-72px;--sy:-30px}
-.store-button-particles i:nth-child(2){--sx:-55px;--sy:34px;background:#ff9b22}
-.store-button-particles i:nth-child(3){--sx:-12px;--sy:-45px;background:#e064ff;box-shadow:0 0 10px #d74cff}
-.store-button-particles i:nth-child(4){--sx:28px;--sy:42px}
-.store-button-particles i:nth-child(5){--sx:61px;--sy:-35px;background:#ff9b22}
-.store-button-particles i:nth-child(6){--sx:79px;--sy:18px;background:#e064ff;box-shadow:0 0 10px #d74cff}
-.store-button-particles i:nth-child(7){--sx:13px;--sy:-51px}
-.store-button-particles i:nth-child(8){--sx:-81px;--sy:9px;background:#e064ff;box-shadow:0 0 10px #d74cff}
-.store-button:hover .store-button-particles i { animation:storeParticleBurst .95s cubic-bezier(.15,.75,.2,1) calc(var(--store-particle-delay,0)*1ms) both; }
-.store-button-particles i:nth-child(2){--store-particle-delay:45}
-.store-button-particles i:nth-child(3){--store-particle-delay:90}
-.store-button-particles i:nth-child(4){--store-particle-delay:25}
-.store-button-particles i:nth-child(5){--store-particle-delay:75}
-.store-button-particles i:nth-child(6){--store-particle-delay:120}
-.store-button-particles i:nth-child(7){--store-particle-delay:55}
-.store-button-particles i:nth-child(8){--store-particle-delay:100}
+.store-cyber-pulse::before {
+  border:3px solid #88f8ff;
+  box-shadow:0 0 14px #63efff,0 0 30px #7652ff,0 0 46px rgba(255,61,216,.72),inset 0 0 20px #78f4ff;
+  animation:storePulseRing 1.16s cubic-bezier(.1,.66,.18,1) both;
+}
+.store-cyber-pulse::after {
+  border:2px solid #ff5ade;
+  box-shadow:0 0 12px #ff4bd7,0 0 24px #8c53ff;
+  animation:storePulseRing 1.16s cubic-bezier(.1,.66,.18,1) .12s both;
+}
+.store-cyber-pulse-grid {
+  position:fixed;
+  left:var(--pulse-x);
+  top:var(--pulse-y);
+  width:100vmax;
+  height:100vmax;
+  transform:translate(-50%,-50%) scale(.04) rotate(45deg);
+  opacity:0;
+  background-image:
+    linear-gradient(rgba(102,244,255,.22) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(209,77,255,.2) 1px,transparent 1px);
+  background-size:34px 34px;
+  -webkit-mask-image:radial-gradient(circle,#000 0 17%,transparent 58%);
+  mask-image:radial-gradient(circle,#000 0 17%,transparent 58%);
+  animation:storePulseGrid 1.1s cubic-bezier(.12,.7,.2,1) both;
+}
+.store-cyber-pulse-cross {
+  position:fixed;
+  left:var(--pulse-x);
+  top:var(--pulse-y);
+  width:36px;
+  height:36px;
+  transform:translate(-50%,-50%) rotate(45deg);
+  opacity:0;
+  border:2px solid #fff;
+  box-shadow:0 0 10px #91faff,0 0 22px #ff5bdc;
+  animation:storePulseCross .72s cubic-bezier(.16,.84,.24,1) both;
+}
 
 @property --store-angle { syntax:"<angle>";initial-value:0deg;inherits:false; }
-@keyframes storeBorderSpin { to { --store-angle:360deg; } }
-@keyframes storeIdlePulse { 0%,100%{opacity:.4;transform:scale(.94)}50%{opacity:.58;transform:scale(1.02)} }
-@keyframes storeEnergySweep { 0%{transform:skewX(-19deg) translateX(-260%);opacity:0}20%{opacity:.72}100%{transform:skewX(-19deg) translateX(720%);opacity:0} }
-@keyframes storeRail { 0%,16%{left:-35%;opacity:0}32%{opacity:.5}70%{left:105%;opacity:.26}100%{left:105%;opacity:0} }
-@keyframes storeParticleBurst { 0%{opacity:0;translate:0 0;scale:.2}22%{opacity:1;scale:1.45}100%{opacity:0;translate:var(--sx) var(--sy);scale:.12} }
+@keyframes storeGalaxyBorder { to { --store-angle:360deg; } }
+@keyframes storeGalaxyBreath { 0%,100%{opacity:.28;transform:scale(.83)}50%{opacity:.48;transform:scale(.98)} }
+@keyframes storeHoverLevitate { from{translate:0 0}to{translate:0 -2px} }
+@keyframes storeStarDrift { to { transform:rotate(8deg) translate3d(36px,24px,0); } }
+@keyframes storeNebulaA { to { transform:translate(26px,12px) scale(1.3);opacity:.82; } }
+@keyframes storeNebulaB { to { transform:translate(-31px,-12px) scale(1.25);opacity:.85; } }
+@keyframes storeStarsTwinkle { from{opacity:.42;filter:brightness(.9)}to{opacity:.92;filter:brightness(1.5)} }
+@keyframes storeScanIdle { 0%,55%{left:-45%;opacity:0}72%{opacity:.3}100%{left:118%;opacity:0} }
+@keyframes storeScanHover { 0%{left:-42%;opacity:0}20%{opacity:.8}100%{left:116%;opacity:0} }
+@keyframes storeLightningA { 0%,18%{opacity:0;stroke-dashoffset:80}23%,31%{opacity:1;stroke-dashoffset:28}36%,100%{opacity:0;stroke-dashoffset:-30} }
+@keyframes storeLightningB { 0%,28%{opacity:0;stroke-dashoffset:-60}34%,43%{opacity:.95;stroke-dashoffset:0}49%,100%{opacity:0;stroke-dashoffset:58} }
+@keyframes storeLightningC { 0%,42%{opacity:0;stroke-dashoffset:45}47%,58%{opacity:.9;stroke-dashoffset:0}64%,100%{opacity:0;stroke-dashoffset:-35} }
+@keyframes storeOrbitOne { to { transform:rotate(360deg); } }
+@keyframes storeOrbitTwo { from{transform:rotate(57deg)}to{transform:rotate(417deg)} }
+@keyframes storeOrbitThree { from{transform:rotate(-47deg)}to{transform:rotate(313deg)} }
+@keyframes storeLabelScan { 0%,18%{left:-50%;opacity:0}36%{opacity:1}76%{left:116%;opacity:.7}100%{left:116%;opacity:0} }
+@keyframes storeTextIdle { 0%,100%{transform:translateY(0);filter:brightness(1)}50%{transform:translateY(-.6px);filter:brightness(1.13)} }
+@keyframes storeTextWave { from{transform:translateY(1px) scaleY(.98)}to{transform:translateY(-3px) scaleY(1.07)} }
+@keyframes storeCornerSpark { 0%,34%{filter:drop-shadow(0 0 2px #6eefff)}42%,58%{filter:drop-shadow(0 0 7px #6eefff) drop-shadow(0 0 12px #ff61e2)}66%,100%{filter:drop-shadow(0 0 3px #6eefff)} }
+@keyframes storeFxLaunch {
+  0% { opacity:0;transform:translate(-50%,-50%) translate(0,0) rotate(var(--fx-rotation,0deg)) scale(.15); }
+  16% { opacity:1; }
+  72% { opacity:.92; }
+  100% { opacity:0;transform:translate(-50%,-50%) translate(var(--fx-x,0px),var(--fx-y,-70px)) rotate(calc(var(--fx-rotation,0deg) + 220deg)) scale(var(--fx-scale,.75)); }
+}
+@keyframes storePulseFlash { 0%{opacity:0}12%{opacity:1}52%{opacity:.42}100%{opacity:0} }
+@keyframes storePulseRing { 0%{opacity:0;transform:translate(-50%,-50%) scale(.15)}10%{opacity:1}100%{opacity:0;transform:translate(-50%,-50%) scale(75)} }
+@keyframes storePulseGrid { 0%{opacity:0;transform:translate(-50%,-50%) scale(.04) rotate(45deg)}18%{opacity:.78}100%{opacity:0;transform:translate(-50%,-50%) scale(1.25) rotate(45deg)} }
+@keyframes storePulseCross { 0%{opacity:0;transform:translate(-50%,-50%) rotate(45deg) scale(.2)}18%{opacity:1}100%{opacity:0;transform:translate(-50%,-50%) rotate(225deg) scale(5.2)} }
+
+@media (prefers-reduced-motion: reduce) {
+  .store-button,
+  .store-button::before,
+  .store-button::after,
+  .store-button * { animation:none !important;transition-duration:.01ms !important; }
+  .store-button-fx,.store-button-lightning { display:none !important; }
+}
 
 /* Aktivní Domů dostane výraznější stav, ale zůstává čitelné. */
 .desktop-nav a[href="#home"].active::before {
@@ -9252,9 +9517,7 @@ body.home-ready .home-scroll-cue { animation:homeContentReveal .8s ease .8s both
   .home-nebula,.home-grid-floor,.home-scan-beam,.home-star,.home-live-dot,.home-action-shine,
   .home-visual::before,.home-visual-frame::after,.home-ring,.home-energy-arc,.home-core-cube,
   .home-cube-glow,.home-telemetry,.home-scroll-cue i::after,
-  .store-button::before,.store-button::after,
-  .store-button-aura::after,.store-button-grid::before,.store-button-grid::after,
-  .store-button-particles i {
+  .store-button,.store-button::before,.store-button::after,.store-button * {
     animation:none!important;
   }
   .js .home-copy > *,.js .home-visual,.js .home-scroll-cue { opacity:1; }
