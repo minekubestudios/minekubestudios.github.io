@@ -13348,3 +13348,364 @@ body.store-dimension-launch footer {
   body.store-dimension-launch main,
   body.store-dimension-launch footer { animation:none!important; }
 }
+
+
+/* =========================================================
+   STORE // CRISP 2D GALAXY EDITION
+   Finální 2D podoba: ostrá typografie, silnější RGB linka,
+   zachované částice/blesky a Store varianta hlavního portálu.
+   ========================================================= */
+.store-button {
+  --store-tilt-x:0deg;
+  --store-tilt-y:0deg;
+  top:0;
+  perspective:none !important;
+  transform:none !important;
+  transform-style:flat !important;
+  backface-visibility:visible !important;
+  border-radius:18px;
+  background:#050518;
+  box-shadow:
+    0 14px 34px rgba(2,1,18,.62),
+    0 0 24px rgba(81,226,255,.24),
+    0 0 38px rgba(151,78,255,.16),
+    inset 0 1px 0 rgba(255,255,255,.18),
+    inset 0 -1px 0 rgba(0,0,0,.78);
+  transition:
+    top .34s cubic-bezier(.16,.84,.2,1),
+    filter .3s ease,
+    box-shadow .36s ease;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  text-rendering:geometricPrecision;
+}
+
+/* RGB linka je zřetelně silnější, ale pořád dokonale čistá. */
+.store-button::before {
+  inset:-4px;
+  padding:4px;
+  border-radius:22px;
+  background:conic-gradient(
+    from var(--store-angle),
+    #59f7ff 0deg,
+    #567cff 55deg,
+    #9d60ff 112deg,
+    #ff4fdf 170deg,
+    #ff8b48 218deg,
+    #ffe173 264deg,
+    #a56cff 316deg,
+    #59f7ff 360deg
+  );
+  filter:
+    drop-shadow(0 0 7px rgba(83,240,255,.72))
+    drop-shadow(0 0 14px rgba(155,79,255,.45))
+    drop-shadow(0 0 20px rgba(255,70,218,.24));
+  animation:storeGalaxyBorder 3.1s linear infinite;
+}
+
+.store-button::after {
+  inset:-22px -30px;
+  opacity:.42;
+  transform:scale(.9);
+}
+
+.store-button:hover {
+  top:-4px;
+  transform:none !important;
+  animation:none !important;
+  filter:saturate(1.23) brightness(1.1);
+  box-shadow:
+    0 22px 48px rgba(2,1,20,.72),
+    0 0 0 1px rgba(160,248,255,.12),
+    0 0 25px rgba(77,235,255,.52),
+    0 0 46px rgba(139,70,255,.43),
+    0 0 66px rgba(255,67,215,.25),
+    inset 0 1px 0 rgba(255,255,255,.24),
+    inset 0 -1px 0 rgba(0,0,0,.82);
+}
+.store-button:hover::before {
+  filter:
+    drop-shadow(0 0 9px rgba(87,246,255,.95))
+    drop-shadow(0 0 19px rgba(159,78,255,.72))
+    drop-shadow(0 0 27px rgba(255,70,218,.4));
+  animation-duration:1.05s;
+}
+.store-button:hover::after { opacity:.96;transform:scale(1.2); }
+.store-button:active { top:-1px;transform:none !important;filter:brightness(1.32) saturate(1.45); }
+
+.store-button-depth,
+.store-button-bevel { display:none !important; }
+
+.store-button-universe,
+.store-button-corners,
+.store-button-icon,
+.store-button-label,
+.store-button-arrow {
+  transform:none !important;
+  transform-style:flat !important;
+}
+
+.store-button-universe {
+  inset:2px;
+  border-radius:16px;
+  outline:1px solid rgba(218,252,255,.08);
+}
+
+.store-button-icon {
+  border-width:1px;
+  color:#f2feff;
+  transition:border-color .3s ease,box-shadow .34s ease,filter .3s ease;
+}
+.store-button:hover .store-button-icon {
+  transform:none !important;
+  border-color:rgba(174,252,255,.94);
+  filter:brightness(1.14);
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.09) inset,
+    0 0 17px rgba(82,239,255,.75),
+    0 0 31px rgba(145,69,255,.5),
+    inset 0 0 19px rgba(80,193,255,.28);
+}
+.store-button:hover .store-button-icon::before { transform:rotate(90deg); }
+.store-button:hover .store-button-icon::after { transform:rotate(225deg); }
+.store-button:hover .store-icon-core { opacity:1;transform:scale(2.25); }
+
+.store-button-label {
+  text-shadow:none;
+  filter:none !important;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:geometricPrecision;
+}
+.store-button-label small {
+  color:#b9f4ff;
+  font-size:6.2px;
+  letter-spacing:.245em;
+  text-shadow:0 0 5px rgba(89,234,255,.42);
+}
+.store-button-label strong {
+  color:#ffffff;
+  font-size:15.5px;
+  letter-spacing:.035em;
+  filter:none !important;
+  text-shadow:
+    0 1px 0 rgba(0,0,0,.9),
+    0 0 5px rgba(94,235,255,.44);
+}
+.store-button-label strong span { will-change:auto; }
+.store-button:hover .store-button-label strong span {
+  color:#fff;
+  text-shadow:
+    0 1px 0 rgba(0,0,0,.94),
+    0 0 5px #72f3ff,
+    0 0 11px rgba(147,91,255,.82),
+    0 0 17px rgba(255,76,219,.52);
+}
+
+/* Text se animuje světlem a barvou, nikoliv škálováním — zůstane ostrý. */
+@keyframes storeTextIdle {
+  0%,100% { transform:none;filter:none;color:#fff;text-shadow:0 1px 0 rgba(0,0,0,.9),0 0 4px rgba(91,232,255,.34); }
+  50% { transform:none;filter:none;color:#effeff;text-shadow:0 1px 0 rgba(0,0,0,.9),0 0 7px rgba(91,232,255,.58),0 0 11px rgba(143,83,255,.35); }
+}
+@keyframes storeTextWave {
+  0% { transform:none;filter:none;color:#ffffff;text-shadow:0 1px 0 rgba(0,0,0,.95),0 0 4px #6ef3ff,0 0 9px rgba(120,100,255,.6); }
+  50% { transform:none;filter:none;color:#e9fbff;text-shadow:0 1px 0 rgba(0,0,0,.95),0 0 7px #6ef3ff,0 0 14px #9c62ff,0 0 20px rgba(255,75,218,.55); }
+  100% { transform:none;filter:none;color:#fff4fd;text-shadow:0 1px 0 rgba(0,0,0,.95),0 0 5px #ff69e4,0 0 12px rgba(105,241,255,.82); }
+}
+
+.store-button-arrow { border-left-color:rgba(124,231,255,.25); }
+.store-button:hover .store-button-arrow svg { transform:translateX(4px) !important; }
+.store-button:hover .store-arrow-core { transform:rotate(135deg) scale(.91) !important; }
+
+.store-button.is-store-opening {
+  pointer-events:none;
+  top:-2px;
+  animation:store2DIgnition .62s cubic-bezier(.16,.84,.2,1) both !important;
+}
+@keyframes store2DIgnition {
+  0% { filter:brightness(1.1) saturate(1.2);box-shadow:0 0 24px rgba(80,236,255,.46),0 0 45px rgba(145,72,255,.34); }
+  35% { filter:brightness(1.85) saturate(1.65);box-shadow:0 0 34px #6ef3ff,0 0 68px rgba(151,91,255,.82),0 0 92px rgba(255,76,219,.55); }
+  100% { filter:brightness(1.22) saturate(1.4);box-shadow:0 0 26px rgba(80,236,255,.58),0 0 54px rgba(145,72,255,.48); }
+}
+
+/* Store pulz inspirovaný hlavním webem, pouze v cyan/fialová/růžová paletě. */
+.store-cyber-pulse.store-main-style-pulse {
+  position:fixed;
+  z-index:13998;
+  inset:0;
+  pointer-events:none;
+  overflow:hidden;
+  background:radial-gradient(circle at var(--pulse-x) var(--pulse-y),rgba(122,248,255,.24) 0,rgba(143,87,255,.14) 7%,rgba(255,73,219,.07) 15%,transparent 30%);
+  opacity:0;
+  animation:storeMainPulseFade 1.48s cubic-bezier(.16,.78,.2,1) both;
+}
+.store-cyber-pulse.store-main-style-pulse::before,
+.store-cyber-pulse.store-main-style-pulse::after {
+  content:"";
+  position:fixed;
+  left:var(--pulse-x);
+  top:var(--pulse-y);
+  width:44px;
+  height:44px;
+  border-radius:50%;
+  transform:translate(-50%,-50%) scale(.15);
+  opacity:0;
+}
+.store-cyber-pulse.store-main-style-pulse::before {
+  border:3px solid rgba(112,245,255,.92);
+  box-shadow:0 0 16px #69f2ff,0 0 34px rgba(144,84,255,.86),inset 0 0 16px rgba(255,78,221,.38);
+  animation:storeMainPulseRing 1.42s cubic-bezier(.1,.72,.16,1) both;
+}
+.store-cyber-pulse.store-main-style-pulse::after {
+  border:2px solid rgba(255,82,222,.8);
+  box-shadow:0 0 18px rgba(255,74,218,.8),0 0 36px rgba(112,240,255,.45);
+  animation:storeMainPulseRingOuter 1.52s .08s cubic-bezier(.1,.72,.16,1) both;
+}
+.store-main-style-pulse .store-cyber-pulse-grid {
+  position:fixed;
+  left:var(--pulse-x);
+  top:var(--pulse-y);
+  width:260px;
+  height:260px;
+  border-radius:50%;
+  opacity:0;
+  transform:translate(-50%,-50%) scale(.12);
+  background:
+    linear-gradient(rgba(112,240,255,.17) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(154,81,255,.17) 1px,transparent 1px);
+  background-size:24px 24px;
+  -webkit-mask-image:radial-gradient(circle,#000 0 42%,transparent 72%);
+  mask-image:radial-gradient(circle,#000 0 42%,transparent 72%);
+  animation:storeMainPulseGrid 1.36s cubic-bezier(.12,.72,.18,1) both;
+}
+.store-main-style-pulse .store-cyber-pulse-cross {
+  position:fixed;
+  left:var(--pulse-x);
+  top:var(--pulse-y);
+  width:118px;
+  height:118px;
+  opacity:0;
+  transform:translate(-50%,-50%);
+  background:
+    linear-gradient(90deg,transparent 49%,rgba(113,244,255,.9) 49.5% 50.5%,transparent 51%),
+    linear-gradient(transparent 49%,rgba(255,80,220,.76) 49.5% 50.5%,transparent 51%);
+  filter:drop-shadow(0 0 7px #7ff5ff);
+  animation:storeMainPulseCross 1.2s cubic-bezier(.12,.72,.18,1) both;
+}
+@keyframes storeMainPulseFade { 0%{opacity:0}10%{opacity:1}62%{opacity:.62}100%{opacity:0} }
+@keyframes storeMainPulseRing { 0%{opacity:0;transform:translate(-50%,-50%) scale(.12)}13%{opacity:1}100%{opacity:0;transform:translate(-50%,-50%) scale(42)} }
+@keyframes storeMainPulseRingOuter { 0%{opacity:0;transform:translate(-50%,-50%) scale(.2)}15%{opacity:.85}100%{opacity:0;transform:translate(-50%,-50%) scale(55)} }
+@keyframes storeMainPulseGrid { 0%{opacity:0;transform:translate(-50%,-50%) scale(.12) rotate(0)}18%{opacity:.62}100%{opacity:0;transform:translate(-50%,-50%) scale(3.2) rotate(24deg)} }
+@keyframes storeMainPulseCross { 0%{opacity:0;transform:translate(-50%,-50%) scale(.3) rotate(0)}18%{opacity:1}100%{opacity:0;transform:translate(-50%,-50%) scale(4.4) rotate(135deg)} }
+
+/* Plynulejší Store varianta stejné celoplošné animace, jakou používá hlavní web. */
+.mk-page-transition.is-store-transition {
+  --transition-accent:#72f4ff;
+  --transition-accent-rgb:114,244,255;
+  --transition-accent-2:#9568ff;
+  --transition-accent-3:#ff55dc;
+  background:
+    radial-gradient(circle at 50% 52%,rgba(106,239,255,.12),transparent 24rem),
+    radial-gradient(circle at 23% 30%,rgba(142,78,255,.16),transparent 30rem),
+    radial-gradient(circle at 78% 70%,rgba(255,67,216,.13),transparent 29rem),
+    #03030f;
+}
+.mk-page-transition.is-store-transition .mk-transition-panel {
+  background:
+    radial-gradient(circle at 50% 50%,rgba(105,239,255,.08),transparent 48%),
+    linear-gradient(135deg,#030511 0%,#0a0a27 38%,#1a0d3d 70%,rgba(255,66,216,.14) 100%);
+  box-shadow:0 0 95px rgba(0,0,0,.82),inset 0 0 90px rgba(112,240,255,.035);
+}
+.mk-page-transition.is-store-transition.is-active .mk-transition-panel-left {
+  animation:storeTransitionPanelLeft 1.78s cubic-bezier(.62,0,.16,1) both;
+}
+.mk-page-transition.is-store-transition.is-active .mk-transition-panel-right {
+  animation:storeTransitionPanelRight 1.78s cubic-bezier(.62,0,.16,1) both;
+}
+.mk-page-transition.is-store-transition .mk-transition-grid {
+  background-image:
+    linear-gradient(rgba(110,241,255,.13) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(151,92,255,.13) 1px,transparent 1px);
+  background-size:52px 52px;
+  filter:drop-shadow(0 0 8px rgba(106,239,255,.2));
+}
+.mk-page-transition.is-store-transition.is-active .mk-transition-grid {
+  animation:storeTransitionGrid 1.78s cubic-bezier(.16,.72,.18,1) both;
+}
+.mk-page-transition.is-store-transition .mk-transition-beam {
+  width:4px;
+  background:linear-gradient(transparent,#6ff4ff,#9d65ff,#ff55dc,#6ff4ff,transparent);
+  box-shadow:0 0 30px #6ff4ff,0 0 72px rgba(147,91,255,.82),0 0 120px rgba(255,69,216,.48);
+}
+.mk-page-transition.is-store-transition.is-active .mk-transition-beam {
+  animation:storeTransitionBeam 1.78s cubic-bezier(.55,0,.14,1) both;
+}
+.mk-page-transition.is-store-transition .mk-transition-particles i:nth-child(3n+1) { background:#74f5ff;box-shadow:0 0 17px #74f5ff; }
+.mk-page-transition.is-store-transition .mk-transition-particles i:nth-child(3n+2) { background:#9a69ff;box-shadow:0 0 17px #9a69ff; }
+.mk-page-transition.is-store-transition .mk-transition-particles i:nth-child(3n) { background:#ff59df;box-shadow:0 0 17px #ff59df; }
+.mk-page-transition.is-store-transition.is-active .mk-transition-particles i {
+  animation:storeTransitionParticle 1.5s cubic-bezier(.12,.72,.18,1) both;
+  animation-delay:calc(var(--i,0) * 34ms);
+}
+.mk-page-transition.is-store-transition .mk-transition-console {
+  border:1px solid rgba(113,242,255,.5);
+  background:
+    linear-gradient(135deg,rgba(9,12,35,.9),rgba(23,9,48,.88)),
+    rgba(5,5,20,.9);
+  box-shadow:
+    0 34px 110px rgba(0,0,0,.68),
+    inset 0 0 74px rgba(108,240,255,.07),
+    0 0 38px rgba(102,235,255,.18),
+    0 0 70px rgba(151,79,255,.13);
+}
+.mk-page-transition.is-store-transition.is-active .mk-transition-console {
+  animation:storeTransitionConsole 1.78s cubic-bezier(.16,.8,.18,1) both;
+}
+.mk-page-transition.is-store-transition .mk-transition-orbit-a { border-color:rgba(108,244,255,.68);box-shadow:0 0 18px rgba(105,239,255,.24); }
+.mk-page-transition.is-store-transition .mk-transition-orbit-b { border-color:rgba(255,81,220,.58);box-shadow:0 0 18px rgba(255,69,216,.18); }
+.mk-page-transition.is-store-transition .mk-transition-cube-top { background:linear-gradient(145deg,#eaffff,#72f4ff 48%,#9568ff); }
+.mk-page-transition.is-store-transition .mk-transition-cube-left { background:linear-gradient(#775dff,#302276); }
+.mk-page-transition.is-store-transition .mk-transition-cube-right { background:linear-gradient(#ff64df,#7b195f); }
+.mk-page-transition.is-store-transition .mk-transition-kicker { color:#9ff7ff; }
+.mk-page-transition.is-store-transition .mk-transition-copy strong {
+  color:#f9feff;
+  text-shadow:0 0 10px rgba(105,240,255,.45),0 0 24px rgba(151,84,255,.35);
+}
+.mk-page-transition.is-store-transition .mk-transition-copy small { color:#b9a9ca; }
+.mk-page-transition.is-store-transition .mk-transition-progress { height:4px;background:rgba(117,239,255,.1); }
+.mk-page-transition.is-store-transition .mk-transition-progress span {
+  background:linear-gradient(90deg,#72f4ff,#9568ff 52%,#ff55dc);
+  box-shadow:0 0 18px #72f4ff,0 0 28px rgba(255,73,219,.55);
+}
+.mk-page-transition.is-store-transition.is-active .mk-transition-progress span {
+  animation:storeTransitionProgress 1.35s .2s cubic-bezier(.12,.72,.16,1) both;
+}
+.mk-page-transition.is-store-transition .mk-transition-meta b { color:#80f6ff; }
+
+@keyframes storeTransitionPanelLeft { 0%{transform:translateX(-112%)}27%,72%{transform:translateX(0)}100%{transform:translateX(-112%)} }
+@keyframes storeTransitionPanelRight { 0%{transform:translateX(112%)}27%,72%{transform:translateX(0)}100%{transform:translateX(112%)} }
+@keyframes storeTransitionGrid { 0%,10%{opacity:0;transform:perspective(760px) rotateX(66deg) scale(1.5) translateY(13%)}30%,74%{opacity:.52;transform:perspective(760px) rotateX(66deg) scale(1.12) translateY(0)}100%{opacity:0;transform:perspective(760px) rotateX(66deg) scale(.96) translateY(-10%)} }
+@keyframes storeTransitionBeam { 0%,15%{transform:rotate(13deg) scaleY(0);opacity:0}30%,72%{transform:rotate(13deg) scaleY(1);opacity:1}100%{transform:rotate(13deg) scaleY(0);opacity:0} }
+@keyframes storeTransitionConsole { 0%,13%{opacity:0;transform:scale(.8) translateY(30px);filter:blur(7px)}31%,73%{opacity:1;transform:scale(1) translateY(0);filter:blur(0)}100%{opacity:0;transform:scale(1.045) translateY(-18px);filter:blur(3px)} }
+@keyframes storeTransitionProgress { 0%{width:0}72%,100%{width:100%} }
+@keyframes storeTransitionParticle { 0%{opacity:0;transform:translate3d(0,42px,0) scale(.25)}24%{opacity:1}100%{opacity:0;transform:translate3d(32px,-118px,0) scale(1.55)} }
+
+body.store-transitioning .site-header,
+body.store-transitioning main,
+body.store-transitioning footer {
+  animation:storePageSoftDepth 1.78s cubic-bezier(.16,.72,.18,1) both;
+}
+@keyframes storePageSoftDepth {
+  0% { filter:none;opacity:1; }
+  28% { filter:saturate(1.08) brightness(.92);opacity:1; }
+  72% { filter:saturate(1.25) brightness(.72) blur(.3px);opacity:.72; }
+  100% { filter:saturate(1.35) brightness(.48) blur(1.2px);opacity:.24; }
+}
+
+@media (max-width:700px) {
+  .site-header .store-button:hover { transform:none !important;top:-3px; }
+}
+
+@media (prefers-reduced-motion:reduce) {
+  .store-cyber-pulse.store-main-style-pulse { display:none!important; }
+  .mk-page-transition.is-store-transition * { animation-duration:.001ms!important;animation-iteration-count:1!important; }
+}

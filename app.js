@@ -1471,31 +1471,33 @@ initializeScrollExperience();
     });
   }
 
-  // STORE // neon-galaxy reactor: světlo, 3D náklon, částice, ikony, blesky a klikací pulz.
+  // STORE // ostré 2D neon-galaxy tlačítko, částice, blesky, Store pulz a plynulý celoplošný přechod.
   if (storeButton && !prefersReducedMotion.matches) {
     const fxLayer = storeButton.querySelector(".store-button-fx");
-    const fxPalette = ["#6ff8ff", "#8d68ff", "#ff57df", "#ffd06b", "#7ab3ff"];
+    const fxPalette = ["#69f7ff", "#8f6cff", "#ff58df", "#ffd36e", "#78adff"];
     const fxIcons = ["✦", "◇", "⬡", "+", "✧"];
     let fxTimer = 0;
+    let storeTransitionOpening = false;
+    let lastPulseAt = 0;
 
     const randomBetween = (min, max) => Math.random() * (max - min) + min;
 
-    const spawnStoreFx = (amount = 16) => {
-      if (!fxLayer || !storeButton.matches(":hover")) return;
+    const spawnStoreFx = (amount = 16, force = false) => {
+      if (!fxLayer || (!force && !storeButton.matches(":hover"))) return;
 
       for (let index = 0; index < amount; index += 1) {
         const roll = Math.random();
         const node = document.createElement("i");
         const angle = randomBetween(0, Math.PI * 2);
-        const distanceX = randomBetween(58, 128);
-        const distanceY = randomBetween(42, 96);
+        const distanceX = randomBetween(64, 138);
+        const distanceY = randomBetween(46, 104);
         const color = fxPalette[Math.floor(Math.random() * fxPalette.length)];
         const x = Math.cos(angle) * distanceX;
         const y = Math.sin(angle) * distanceY;
 
-        if (roll < .17) {
+        if (roll < .19) {
           node.className = "store-fx-bolt";
-        } else if (roll < .42) {
+        } else if (roll < .44) {
           node.className = "store-fx-icon";
           node.textContent = fxIcons[Math.floor(Math.random() * fxIcons.length)];
         } else {
@@ -1504,22 +1506,15 @@ initializeScrollExperience();
 
         node.style.setProperty("--fx-x", `${x.toFixed(1)}px`);
         node.style.setProperty("--fx-y", `${y.toFixed(1)}px`);
-        node.style.setProperty("--fx-size", `${randomBetween(3, roll < .42 ? 14 : 7).toFixed(1)}px`);
-        node.style.setProperty("--fx-duration", `${Math.round(randomBetween(650, 1160))}ms`);
-        node.style.setProperty("--fx-delay", `${Math.round(randomBetween(0, 90))}ms`);
+        node.style.setProperty("--fx-size", `${randomBetween(3, roll < .44 ? 15 : 7.5).toFixed(1)}px`);
+        node.style.setProperty("--fx-duration", `${Math.round(randomBetween(720, 1260))}ms`);
+        node.style.setProperty("--fx-delay", `${Math.round(randomBetween(0, 100))}ms`);
         node.style.setProperty("--fx-rotation", `${Math.round(randomBetween(-180, 180))}deg`);
-        node.style.setProperty("--fx-scale", randomBetween(.35, 1.05).toFixed(2));
+        node.style.setProperty("--fx-scale", randomBetween(.38, 1.08).toFixed(2));
         node.style.setProperty("--fx-color", color);
         fxLayer.appendChild(node);
         node.addEventListener("animationend", () => node.remove(), { once: true });
       }
-    };
-
-    const resetStoreTilt = () => {
-      storeButton.style.setProperty("--store-x", "50%");
-      storeButton.style.setProperty("--store-y", "50%");
-      storeButton.style.setProperty("--store-tilt-x", "0deg");
-      storeButton.style.setProperty("--store-tilt-y", "0deg");
     };
 
     if (window.matchMedia("(pointer: fine)").matches) {
@@ -1529,26 +1524,22 @@ initializeScrollExperience();
         const y = Math.min(Math.max((event.clientY - rect.top) / rect.height, 0), 1);
         storeButton.style.setProperty("--store-x", `${x * 100}%`);
         storeButton.style.setProperty("--store-y", `${y * 100}%`);
-        storeButton.style.setProperty("--store-tilt-x", `${((.5 - y) * 8).toFixed(2)}deg`);
-        storeButton.style.setProperty("--store-tilt-y", `${((x - .5) * 10).toFixed(2)}deg`);
       });
 
       storeButton.addEventListener("pointerenter", () => {
-        spawnStoreFx(28);
+        spawnStoreFx(32);
         window.clearInterval(fxTimer);
-        fxTimer = window.setInterval(() => spawnStoreFx(8), 230);
+        fxTimer = window.setInterval(() => spawnStoreFx(9), 210);
       });
 
       storeButton.addEventListener("pointerleave", () => {
         window.clearInterval(fxTimer);
-        resetStoreTilt();
+        storeButton.style.setProperty("--store-x", "50%");
+        storeButton.style.setProperty("--store-y", "50%");
       });
     }
 
-    let lastPulseAt = 0;
-    let dimensionOpening = false;
-
-    const launchCyberPulse = (clientX, clientY) => {
+    const launchStorePulse = (clientX, clientY) => {
       const now = performance.now();
       if (now - lastPulseAt < 220) return;
       lastPulseAt = now;
@@ -1557,7 +1548,7 @@ initializeScrollExperience();
       const x = Number.isFinite(clientX) && clientX > 0 ? clientX : rect.left + rect.width / 2;
       const y = Number.isFinite(clientY) && clientY > 0 ? clientY : rect.top + rect.height / 2;
       const pulse = document.createElement("span");
-      pulse.className = "store-cyber-pulse";
+      pulse.className = "store-cyber-pulse store-main-style-pulse";
       pulse.style.setProperty("--pulse-x", `${x}px`);
       pulse.style.setProperty("--pulse-y", `${y}px`);
       pulse.innerHTML = '<i class="store-cyber-pulse-grid"></i><i class="store-cyber-pulse-cross"></i>';
@@ -1565,74 +1556,63 @@ initializeScrollExperience();
       pulse.addEventListener("animationend", pulseEvent => {
         if (pulseEvent.target === pulse) pulse.remove();
       });
-      window.setTimeout(() => pulse.remove(), 1500);
+      window.setTimeout(() => pulse.remove(), 1700);
     };
 
-    const launchDimensionPortal = (clientX, clientY) => {
-      if (dimensionOpening) return;
-      dimensionOpening = true;
-
-      const rect = storeButton.getBoundingClientRect();
-      const originX = Number.isFinite(clientX) && clientX > 0 ? clientX : rect.left + rect.width / 2;
-      const originY = Number.isFinite(clientY) && clientY > 0 ? clientY : rect.top + rect.height / 2;
+    const launchStoreTransition = (clientX, clientY) => {
+      if (storeTransitionOpening || pageTransitionBusy) return;
       const destination = storeButton.href;
-      const portal = document.createElement("div");
-      const rings = Array.from({ length: 12 }, (_, index) =>
-        `<i class="store-portal-ring" style="--ring-delay:${index * 34}ms;--ring-inset:${(index * -2.7).toFixed(1)}px;--ring-z:${index * -4}px;--ring-z-end:${index * 12}px;--ring-rotation:${index * 19}deg;--ring-rotation-end:${540 + index * 27}deg;--ring-hue-a:${185 + index * 7}deg;--ring-hue-b:${278 + index * 4}deg;--ring-hue-c:${321 - index * 3}deg;--ring-glow:${(7 + index * .4).toFixed(1)}px;--ring-inner-glow:${(8 + index * .5).toFixed(1)}px"></i>`
-      ).join("");
 
-      portal.className = "store-dimension-portal";
-      portal.setAttribute("aria-hidden", "true");
-      portal.style.setProperty("--portal-origin-x", `${originX}px`);
-      portal.style.setProperty("--portal-origin-y", `${originY}px`);
-      portal.innerHTML = `
-        <span class="store-portal-space"></span>
-        <span class="store-portal-grid store-portal-grid-top"></span>
-        <span class="store-portal-grid store-portal-grid-bottom"></span>
-        <span class="store-portal-vortex">
-          <span class="store-portal-rings">${rings}</span>
-          <span class="store-portal-event-horizon"></span>
-          <span class="store-portal-core"><i></i><i></i><i></i></span>
-        </span>
-        <span class="store-portal-streaks"></span>
-        <span class="store-portal-hud">
-          <small>DIMENSION GATE // MK-STORE</small>
-          <strong>VSTUP DO STORE</strong>
-          <i><b></b></i>
-        </span>
-        <span class="store-portal-flash"></span>`;
-
-      const streakLayer = portal.querySelector(".store-portal-streaks");
-      for (let index = 0; index < 44; index += 1) {
-        const streak = document.createElement("i");
-        streak.style.setProperty("--streak-angle", `${randomBetween(0, 360).toFixed(2)}deg`);
-        streak.style.setProperty("--streak-distance", `${randomBetween(10, 48).toFixed(2)}vmax`);
-        streak.style.setProperty("--streak-length", `${randomBetween(28, 150).toFixed(1)}px`);
-        streak.style.setProperty("--streak-width", `${randomBetween(1, 3.8).toFixed(1)}px`);
-        streak.style.setProperty("--streak-delay", `${Math.round(randomBetween(120, 720))}ms`);
-        streak.style.setProperty("--streak-duration", `${Math.round(randomBetween(520, 1180))}ms`);
-        streak.style.setProperty("--streak-hue", `${Math.round(randomBetween(175, 325))}deg`);
-        streakLayer?.appendChild(streak);
+      if (!pageTransition) {
+        window.location.assign(destination);
+        return;
       }
 
-      document.body.appendChild(portal);
-      document.body.classList.add("store-dimension-launch");
-      storeButton.classList.add("is-dimension-opening");
+      storeTransitionOpening = true;
+      pageTransitionBusy = true;
       window.clearInterval(fxTimer);
-      spawnStoreFx(48);
+      spawnStoreFx(54, true);
+      launchStorePulse(clientX, clientY);
 
+      storeButton.classList.add("is-store-opening");
+      document.body.classList.add("mk-transitioning", "store-transitioning");
+      pageTransition.classList.add("is-store-transition");
+      pageTransition.style.setProperty("--transition-accent", "#72f4ff");
+      pageTransition.style.setProperty("--transition-accent-rgb", "114,244,255");
+      pageTransition.style.setProperty("--transition-accent-2", "#9568ff");
+      pageTransition.style.setProperty("--transition-accent-3", "#ff55dc");
+      if (pageTransitionTitle) pageTransitionTitle.textContent = "STORE";
+      if (pageTransitionStatus) pageTransitionStatus.textContent = "Otevírání Minekube Store";
+      if (pageTransitionCode) pageTransitionCode.textContent = "MK-ST";
+      pageTransition.setAttribute("aria-hidden", "false");
+
+      pageTransition.classList.remove("is-active");
+      void pageTransition.offsetWidth;
+      pageTransition.classList.add("is-active");
+
+      // Přesměrování proběhne až po nejvýraznější části plynulého Store portálu.
       window.setTimeout(() => {
         window.location.assign(destination);
-      }, 2240);
+      }, 1660);
+
+      // Bezpečnostní úklid pro případ, že prohlížeč přesměrování zablokuje.
+      window.setTimeout(() => {
+        pageTransition.classList.remove("is-active", "is-store-transition");
+        pageTransition.setAttribute("aria-hidden", "true");
+        document.body.classList.remove("mk-transitioning", "store-transitioning");
+        storeButton.classList.remove("is-store-opening");
+        pageTransitionBusy = false;
+        storeTransitionOpening = false;
+      }, 3200);
     };
 
-    // Krátký iniciační pulz při stisku, po uvolnění se otevře celá paralelní dimenze.
-    storeButton.addEventListener("pointerdown", event => launchCyberPulse(event.clientX, event.clientY));
+    storeButton.addEventListener("pointerdown", event => launchStorePulse(event.clientX, event.clientY));
     storeButton.addEventListener("click", event => {
       if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
       event.preventDefault();
-      if (event.detail === 0) launchCyberPulse(0, 0); // aktivace klávesnicí
-      launchDimensionPortal(event.clientX, event.clientY);
+      if (event.detail === 0) launchStorePulse(0, 0);
+      launchStoreTransition(event.clientX, event.clientY);
     });
   }
+
 })();
